@@ -9,20 +9,33 @@ import SwiftUI
 
 struct TagView: View {
   let tag: WhatTag
+  
+  var longPress: some Gesture {
+    LongPressGesture(minimumDuration: 1)
+      .onEnded { finished in
+        if finished {
+          print("finished")
+        }
+      }
+  }
+  
+  
   var body: some View {
-    HStack{
+    return HStack {
       getImage()
+        .resizable()
         .scaledToFit()
-        .frame(width: 50, height: 50, alignment: .center)
+        .frame(width: 40, height: 40)
+        .gesture(longPress)
       Spacer()
       Text(tag.name)
         .padding()
     }
-    .padding()
+//    .padding()
   }
   
-  func getImage() -> some View {
-    tag.emotion == WhatEmotion.happy ? Image("happy") : Image("unhappy")
+  func getImage() -> Image {
+    tag.emotion == .happy ? Image("happy") : Image("unhappy")
   }
 }
 

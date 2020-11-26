@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28135D9A256F942000478120 /* TimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28135D99256F942000478120 /* TimesView.swift */; };
 		28628BEF256D53740079AA69 /* WhatHappendApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628BEE256D53740079AA69 /* WhatHappendApp.swift */; };
 		28628BF1256D53740079AA69 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628BF0256D53740079AA69 /* ContentView.swift */; };
 		28628BF3256D53760079AA69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28628BF2256D53760079AA69 /* Assets.xcassets */; };
@@ -15,11 +16,11 @@
 		28628C06256D5CB70079AA69 /* WhatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C05256D5CB70079AA69 /* WhatManager.swift */; };
 		28628C09256D5CCA0079AA69 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C08256D5CCA0079AA69 /* Tag.swift */; };
 		28628C0C256D5D4E0079AA69 /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C0B256D5D4E0079AA69 /* Thing.swift */; };
-		28FAC5B3256D69E900FEFD0D /* TimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FAC5B2256D69E900FEFD0D /* TimesView.swift */; };
 		28FAC5B8256D6C4F00FEFD0D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28FAC5BA256D6C4F00FEFD0D /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		28135D99256F942000478120 /* TimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesView.swift; sourceTree = "<group>"; };
 		28628BEB256D53740079AA69 /* WhatHappend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatHappend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28628BEE256D53740079AA69 /* WhatHappendApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatHappendApp.swift; sourceTree = "<group>"; };
 		28628BF0256D53740079AA69 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -30,7 +31,6 @@
 		28628C05256D5CB70079AA69 /* WhatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatManager.swift; sourceTree = "<group>"; };
 		28628C08256D5CCA0079AA69 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		28628C0B256D5D4E0079AA69 /* Thing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thing.swift; sourceTree = "<group>"; };
-		28FAC5B2256D69E900FEFD0D /* TimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesView.swift; sourceTree = "<group>"; };
 		28FAC5B9256D6C4F00FEFD0D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		28FAC5BC256D6C5700FEFD0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,7 +89,7 @@
 			children = (
 				28628BF0256D53740079AA69 /* ContentView.swift */,
 				28628C01256D57980079AA69 /* TagView.swift */,
-				28FAC5B2256D69E900FEFD0D /* TimesView.swift */,
+				28135D99256F942000478120 /* TimesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -175,9 +175,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28FAC5B3256D69E900FEFD0D /* TimesView.swift in Sources */,
 				28628BF1256D53740079AA69 /* ContentView.swift in Sources */,
 				28628BEF256D53740079AA69 /* WhatHappendApp.swift in Sources */,
+				28135D9A256F942000478120 /* TimesView.swift in Sources */,
 				28628C09256D5CCA0079AA69 /* Tag.swift in Sources */,
 				28628C02256D57980079AA69 /* TagView.swift in Sources */,
 				28628C0C256D5D4E0079AA69 /* Thing.swift in Sources */,
