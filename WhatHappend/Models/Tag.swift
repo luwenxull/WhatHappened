@@ -11,8 +11,27 @@ enum WhatEmotion {
   case happy, unhappy
 }
 
-struct WhatTag: Hashable {
+struct WhatTime: Hashable {
+  var date: Date = Date()
+  var description: String = ""
+}
+
+class WhatTag: Identifiable, ObservableObject {
   let name: String
   let emotion: WhatEmotion
-  var times: [Date]
+  @Published var times: [WhatTime]
+  
+  func addRecord(_ time: WhatTime) -> Void {
+    times.append(time)
+  }
+  
+  func removeRecord(_ index: Int) -> Void {
+    times.remove(at: index)
+  }
+  
+  init(name: String, emotion: WhatEmotion, times: [WhatTime]) {
+    self.name = name
+    self.emotion = emotion
+    self.times = times
+  }
 }

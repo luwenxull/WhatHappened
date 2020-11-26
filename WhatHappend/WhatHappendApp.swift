@@ -13,8 +13,8 @@ struct WhatHappendApp: App {
     WindowGroup {
       ContentView()
         .environmentObject(WhatManager(tags: [
-          WhatTag(name: "今天又下雨了", emotion: .unhappy, times: [Date()]),
-          WhatTag(name: "今天打球了", emotion: .happy, times: [Date()]),
+          WhatTag(name: "今天又下雨了", emotion: .unhappy, times: [WhatTime(description: "测试")]),
+          WhatTag(name: "今天打球了", emotion: .happy, times: [WhatTime()]),
         ]))
     }
   }
