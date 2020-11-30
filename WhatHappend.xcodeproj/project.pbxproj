@@ -321,8 +321,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"WhatHappend/Preview Content\"";
+				DEVELOPMENT_TEAM = 56HL2M6M45;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = WhatHappend/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -332,6 +334,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.WhatHappend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -342,8 +345,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"WhatHappend/Preview Content\"";
+				DEVELOPMENT_TEAM = 56HL2M6M45;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = WhatHappend/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -353,6 +358,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.WhatHappend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
