@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2810CB182574D24C00DD6DDF /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810CB172574D24C00DD6DDF /* ChartView.swift */; };
+		2810CB1B2574D85900DD6DDF /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810CB1A2574D85900DD6DDF /* Bar.swift */; };
 		28135D9A256F942000478120 /* TimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28135D99256F942000478120 /* TimesView.swift */; };
 		284D616C256FA4A50004DDA5 /* AddTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284D616B256FA4A50004DDA5 /* AddTimeView.swift */; };
 		28628BEF256D53740079AA69 /* WhatHappendApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628BEE256D53740079AA69 /* WhatHappendApp.swift */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2810CB172574D24C00DD6DDF /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		2810CB1A2574D85900DD6DDF /* Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.swift; sourceTree = "<group>"; };
 		28135D99256F942000478120 /* TimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesView.swift; sourceTree = "<group>"; };
 		284D616B256FA4A50004DDA5 /* AddTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTimeView.swift; sourceTree = "<group>"; };
 		28628BEB256D53740079AA69 /* WhatHappend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatHappend.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +95,7 @@
 				28628C01256D57980079AA69 /* TagView.swift */,
 				28135D99256F942000478120 /* TimesView.swift */,
 				284D616B256FA4A50004DDA5 /* AddTimeView.swift */,
+				2810CB172574D24C00DD6DDF /* ChartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -100,6 +105,7 @@
 			children = (
 				28628C05256D5CB70079AA69 /* WhatManager.swift */,
 				28628C08256D5CCA0079AA69 /* Tag.swift */,
+				2810CB1A2574D85900DD6DDF /* Bar.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -182,6 +188,8 @@
 				28628C02256D57980079AA69 /* TagView.swift in Sources */,
 				28628C06256D5CB70079AA69 /* WhatManager.swift in Sources */,
 				284D616C256FA4A50004DDA5 /* AddTimeView.swift in Sources */,
+				2810CB1B2574D85900DD6DDF /* Bar.swift in Sources */,
+				2810CB182574D24C00DD6DDF /* ChartView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

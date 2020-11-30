@@ -51,27 +51,53 @@ struct TimesView: View {
         })
       }
       Spacer()
-      Circle()
-        .frame(width: 80, height: 80, alignment: .center)
-        .opacity(isPressing ? 0.8 : 0.4)
-        .foregroundColor(.accentColor)
-//        .scaleEffect(isPressing ? 1 : 0.7)
-        .animation(.easeIn(duration: 1))
-        .shadow(radius: 10)
-        .gesture(longPress)
-      Text("Long press to add quickly")
-        .foregroundColor(.gray)
-        .font(.system(size: 12))
+      HStack {
+        Spacer()
+        
+        Button(action: {
+          tag.addRecord(WhatTime())
+        }, label: {
+          Text("ADD QUICKLY")
+        })
+        .padding()
+        .overlay(
+          RoundedRectangle(cornerRadius: 8)
+            .stroke(Color.accentColor, lineWidth: 2)
+        )
+        
+        Spacer()
+        
+        Button(action: {
+          showSheet = true
+        }, label: {
+          Text("ADD")
+        })
+        .padding()
+        .overlay(
+          RoundedRectangle(cornerRadius: 8)
+            .stroke(Color.accentColor, lineWidth: 2)
+        )
+        
+        Spacer()
+      }
     }
     .navigationBarTitle(tag.name)
     .navigationBarTitleDisplayMode(.inline)
     .toolbar(content: {
       ToolbarItem(placement: ToolbarItemPlacement.automatic) {
-        Button(action: {
-          showSheet = true
-        }, label: {
-          Image(systemName: "plus.circle")
-        })
+        NavigationLink(
+          destination: ChartView(bars: [
+            Bar(value: 1, label: "周一"),
+            Bar(value: 2, label: "2"),
+            Bar(value: 13, label: "3"),
+            Bar(value: 14, label: "4"),
+            Bar(value: 21, label: "5"),
+            Bar(value: 11, label: "6"),
+            Bar(value: 9, label: "周日"),
+          ]),
+          label: {
+            Text("STATISTIC")
+          })
       }
     })
     .sheet(isPresented: $showSheet, content: {

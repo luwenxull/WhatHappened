@@ -5,8 +5,9 @@
   Created by 陆雯旭 on 2020/11/25.
   
 */
-"What Happened" = "又怎么了";
-"ADD" = "添加";
+"What Happened" = "情绪日记";
 "Date" = "日期";
-"Long press to add quickly" = "长按快速新增";
+"ADD QUICKLY" = "快速新增";
+"ADD" = "新增";
 "Description" = "描述";
+"STATISTIC" = "统计";
