@@ -83,23 +83,23 @@ struct TimesView: View {
     }
     .navigationBarTitle(tag.name)
     .navigationBarTitleDisplayMode(.inline)
-    .toolbar(content: {
-      ToolbarItem(placement: ToolbarItemPlacement.automatic) {
-        NavigationLink(
-          destination: ChartView(bars: [
-            Bar(value: 1, label: "周一"),
-            Bar(value: 2, label: "2"),
-            Bar(value: 13, label: "3"),
-            Bar(value: 14, label: "4"),
-            Bar(value: 21, label: "5"),
-            Bar(value: 11, label: "6"),
-            Bar(value: 9, label: "周日"),
-          ]),
-          label: {
-            Text("STATISTIC")
-          })
-      }
-    })
+//    .toolbar(content: {
+//      ToolbarItem(placement: ToolbarItemPlacement.automatic) {
+//        NavigationLink(
+//          destination: ChartView(bars: [
+//            Bar(value: 1, label: "周一"),
+//            Bar(value: 2, label: "2"),
+//            Bar(value: 13, label: "3"),
+//            Bar(value: 14, label: "4"),
+//            Bar(value: 21, label: "5"),
+//            Bar(value: 11, label: "6"),
+//            Bar(value: 9, label: "周日"),
+//          ]),
+//          label: {
+//            Text("STATISTIC")
+//          })
+//      }
+//    })
     .sheet(isPresented: $showSheet, content: {
       AddTimeView(tag: tag)
     })

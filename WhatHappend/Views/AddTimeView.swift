@@ -15,37 +15,40 @@ struct AddTimeView: View {
   
   var body: some View {
     VStack(alignment: .leading) {
+      Text("Add Record").padding(.vertical).font(.title2)
+      Divider()
       
       DatePicker("Date", selection: $whatTime.date)
       TextField("Description", text: $whatTime.description)
       Spacer()
       HStack {
         Spacer()
-        Circle()
-          .frame(width: 80, height: 80, alignment: .center)
-          .foregroundColor(.red)
-          .opacity(0.6)
-          .shadow(radius: 4)
-          .overlay(Button(action: {            presentationMode.wrappedValue.dismiss()
-          }, label: {
-            Image(systemName: "xmark")
-              .font(.system(size: 40))
-              .foregroundColor(.white)
-          }))
+        
+        Button(action: {
+          presentationMode.wrappedValue.dismiss()
+        }, label: {
+          Text("CANCEl")
+        })
+        .padding()
+        .overlay(
+          RoundedRectangle(cornerRadius: 8)
+            .stroke(Color.accentColor, lineWidth: 2)
+        )
+        
         Spacer()
-        Circle()
-          .frame(width: 80, height: 80, alignment: .center)
-          .foregroundColor(.green)
-          .opacity(0.6)
-          .shadow(radius: 4)
-          .overlay(Button(action: {
-            tag.addRecord(whatTime)
-            presentationMode.wrappedValue.dismiss()
-          }, label: {
-            Image(systemName: "checkmark")
-              .font(.system(size: 40))
-              .foregroundColor(.white)
-          }))
+        
+        Button(action: {
+          tag.addRecord(whatTime)
+          presentationMode.wrappedValue.dismiss()
+        }, label: {
+          Text("CONFIRM")
+        })
+        .padding()
+        .overlay(
+          RoundedRectangle(cornerRadius: 8)
+            .stroke(Color.accentColor, lineWidth: 2)
+        )
+        
         Spacer()
       }
     }

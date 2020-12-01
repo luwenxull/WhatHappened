@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
   @EnvironmentObject var whatManager: WhatManager
+  @State var sheetIsPresented: Bool = false
   var body: some View {
     NavigationView {
       List {
@@ -17,7 +18,20 @@ struct ContentView: View {
             TagView(tag: tag)
           }
         }
-      }.navigationBarTitle("What Happened")
+      }
+      .navigationBarTitle("Emotion Diary")
+      .toolbar(content: {
+        ToolbarItem(placement: ToolbarItemPlacement.automatic, content: {
+          Button(action: {
+            sheetIsPresented = true
+          }, label: {
+            Text("Add Group")
+          })
+        })
+      })
+      .sheet(isPresented: $sheetIsPresented, content: {
+        AddTagView()
+      })
     }
   }
 }

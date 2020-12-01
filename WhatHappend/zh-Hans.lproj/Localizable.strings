@@ -5,9 +5,15 @@
   Created by 陆雯旭 on 2020/11/25.
   
 */
-"What Happened" = "情绪日记";
+"Emotion Diary" = "心情日记";
+"Add Group" = "添加分类";
+"Group Name" = "分类名称";
+"Choose Emotion" = "选择心情";
 "Date" = "日期";
 "ADD QUICKLY" = "快速新增";
+"Add Record" = "新增记录";
+"CONFIRM" = "确认";
+"CANCEL" = "取消";
 "ADD" = "新增";
 "Description" = "描述";
 "STATISTIC" = "统计";
