@@ -1,5 +1,5 @@
 //
-//  TagView.swift
+//  GroupView.swift
 //  WhatHappend
 //
 //  Created by 陆雯旭 on 2020/11/24.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct TagView: View {
-  let tag: WhatTag
+struct GroupView: View {
+  let group: WhatGroup
   
   var body: some View {
     return
@@ -18,19 +18,19 @@ struct TagView: View {
           .scaledToFit()
           .frame(width: 40, height: 40)
         Spacer()
-        Text(tag.name)
+        Text(group.name)
       }
       .padding()
     
   }
   
   func getImage() -> Image {
-    tag.emotion == .happy ? Image("happy") : Image("unhappy")
+    group.emotion == .happy ? Image("happy") : Image("unhappy")
   }
 }
 
-struct TagView_Previews: PreviewProvider {
+struct GroupView_Previews: PreviewProvider {
   static var previews: some View {
-    TagView(tag: WhatTag(name: "Test", emotion: .happy, times: [WhatTime()]))
+    GroupView(group: WhatGroup(name: "Test", emotion: .happy, times: [WhatTime()]))
   }
 }

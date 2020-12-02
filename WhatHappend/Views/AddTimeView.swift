@@ -11,7 +11,7 @@ struct AddTimeView: View {
   @State var hasError: Bool = false
   @State var whatTime: WhatTime = WhatTime()
   @Environment(\.presentationMode) var presentationMode
-  @ObservedObject var tag: WhatTag
+  @ObservedObject var group: WhatGroup
   
   var body: some View {
     VStack(alignment: .leading) {
@@ -37,7 +37,7 @@ struct AddTimeView: View {
         Spacer()
         
         Button(action: {
-          tag.addRecord(whatTime)
+          group.addRecord(whatTime)
           presentationMode.wrappedValue.dismiss()
         }, label: {
           Text("CONFIRM")
@@ -55,6 +55,6 @@ struct AddTimeView: View {
 
 struct AddTimeView_Previews: PreviewProvider {
   static var previews: some View {
-    AddTimeView(tag: WhatTag(name: "Test", emotion: .happy, times: [WhatTime()]))
+    AddTimeView(group: WhatGroup(name: "Test", emotion: .happy, times: [WhatTime()]))
   }
 }

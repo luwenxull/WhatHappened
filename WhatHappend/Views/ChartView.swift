@@ -9,12 +9,8 @@ import SwiftUI
 
 struct ChartView: View {
   let bars: [Bar]
-  var _maxValue: Int?
   
   var maxValue: Int {
-    if _maxValue != nil {
-      return _maxValue!
-    }
     var _max = 0
     for bar in bars {
       _max = max(_max, bar.value)
@@ -22,7 +18,6 @@ struct ChartView: View {
     return _max
   }
   @State var display: Bool = false
-  
   
   var body: some View {
     GeometryReader { proxy in

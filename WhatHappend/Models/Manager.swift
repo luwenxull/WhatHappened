@@ -8,13 +8,13 @@
 import Foundation
 
 class WhatManager: ObservableObject {
-  @Published var tags: [WhatTag]
+  @Published var groups: [WhatGroup]
   
-  init(tags: [WhatTag]) {
-    self.tags = tags
+  init(_ groups: [WhatGroup]) {
+    self.groups = groups
   }
   
-  func addTag(tag: WhatTag) {
-    tags.append(tag)
+  func addGroup(_ group: WhatGroup) {
+    groups.append(group)
   }
 }

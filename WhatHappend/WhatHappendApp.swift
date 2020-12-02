@@ -12,9 +12,9 @@ struct WhatHappendApp: App {
   var body: some Scene {
     WindowGroup {
       ContentView()
-        .environmentObject(WhatManager(tags: [
-          WhatTag(name: "今天又下雨了", emotion: .unhappy, times: [WhatTime(description: "测试")]),
-          WhatTag(name: "今天打球了", emotion: .happy, times: [WhatTime()]),
+        .environmentObject(WhatManager([
+          WhatGroup(name: "今天又下雨了", emotion: .unhappy, times: [WhatTime(description: "测试")]),
+          WhatGroup(name: "今天打球了", emotion: .happy, times: [WhatTime()]),
         ]))
     }
   }

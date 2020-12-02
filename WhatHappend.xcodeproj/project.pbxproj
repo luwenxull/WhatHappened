@@ -10,15 +10,16 @@
 		2810CB182574D24C00DD6DDF /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810CB172574D24C00DD6DDF /* ChartView.swift */; };
 		2810CB1B2574D85900DD6DDF /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810CB1A2574D85900DD6DDF /* Bar.swift */; };
 		28135D9A256F942000478120 /* TimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28135D99256F942000478120 /* TimesView.swift */; };
-		2839FEB62576311B007309DD /* AddTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2839FEB52576311B007309DD /* AddTagView.swift */; };
+		2839FEB62576311B007309DD /* AddGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2839FEB52576311B007309DD /* AddGroupView.swift */; };
 		284D616C256FA4A50004DDA5 /* AddTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284D616B256FA4A50004DDA5 /* AddTimeView.swift */; };
+		285AC4F8257769010036ABF2 /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285AC4F7257769010036ABF2 /* StatView.swift */; };
 		28628BEF256D53740079AA69 /* WhatHappendApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628BEE256D53740079AA69 /* WhatHappendApp.swift */; };
 		28628BF1256D53740079AA69 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628BF0256D53740079AA69 /* ContentView.swift */; };
 		28628BF3256D53760079AA69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28628BF2256D53760079AA69 /* Assets.xcassets */; };
 		28628BF6256D53760079AA69 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28628BF5256D53760079AA69 /* Preview Assets.xcassets */; };
-		28628C02256D57980079AA69 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C01256D57980079AA69 /* TagView.swift */; };
-		28628C06256D5CB70079AA69 /* WhatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C05256D5CB70079AA69 /* WhatManager.swift */; };
-		28628C09256D5CCA0079AA69 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C08256D5CCA0079AA69 /* Tag.swift */; };
+		28628C02256D57980079AA69 /* GroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C01256D57980079AA69 /* GroupView.swift */; };
+		28628C06256D5CB70079AA69 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C05256D5CB70079AA69 /* Manager.swift */; };
+		28628C09256D5CCA0079AA69 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C08256D5CCA0079AA69 /* Group.swift */; };
 		28FAC5B8256D6C4F00FEFD0D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28FAC5BA256D6C4F00FEFD0D /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -26,17 +27,18 @@
 		2810CB172574D24C00DD6DDF /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		2810CB1A2574D85900DD6DDF /* Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.swift; sourceTree = "<group>"; };
 		28135D99256F942000478120 /* TimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesView.swift; sourceTree = "<group>"; };
-		2839FEB52576311B007309DD /* AddTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagView.swift; sourceTree = "<group>"; };
+		2839FEB52576311B007309DD /* AddGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGroupView.swift; sourceTree = "<group>"; };
 		284D616B256FA4A50004DDA5 /* AddTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTimeView.swift; sourceTree = "<group>"; };
+		285AC4F7257769010036ABF2 /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
 		28628BEB256D53740079AA69 /* WhatHappend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatHappend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28628BEE256D53740079AA69 /* WhatHappendApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatHappendApp.swift; sourceTree = "<group>"; };
 		28628BF0256D53740079AA69 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		28628BF2256D53760079AA69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		28628BF5256D53760079AA69 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		28628BF7256D53760079AA69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		28628C01256D57980079AA69 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
-		28628C05256D5CB70079AA69 /* WhatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatManager.swift; sourceTree = "<group>"; };
-		28628C08256D5CCA0079AA69 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		28628C01256D57980079AA69 /* GroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupView.swift; sourceTree = "<group>"; };
+		28628C05256D5CB70079AA69 /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
+		28628C08256D5CCA0079AA69 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		28FAC5B9256D6C4F00FEFD0D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		28FAC5BC256D6C5700FEFD0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,9 +96,10 @@
 			isa = PBXGroup;
 			children = (
 				28628BF0256D53740079AA69 /* ContentView.swift */,
-				28628C01256D57980079AA69 /* TagView.swift */,
-				2839FEB52576311B007309DD /* AddTagView.swift */,
+				28628C01256D57980079AA69 /* GroupView.swift */,
+				2839FEB52576311B007309DD /* AddGroupView.swift */,
 				28135D99256F942000478120 /* TimesView.swift */,
+				285AC4F7257769010036ABF2 /* StatView.swift */,
 				284D616B256FA4A50004DDA5 /* AddTimeView.swift */,
 				2810CB172574D24C00DD6DDF /* ChartView.swift */,
 			);
@@ -106,8 +109,8 @@
 		28628C04256D57A50079AA69 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				28628C05256D5CB70079AA69 /* WhatManager.swift */,
-				28628C08256D5CCA0079AA69 /* Tag.swift */,
+				28628C05256D5CB70079AA69 /* Manager.swift */,
+				28628C08256D5CCA0079AA69 /* Group.swift */,
 				2810CB1A2574D85900DD6DDF /* Bar.swift */,
 			);
 			path = Models;
@@ -184,16 +187,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				285AC4F8257769010036ABF2 /* StatView.swift in Sources */,
 				28628BF1256D53740079AA69 /* ContentView.swift in Sources */,
 				28628BEF256D53740079AA69 /* WhatHappendApp.swift in Sources */,
 				28135D9A256F942000478120 /* TimesView.swift in Sources */,
-				28628C09256D5CCA0079AA69 /* Tag.swift in Sources */,
-				28628C02256D57980079AA69 /* TagView.swift in Sources */,
-				28628C06256D5CB70079AA69 /* WhatManager.swift in Sources */,
+				28628C09256D5CCA0079AA69 /* Group.swift in Sources */,
+				28628C02256D57980079AA69 /* GroupView.swift in Sources */,
+				28628C06256D5CB70079AA69 /* Manager.swift in Sources */,
 				284D616C256FA4A50004DDA5 /* AddTimeView.swift in Sources */,
 				2810CB1B2574D85900DD6DDF /* Bar.swift in Sources */,
 				2810CB182574D24C00DD6DDF /* ChartView.swift in Sources */,
-				2839FEB62576311B007309DD /* AddTagView.swift in Sources */,
+				2839FEB62576311B007309DD /* AddGroupView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

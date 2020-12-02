@@ -13,9 +13,9 @@ struct ContentView: View {
   var body: some View {
     NavigationView {
       List {
-        ForEach(whatManager.tags) {tag in
-          NavigationLink(destination: TimesView(tag: tag)) {
-            TagView(tag: tag)
+        ForEach(whatManager.groups) {group in
+          NavigationLink(destination: TimesView(group: group)) {
+            GroupView(group: group)
           }
         }
       }
@@ -30,7 +30,7 @@ struct ContentView: View {
         })
       })
       .sheet(isPresented: $sheetIsPresented, content: {
-        AddTagView()
+        AddGroupView()
       })
     }
     .listStyle(PlainListStyle())
@@ -39,15 +39,15 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView().environmentObject(WhatManager(tags: [
-      WhatTag(name: "上下班又下雨了", emotion: .unhappy, times: [WhatTime()]),
-      WhatTag(name: "打球", emotion: .happy, times: [WhatTime()]),
+    ContentView().environmentObject(WhatManager([
+      WhatGroup(name: "上下班又下雨了", emotion: .unhappy, times: [WhatTime()]),
+      WhatGroup(name: "打球", emotion: .happy, times: [WhatTime()]),
     ]))
     ContentView()
       .environment(\.colorScheme, .dark)
-      .environmentObject(WhatManager(tags: [
-        WhatTag(name: "今天又下雨了", emotion: .unhappy, times: [WhatTime()]),
-        WhatTag(name: "今天打球了", emotion: .happy, times: [WhatTime()]),
+      .environmentObject(WhatManager([
+        WhatGroup(name: "今天又下雨了", emotion: .unhappy, times: [WhatTime()]),
+        WhatGroup(name: "今天打球了", emotion: .happy, times: [WhatTime()]),
       ]))
   }
 }

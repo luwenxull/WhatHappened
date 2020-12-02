@@ -1,5 +1,5 @@
 //
-//  AddTagView.swift
+//  AddGroupView.swift
 //  WhatHappend
 //
 //  Created by 陆雯旭 on 2020/12/1.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AddTagView: View {
+struct AddGroupView: View {
   @State var name: String = ""
   @State var emotion: WhatEmotion = .happy
   @State var alertIsPresented: Bool = false
@@ -90,7 +90,7 @@ struct AddTagView: View {
           if (name.isEmpty) {
             alertIsPresented = true
           } else {
-            whatManager.addTag(tag: WhatTag(name: name, emotion: emotion, times: []))
+            whatManager.addGroup(WhatGroup(name: name, emotion: emotion, times: []))
             presentationMode.wrappedValue.dismiss()
           }
         }, label: {
@@ -111,8 +111,8 @@ struct AddTagView: View {
   }
 }
 
-struct AddTagView_Previews: PreviewProvider {
+struct AddGroupView_Previews: PreviewProvider {
   static var previews: some View {
-    AddTagView()
+    AddGroupView()
   }
 }
