@@ -10,6 +10,7 @@ import SwiftUI
 struct AddTagView: View {
   @State var name: String = ""
   @State var emotion: WhatEmotion = .happy
+  @State var alertIsPresented: Bool = false
   @Environment(\.presentationMode) var presentationMode
   @EnvironmentObject var whatManager: WhatManager
   struct ImageStyle: ViewModifier {
@@ -27,12 +28,24 @@ struct AddTagView: View {
     size: CGFloat
   ) -> some View {
     if with {
-      return AnyView(image
-        .resizable()
-        .modifier(ImageStyle(size: size - 2))
-        .overlay(Circle().stroke(Color.accentColor, lineWidth: 2.0)))
+      return AnyView(
+        image
+          .resizable()
+          .modifier(ImageStyle(size: size - 2))
+          .scaleEffect(1)
+          .opacity(1)
+          .animation(.spring())
+      )
     } else {
-      return AnyView(image.resizable().modifier(ImageStyle(size: size)))
+      return AnyView(
+        image
+          .resizable()
+          .modifier(ImageStyle(size: size))
+          .scaleEffect(0.6)
+          .opacity(0.6)
+          .animation(.spring())
+        
+      )
     }
   }
   
@@ -59,7 +72,6 @@ struct AddTagView: View {
       Spacer()
       
       HStack {
-        Spacer()
         
         Button(action: {
           presentationMode.wrappedValue.dismiss()
@@ -75,8 +87,12 @@ struct AddTagView: View {
         Spacer()
         
         Button(action: {
-          whatManager.addTag(tag: WhatTag(name: name, emotion: emotion, times: []))
-          presentationMode.wrappedValue.dismiss()
+          if (name.isEmpty) {
+            alertIsPresented = true
+          } else {
+            whatManager.addTag(tag: WhatTag(name: name, emotion: emotion, times: []))
+            presentationMode.wrappedValue.dismiss()
+          }
         }, label: {
           Text("CONFIRM")
         })
@@ -86,10 +102,12 @@ struct AddTagView: View {
             .stroke(Color.accentColor, lineWidth: 2)
         )
         
-        Spacer()
       }
     }
     .padding()
+    .alert(isPresented: $alertIsPresented, content: {
+      Alert(title: Text("Group name can't be empty!"))
+    })
   }
 }
 

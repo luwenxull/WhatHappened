@@ -33,6 +33,7 @@ struct ContentView: View {
         AddTagView()
       })
     }
+    .listStyle(PlainListStyle())
   }
 }
 

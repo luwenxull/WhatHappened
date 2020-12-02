@@ -19,15 +19,14 @@ struct AddTimeView: View {
       Divider()
       
       DatePicker("Date", selection: $whatTime.date)
-      TextField("Description", text: $whatTime.description)
+      TextField("Description(Optional)", text: $whatTime.description)
       Spacer()
       HStack {
-        Spacer()
         
         Button(action: {
           presentationMode.wrappedValue.dismiss()
         }, label: {
-          Text("CANCEl")
+          Text("CANCEL")
         })
         .padding()
         .overlay(
@@ -48,8 +47,6 @@ struct AddTimeView: View {
           RoundedRectangle(cornerRadius: 8)
             .stroke(Color.accentColor, lineWidth: 2)
         )
-        
-        Spacer()
       }
     }
     .padding()

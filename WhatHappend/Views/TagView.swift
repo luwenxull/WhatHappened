@@ -11,16 +11,17 @@ struct TagView: View {
   let tag: WhatTag
   
   var body: some View {
-    return HStack {
-      getImage()
-        .resizable()
-        .scaledToFit()
-        .frame(width: 40, height: 40)
-      Spacer()
-      Text(tag.name)
-        .padding()
-    }
-//    .padding()
+    return
+      HStack {
+        getImage()
+          .resizable()
+          .scaledToFit()
+          .frame(width: 40, height: 40)
+        Spacer()
+        Text(tag.name)
+      }
+      .padding()
+    
   }
   
   func getImage() -> Image {
