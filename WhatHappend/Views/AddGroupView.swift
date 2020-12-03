@@ -72,6 +72,7 @@ struct AddGroupView: View {
       Spacer()
       
       HStack {
+        Spacer()
         
         Button(action: {
           presentationMode.wrappedValue.dismiss()
@@ -102,6 +103,7 @@ struct AddGroupView: View {
             .stroke(Color.accentColor, lineWidth: 2)
         )
         
+        Spacer()
       }
     }
     .padding()

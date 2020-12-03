@@ -16,5 +16,7 @@
 "CANCEL" = "取消";
 "ADD" = "新增";
 "Description(Optional)" = "描述（选填）";
-"STATISTIC" = "统计";
+"Statistic" = "统计";
 "Group name can't be empty!" = "分类名不能为空！";
+"times" = "次";
+"Choose month" = "选择月份";

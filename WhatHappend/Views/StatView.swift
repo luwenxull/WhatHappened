@@ -12,27 +12,26 @@ struct StatView: View {
   @State var month: String = ""
   
   var body: some View {
-    VStack {
+    VStack(alignment: .leading) {
       HStack {
-        Text("选择月份")
-        Picker(selection: $month, label: Text("选择月份"), content: {
+        Picker(selection: $month, label: Text("Choose month"), content: {
           ForEach(Array(group.datesGroupedByMonth.keys).sorted(), id: \.self, content: { key in
             Text(key).tag(key)
           })
         })
-//        .frame(height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-        .pickerStyle(InlinePickerStyle())
+        .padding()
+        .pickerStyle(MenuPickerStyle())
+        Spacer()
       }
       if (!month.isEmpty) {
-//        Divider()
-        ChartView(bars: getBars(group.datesGroupedByMonth[month]!))
+        ChartView(bars: getBars(), height: 150).id(UUID())
       }
       Spacer()
     }
-//    .padding()
   }
   
-  func getBars(_ dates: [Date]) -> [Bar] {
+  func getBars() -> [Bar] {
+    let dates = group.datesGroupedByMonth[month]!
     var values = [Int: Int]()
     for date in dates {
       let day = date.day
@@ -43,16 +42,20 @@ struct StatView: View {
     }
     
     let end = Calendar.lastDayOfMonth(dates[0]).day
-    return Array(0...end).map({day in
-      return Bar(value: values[day] != nil ? values[day]! : 0, label: "\(day)")
+    return Array(1...end).map({day in
+      return Bar(value: values[day] != nil ? values[day]! : 0, label: "\(month)-\(day)")
     })
   }
 }
 
 struct StatView_Previews: PreviewProvider {
   static var previews: some View {
-    StatView(group: WhatGroup(name: "", emotion: .happy, times: [
-      WhatTime(),
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd"
+    
+    return StatView(group: WhatGroup(name: "", emotion: .happy, times: [
+      WhatTime(date: formatter.date(from: "2020-12-31")!, description: ".."),
+      WhatTime(date: formatter.date(from: "2020-02-02")!, description: "..")
     ]))
   }
 }

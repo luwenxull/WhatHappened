@@ -70,7 +70,7 @@ struct TimesView: View {
         NavigationLink(
           destination: StatView(group: group),
           label: {
-            Text("STATISTIC")
+            Text("Statistic")
           })
       }
     })

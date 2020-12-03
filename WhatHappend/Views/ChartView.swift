@@ -8,41 +8,76 @@
 import SwiftUI
 
 struct ChartView: View {
-  let bars: [Bar]
+  var bars: [Bar]
+  let height: Float
   
   var maxValue: Int {
-    var _max = 0
+    var _max: Int = 0
     for bar in bars {
       _max = max(_max, bar.value)
     }
     return _max
   }
-  @State var display: Bool = false
+  
+  @State var tapped: Int?
   
   var body: some View {
-    GeometryReader { proxy in
-      VStack {
-          HStack(alignment: .bottom, spacing: 0) {
-            ForEach(bars.indices, id: \.self, content: { index in
-              Capsule()
-                .foregroundColor(.accentColor)
-                .padding(.horizontal, 4)
-
-                .onTapGesture(perform: {
-                  
-                })
-                .frame(width: (proxy.size.width - 16) / CGFloat(bars.count), height: CGFloat(200 * bars[index].value / maxValue))
-            })
-          }
-        
+    VStack {
+      if tapped != nil {
         HStack {
-          Text(bars[0].label)
+          VStack(alignment: .leading) {
+            HStack(alignment: .firstTextBaseline) {
+              Text("\(bars[tapped!].value)")
+                .font(.system(size: 30))
+              Text("times")
+                .font(.system(size: 14))
+                .foregroundColor(.gray)
+            }
+            Text("\(bars[tapped!].label)")
+              .font(.system(size: 14))
+              .foregroundColor(.gray)
+          }
+          .padding(8)
+          .overlay(
+            RoundedRectangle(cornerRadius: 8.0)
+              .fill(Color.gray.opacity(0.2))
+          )
           Spacer()
-          Text(bars[bars.count - 1].label)
         }
       }
-      .padding(.all, 8)
+      HStack(alignment: .bottom, spacing: 0) {
+        ForEach(bars.indices, id: \.self, content: { index in
+          ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
+            RoundedRectangle(cornerRadius: 8)
+              .foregroundColor(.gray)
+              .opacity(index == tapped ? 0.6 : 0.4)
+              .padding(.horizontal, 2)
+              .onTapGesture(perform: {
+                tapped = index
+              })
+              .frame(height: CGFloat(height))
+            
+            RoundedRectangle(cornerRadius: 8)
+              .foregroundColor(.accentColor)
+              .padding(.horizontal, 2)
+              .onTapGesture(perform: {
+                tapped = index
+              })
+              .frame(height: CGFloat(height * Float(bars[index].value) / Float(maxValue)))
+            
+          }
+        })
+      }
+      
+      HStack {
+        Text(bars[0].label)
+        Spacer()
+        Text(bars[bars.count - 1].label)
+      }
+      .font(.system(size: 12))
+      .foregroundColor(.gray)
     }
+    .padding()
   }
 }
 
@@ -56,6 +91,6 @@ struct ChartView_Previews: PreviewProvider {
       Bar(value: 21, label: "5"),
       Bar(value: 11, label: "6"),
       Bar(value: 9, label: "周日"),
-    ])
+    ], height: 200)
   }
 }

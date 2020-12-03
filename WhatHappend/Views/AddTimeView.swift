@@ -22,6 +22,7 @@ struct AddTimeView: View {
       TextField("Description(Optional)", text: $whatTime.description)
       Spacer()
       HStack {
+        Spacer()
         
         Button(action: {
           presentationMode.wrappedValue.dismiss()
@@ -47,6 +48,8 @@ struct AddTimeView: View {
           RoundedRectangle(cornerRadius: 8)
             .stroke(Color.accentColor, lineWidth: 2)
         )
+        
+        Spacer()
       }
     }
     .padding()
