@@ -20,6 +20,7 @@
 		28628C02256D57980079AA69 /* GroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C01256D57980079AA69 /* GroupView.swift */; };
 		28628C06256D5CB70079AA69 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C05256D5CB70079AA69 /* Manager.swift */; };
 		28628C09256D5CCA0079AA69 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C08256D5CCA0079AA69 /* Group.swift */; };
+		28A216E3257B861B00077DBF /* groups.json in Resources */ = {isa = PBXBuildFile; fileRef = 28A216E2257B861B00077DBF /* groups.json */; };
 		28FAC5B8256D6C4F00FEFD0D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28FAC5BA256D6C4F00FEFD0D /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		28628C01256D57980079AA69 /* GroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupView.swift; sourceTree = "<group>"; };
 		28628C05256D5CB70079AA69 /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		28628C08256D5CCA0079AA69 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		28A216E2257B861B00077DBF /* groups.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = groups.json; sourceTree = "<group>"; };
 		28FAC5B9256D6C4F00FEFD0D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		28FAC5BC256D6C5700FEFD0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,6 +75,7 @@
 		28628BED256D53740079AA69 /* WhatHappend */ = {
 			isa = PBXGroup;
 			children = (
+				28A216E1257B858400077DBF /* Resources */,
 				28FAC5BA256D6C4F00FEFD0D /* Localizable.strings */,
 				28628C04256D57A50079AA69 /* Models */,
 				28628BEE256D53740079AA69 /* WhatHappendApp.swift */,
@@ -114,6 +117,14 @@
 				2810CB1A2574D85900DD6DDF /* Bar.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		28A216E1257B858400077DBF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				28A216E2257B861B00077DBF /* groups.json */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +188,7 @@
 				28628BF6256D53760079AA69 /* Preview Assets.xcassets in Resources */,
 				28FAC5B8256D6C4F00FEFD0D /* Localizable.strings in Resources */,
 				28628BF3256D53760079AA69 /* Assets.xcassets in Resources */,
+				28A216E3257B861B00077DBF /* groups.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

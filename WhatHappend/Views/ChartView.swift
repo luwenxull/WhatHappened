@@ -19,32 +19,32 @@ struct ChartView: View {
     return _max
   }
   
-  @State var tapped: Int?
+  @State var tapped: Int = 0
   
   var body: some View {
     VStack {
-      if tapped != nil {
-        HStack {
-          VStack(alignment: .leading) {
-            HStack(alignment: .firstTextBaseline) {
-              Text("\(bars[tapped!].value)")
-                .font(.system(size: 30))
-              Text("times")
-                .font(.system(size: 14))
-                .foregroundColor(.gray)
-            }
-            Text("\(bars[tapped!].label)")
+      
+      HStack {
+        VStack(alignment: .leading) {
+          HStack(alignment: .firstTextBaseline) {
+            Text("\(bars[tapped].value)")
+              .font(.system(size: 30))
+            Text("times")
               .font(.system(size: 14))
               .foregroundColor(.gray)
           }
-          .padding(8)
-          .overlay(
-            RoundedRectangle(cornerRadius: 8.0)
-              .fill(Color.gray.opacity(0.2))
-          )
-          Spacer()
+          Text("\(bars[tapped].label)")
+            .font(.system(size: 14))
+            .foregroundColor(.gray)
         }
+        .padding(8)
+        .overlay(
+          RoundedRectangle(cornerRadius: 8.0)
+            .fill(Color.gray.opacity(0.2))
+        )
+        Spacer()
       }
+      
       HStack(alignment: .bottom, spacing: 0) {
         ForEach(bars.indices, id: \.self, content: { index in
           ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {

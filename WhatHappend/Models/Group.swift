@@ -8,26 +8,29 @@
 import Foundation
 import Combine
 
-enum WhatEmotion {
+enum WhatEmotion: Int, Codable {
   case happy, unhappy
 }
 
-struct WhatTime: Hashable {
+struct WhatTime: Hashable, Codable {
   var date: Date = Date()
   var description: String = ""
 }
 
-class WhatGroup: Identifiable, ObservableObject {
+final class WhatGroup: Identifiable, ObservableObject {
   let name: String
   let emotion: WhatEmotion
-  @Published var times: [WhatTime]
+  @Published var times: [WhatTime] {
+    didSet {
+      WhatManager.current.saveAsJson()
+    }
+  }
   
   var dirty: Bool = true
   var cancelable: AnyCancellable?
   var _datesGroupedByMonth: [String: [Date]]?
   var datesGroupedByMonth: [String: [Date]] {
     if dirty || _datesGroupedByMonth == nil {
-      print("calculating datesGroupedByMonth...")
       var all = [String: [Date]]()
       for time in times {
         let month = time.date.month
@@ -58,6 +61,27 @@ class WhatGroup: Identifiable, ObservableObject {
     self.cancelable = $times.sink(receiveValue: { [weak self]_ in
       self?.dirty = true
     })
+  }
+}
+
+extension WhatGroup: Codable {
+  enum CodingKeys: CodingKey {
+    case name, emotion, times
+  }
+  
+  func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(name, forKey: .name)
+    try container.encode(emotion, forKey: .emotion)
+    try container.encode(times, forKey: .times)
+  }
+  
+   convenience init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let name = try values.decode(String.self, forKey: .name)
+    let emotion = try values.decode(WhatEmotion.self, forKey: .emotion)
+    let times = try values.decode(Array<WhatTime>.self, forKey: .times)
+    self.init(name: name, emotion: emotion, times: times)
   }
 }
 

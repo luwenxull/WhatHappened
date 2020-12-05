@@ -16,5 +16,12 @@ class WhatManager: ObservableObject {
   
   func addGroup(_ group: WhatGroup) {
     groups.append(group)
+    self.saveAsJson()
   }
+  
+  func saveAsJson() {
+    save(filename: "groups.json", data: groups)
+  }
+  
+  static var current: WhatManager!
 }

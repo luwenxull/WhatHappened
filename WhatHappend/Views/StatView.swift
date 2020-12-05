@@ -14,7 +14,7 @@ struct StatView: View {
   var body: some View {
     VStack(alignment: .leading) {
       HStack {
-        Picker(selection: $month, label: Text("Choose month"), content: {
+        Picker(selection: $month, label: Text("Choose a month"), content: {
           ForEach(Array(group.datesGroupedByMonth.keys).sorted(), id: \.self, content: { key in
             Text(key).tag(key)
           })
