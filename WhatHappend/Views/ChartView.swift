@@ -50,7 +50,7 @@ struct ChartView: View {
           ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
             RoundedRectangle(cornerRadius: 8)
               .foregroundColor(.gray)
-              .opacity(index == tapped ? 0.6 : 0.4)
+              .opacity(index == tapped ? 0.6 : 0.2)
               .padding(.horizontal, 2)
               .onTapGesture(perform: {
                 tapped = index

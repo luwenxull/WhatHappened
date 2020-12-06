@@ -11,8 +11,6 @@ import SwiftUI
 struct WhatHappendApp: App {
   let manager: WhatManager
   var body: some Scene {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd"
     return WindowGroup {
       ContentView()
         .environmentObject(manager)
@@ -20,7 +18,6 @@ struct WhatHappendApp: App {
   }
   
   init() {
-    print(Bundle.main.bundleURL)
     let groups: [WhatGroup] = (try? load("groups.json")) ?? []
     manager = WhatManager(groups)
     WhatManager.current = manager
@@ -34,13 +31,10 @@ extension FileManager {
 }
 
 func load<T: Decodable>(_ filename: String) throws -> T {
-  
   let fileURL = FileManager.documentDirectoryURL.appendingPathComponent(filename)
-  
   let data = try Data(contentsOf: fileURL)
   let decoder = JSONDecoder()
   return try decoder.decode(T.self, from: data)
-  
 }
 
 func save<T: Encodable>(filename: String, data: T) -> Void {

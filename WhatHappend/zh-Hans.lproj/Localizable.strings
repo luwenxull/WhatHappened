@@ -20,4 +20,5 @@
 "Group name can't be empty!" = "分组名不能为空！";
 "times" = "次";
 "Choose a month" = "选择月份";
-"No Group, please add fisrt" = "暂无分组，请先添加";
+"No group, please add fisrt" = "暂无分组，请先添加";
+"No record, please add fisrt" = "暂无记录，请先添加";

@@ -24,7 +24,7 @@ struct ContentView: View {
       return AnyView(
         VStack {
           Image("empty")
-          Text("No Group, please add fisrt")
+          Text("No group, please add fisrt")
             .foregroundColor(.gray)
             .font(.footnote)
         }

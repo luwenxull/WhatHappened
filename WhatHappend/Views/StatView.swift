@@ -10,13 +10,16 @@ import SwiftUI
 struct StatView: View {
   var group: WhatGroup
   @State var month: String = ""
-  @State var isPresented: Bool = true
+  
+  var allMonths: [Dictionary<String, Any>.Key] {
+    Array(group.datesGroupedByMonth.keys).sorted()
+  }
   
   var body: some View {
-    VStack(alignment: .leading) {
+    VStack() {
       HStack {
-        Picker(selection: $month, label: Text("Choose a month"), content: {
-          ForEach(Array(group.datesGroupedByMonth.keys).sorted(), id: \.self, content: { key in
+        Picker(selection: $month, label: month.isEmpty ? Text("Choose a month") : Text(month), content: {
+          ForEach(allMonths, id: \.self, content: { key in
             Text(key).tag(key)
           })
         })
@@ -29,7 +32,6 @@ struct StatView: View {
       }
       Spacer()
     }
-    
   }
   
   func getBars() -> [Bar] {

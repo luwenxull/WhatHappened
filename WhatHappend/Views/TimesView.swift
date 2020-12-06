@@ -12,26 +12,44 @@ struct TimesView: View {
   @State var isPressing: Bool = false
   @State var showSheet: Bool = false
   
-  var body: some View {
-    VStack {
-      List {
-        ForEach(group.times, id: \.self) { time in
-          VStack(alignment: .leading) {
-            Text(DateFormatter.localizedString(from: time.date, dateStyle: .medium, timeStyle: .short))
-            if !time.description.isEmpty {
-              Text(time.description)
-                .foregroundColor(.gray)
-                .font(.system(size: 12))
-                .padding(.vertical, 4)
+  var content: some View {
+    if group.times.count > 0 {
+      return AnyView(
+        List {
+          ForEach(group.times, id: \.self) { time in
+            VStack(alignment: .leading) {
+              Text(DateFormatter.localizedString(from: time.date, dateStyle: .medium, timeStyle: .short))
+              if !time.description.isEmpty {
+                Text(time.description)
+                  .foregroundColor(.gray)
+                  .font(.system(size: 12))
+                  .padding(.vertical, 4)
+              }
             }
           }
+          .onDelete(perform: { indexSet in
+            for i in indexSet {
+              group.removeRecord(i)
+            }
+          })
         }
-        .onDelete(perform: { indexSet in
-          for i in indexSet {
-            group.removeRecord(i)
-          }
-        })
-      }
+      )
+    } else {
+      return AnyView(
+        VStack {
+          Image("empty")
+          Text("No record, please add fisrt")
+            .foregroundColor(.gray)
+            .font(.footnote)
+        }
+      )
+    }
+  }
+  
+  var body: some View {
+    VStack {
+      content
+      
       Spacer()
       HStack {
         Spacer()
@@ -69,8 +87,12 @@ struct TimesView: View {
       ToolbarItem(placement: ToolbarItemPlacement.automatic) {
         NavigationLink(
           destination: StatView(group: group),
-          label: {
-            Text("Statistic")
+          label: { () -> AnyView in
+            if (group.times.count > 0) {
+              return AnyView(Text("Statistic"))
+            } else {
+              return AnyView(EmptyView())
+            }
           })
       }
     })
