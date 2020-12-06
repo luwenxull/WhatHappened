@@ -15,7 +15,7 @@ struct AddTimeView: View {
   
   var body: some View {
     VStack(alignment: .leading) {
-      Text("Add Record").padding(.vertical).font(.title2)
+      Text("Add record").padding(.vertical).font(.title2)
       Divider()
       
       DatePicker("Date", selection: $whatTime.date)
@@ -27,7 +27,7 @@ struct AddTimeView: View {
         Button(action: {
           presentationMode.wrappedValue.dismiss()
         }, label: {
-          Text("CANCEL")
+          Text("Cancel")
         })
         .padding()
         .overlay(
@@ -41,7 +41,7 @@ struct AddTimeView: View {
           group.addRecord(whatTime)
           presentationMode.wrappedValue.dismiss()
         }, label: {
-          Text("CONFIRM")
+          Text("Confirm")
         })
         .padding()
         .overlay(

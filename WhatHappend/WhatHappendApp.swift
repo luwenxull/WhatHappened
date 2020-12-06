@@ -25,7 +25,12 @@ struct WhatHappendApp: App {
     manager = WhatManager(groups)
     WhatManager.current = manager
   }
+}
 
+extension FileManager {
+  static var documentDirectoryURL: URL {
+    FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+  }
 }
 
 func load<T: Decodable>(_ filename: String) -> T {

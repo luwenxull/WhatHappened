@@ -6,17 +6,18 @@
   
 */
 "Emotion Diary" = "心情日记";
-"Add Group" = "添加分类";
-"Group Name" = "分类名称";
-"Choose Emotion" = "选择心情";
+"Add group" = "添加分组";
+"Group name" = "分类名称";
+"Choose emotion" = "选择心情";
 "Date" = "日期";
-"ADD QUICKLY" = "快速新增";
-"Add Record" = "新增记录";
-"CONFIRM" = "确认";
-"CANCEL" = "取消";
-"ADD" = "新增";
+"Add quickly" = "快速新增";
+"Add record" = "新增记录";
+"Confirm" = "确认";
+"Cancel" = "取消";
+"Add" = "新增";
 "Description(Optional)" = "描述（选填）";
 "Statistic" = "统计";
-"Group name can't be empty!" = "分类名不能为空！";
+"Group name can't be empty!" = "分组名不能为空！";
 "times" = "次";
 "Choose a month" = "选择月份";
+"No Group, please add fisrt" = "暂无分组，请先添加";

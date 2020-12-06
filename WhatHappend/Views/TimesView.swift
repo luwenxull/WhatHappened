@@ -39,7 +39,7 @@ struct TimesView: View {
         Button(action: {
           group.addRecord(WhatTime())
         }, label: {
-          Text("ADD QUICKLY")
+          Text("Add quickly")
         })
         .padding()
         .overlay(
@@ -52,7 +52,7 @@ struct TimesView: View {
         Button(action: {
           showSheet = true
         }, label: {
-          Text("ADD")
+          Text("Add")
         })
         .padding()
         .overlay(

@@ -10,22 +10,38 @@ import SwiftUI
 struct ContentView: View {
   @EnvironmentObject var whatManager: WhatManager
   @State var sheetIsPresented: Bool = false
-  var body: some View {
-    NavigationView {
-      List {
+  
+  var content: some View {
+    if whatManager.groups.count > 0 {
+      return AnyView(List {
         ForEach(whatManager.groups) {group in
           NavigationLink(destination: TimesView(group: group)) {
             GroupView(group: group)
           }
         }
-      }
+      })
+    } else {
+      return AnyView(
+        VStack {
+          Image("empty")
+          Text("No Group, please add fisrt")
+            .foregroundColor(.gray)
+            .font(.footnote)
+        }
+      )
+    }
+  }
+  
+  var body: some View {
+    NavigationView {
+      content
       .navigationBarTitle("Emotion Diary")
       .toolbar(content: {
         ToolbarItem(placement: ToolbarItemPlacement.automatic, content: {
           Button(action: {
             sheetIsPresented = true
           }, label: {
-            Text("Add Group")
+            Text("Add group")
           })
         })
       })
@@ -45,9 +61,6 @@ struct ContentView_Previews: PreviewProvider {
     ]))
     ContentView()
       .environment(\.colorScheme, .dark)
-      .environmentObject(WhatManager([
-        WhatGroup(name: "今天又下雨了", emotion: .unhappy, times: [WhatTime()]),
-        WhatGroup(name: "今天打球了", emotion: .happy, times: [WhatTime()]),
-      ]))
+      .environmentObject(WhatManager([]))
   }
 }

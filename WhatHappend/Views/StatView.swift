@@ -10,6 +10,7 @@ import SwiftUI
 struct StatView: View {
   var group: WhatGroup
   @State var month: String = ""
+  @State var isPresented: Bool = true
   
   var body: some View {
     VStack(alignment: .leading) {
@@ -28,6 +29,7 @@ struct StatView: View {
       }
       Spacer()
     }
+    
   }
   
   func getBars() -> [Bar] {

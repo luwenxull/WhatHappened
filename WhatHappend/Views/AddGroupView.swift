@@ -28,34 +28,34 @@ struct AddGroupView: View {
     size: CGFloat
   ) -> some View {
     if with {
-      return AnyView(
+      return
         image
-          .resizable()
-          .modifier(ImageStyle(size: size - 2))
-          .scaleEffect(1)
-          .opacity(1)
-          .animation(.spring())
-      )
+        .resizable()
+        .modifier(ImageStyle(size: size - 2))
+        .scaleEffect(1)
+        .opacity(1)
+        .animation(.spring())
+      
     } else {
-      return AnyView(
+      return
         image
-          .resizable()
-          .modifier(ImageStyle(size: size))
-          .scaleEffect(0.6)
-          .opacity(0.6)
-          .animation(.spring())
-        
-      )
+        .resizable()
+        .modifier(ImageStyle(size: size))
+        .scaleEffect(0.6)
+        .opacity(0.6)
+        .animation(.spring())
+      
+      
     }
   }
   
   var body: some View {
     VStack(alignment: .leading) {
-      Text("Add Group").padding(.vertical).font(.title2)
+      Text("Add group").padding(.vertical).font(.title2)
       Divider()
-      TextField("Group Name", text: $name)
+      TextField("Group name", text: $name)
       HStack {
-        Text("Choose Emotion")
+        Text("Choose emotion")
         Spacer()
         Group {
           withCircle(image: Image("happy"), with: emotion == .happy, size: 40)
@@ -77,7 +77,7 @@ struct AddGroupView: View {
         Button(action: {
           presentationMode.wrappedValue.dismiss()
         }, label: {
-          Text("CANCEL")
+          Text("Cancel")
         })
         .padding()
         .overlay(
@@ -95,7 +95,7 @@ struct AddGroupView: View {
             presentationMode.wrappedValue.dismiss()
           }
         }, label: {
-          Text("CONFIRM")
+          Text("Confirm")
         })
         .padding()
         .overlay(
