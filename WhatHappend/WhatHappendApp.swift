@@ -21,7 +21,7 @@ struct WhatHappendApp: App {
   
   init() {
     print(Bundle.main.bundleURL)
-    let groups: [WhatGroup] = load("groups.json")
+    let groups: [WhatGroup] = (try? load("groups.json")) ?? []
     manager = WhatManager(groups)
     WhatManager.current = manager
   }
@@ -33,41 +33,26 @@ extension FileManager {
   }
 }
 
-func load<T: Decodable>(_ filename: String) -> T {
-  let data: Data
+func load<T: Decodable>(_ filename: String) throws -> T {
   
-  guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
-  else {
-    fatalError("Couldn't find \(filename) in main bundle.")
-  }
+  let fileURL = FileManager.documentDirectoryURL.appendingPathComponent(filename)
   
-  do {
-    data = try Data(contentsOf: file)
-  } catch {
-    fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
-  }
+  let data = try Data(contentsOf: fileURL)
+  let decoder = JSONDecoder()
+  return try decoder.decode(T.self, from: data)
   
-  do {
-    let decoder = JSONDecoder()
-    return try decoder.decode(T.self, from: data)
-  } catch {
-    fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
-  }
 }
 
 func save<T: Encodable>(filename: String, data: T) -> Void {
-  guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
-  else {
-    fatalError("Couldn't find \(filename) in main bundle.")
-  }
-  
+  let fileURL = FileManager.documentDirectoryURL.appendingPathComponent(filename)
   let encoder = JSONEncoder()
   
   guard let encodeData = try? encoder.encode(data) else {
     fatalError("Couldn't encode \(filename).")
   }
+  
   do {
-    try encodeData.write(to: file)
+    try encodeData.write(to: fileURL)
   } catch {
     fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
   }
