@@ -20,17 +20,20 @@ struct WhatTime: Hashable, Codable {
 final class WhatGroup: Identifiable, ObservableObject {
   let name: String
   let emotion: WhatEmotion
+  let uuid: UUID
   @Published var times: [WhatTime] {
     didSet {
-      WhatManager.current.saveAsJson()
+      WhatManager.current?.saveAsJson()
     }
   }
   
-  var dirty: Bool = true
-  var cancelable: AnyCancellable?
-  var _datesGroupedByMonth: [String: [Date]]?
+  private var cancelable: AnyCancellable?
+  
+  // 按月分组数据
+  private var isDirtyDatesGroupedByMonth: Bool = true
+  private var _datesGroupedByMonth: [String: [Date]]?
   var datesGroupedByMonth: [String: [Date]] {
-    if dirty || _datesGroupedByMonth == nil {
+    if isDirtyDatesGroupedByMonth || _datesGroupedByMonth == nil {
       var all = [String: [Date]]()
       for time in times {
         let month = time.date.month
@@ -40,9 +43,28 @@ final class WhatGroup: Identifiable, ObservableObject {
         all[month]?.append(time.date)
       }
       _datesGroupedByMonth = all
-      dirty = false
+      isDirtyDatesGroupedByMonth = false
     }
     return _datesGroupedByMonth!
+  }
+  
+  // 按年分组的数据
+  private var isDirtyCountGroupedByYear: Bool = true
+  private var _countGroupedByYear: [Int: Int]?
+  var countGroupedByYear: [Int: Int] {
+    if isDirtyCountGroupedByYear || _countGroupedByYear == nil {
+      var all = [Int: Int]()
+      for time in times {
+        let year = time.date.year
+        if all[year] == nil {
+          all[year] = 0
+        }
+        all[year]! += 1
+      }
+      _countGroupedByYear = all
+      isDirtyCountGroupedByYear = false
+    }
+    return _countGroupedByYear!
   }
   
   func addRecord(_ time: WhatTime) -> Void {
@@ -51,22 +73,27 @@ final class WhatGroup: Identifiable, ObservableObject {
   
   func removeRecord(_ index: Int) -> Void {
     times.remove(at: index)
+    print(self.id)
   }
   
-  init(name: String, emotion: WhatEmotion, times: [WhatTime]) {
+  init(name: String, emotion: WhatEmotion, times: [WhatTime], uuid: UUID = UUID()) {
     self.name = name
     self.emotion = emotion
     self.times = times
+    self.uuid = uuid
+    
+    print(uuid)
     
     self.cancelable = $times.sink(receiveValue: { [weak self]_ in
-      self?.dirty = true
+      self?.isDirtyDatesGroupedByMonth = true
+      self?.isDirtyCountGroupedByYear = true
     })
   }
 }
 
 extension WhatGroup: Codable {
   enum CodingKeys: CodingKey {
-    case name, emotion, times
+    case name, emotion, times, uuid
   }
   
   func encode(to encoder: Encoder) throws {
@@ -74,6 +101,7 @@ extension WhatGroup: Codable {
     try container.encode(name, forKey: .name)
     try container.encode(emotion, forKey: .emotion)
     try container.encode(times, forKey: .times)
+    try container.encode(uuid, forKey: .uuid)
   }
   
    convenience init(from decoder: Decoder) throws {
@@ -81,19 +109,25 @@ extension WhatGroup: Codable {
     let name = try values.decode(String.self, forKey: .name)
     let emotion = try values.decode(WhatEmotion.self, forKey: .emotion)
     let times = try values.decode(Array<WhatTime>.self, forKey: .times)
-    self.init(name: name, emotion: emotion, times: times)
+    let uuid = try values.decode(UUID.self, forKey: .uuid)
+    self.init(name: name, emotion: emotion, times: times, uuid: uuid)
   }
 }
 
 extension Date {
+  var year: Int {
+    let components = Calendar.current.dateComponents([.year], from: self)
+    return components.year!
+  }
+  
   var month: String {
-    let components = Calendar.current.dateComponents(Set([.year, .month]), from: self)
+    let components = Calendar.current.dateComponents([.year, .month], from: self)
     let month = String(components.month!)
     return String(components.year!) + "-" + (month.count == 2 ? month : "0\(month)")
   }
   
   var day: Int {
-    let components = Calendar.current.dateComponents(Set([.day]), from: self)
+    let components = Calendar.current.dateComponents([.day], from: self)
     return components.day!
   }
 }

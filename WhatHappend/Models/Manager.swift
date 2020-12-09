@@ -20,8 +20,42 @@ class WhatManager: ObservableObject {
   }
   
   func saveAsJson() {
-    save(filename: "groups.json", data: groups)
+    do {
+      try save(filename: "groups.json", data: groups)
+    } catch {
+      print(error)
+    }
+    // 额外保存年度的计算数据
+    var counts: [String: [Int: Int]] = [:]
+    for group in groups {
+      counts[group.uuid.uuidString] = group.countGroupedByYear
+    }
+    do {
+      try save(filename: "counts.json", data: counts)
+    } catch {
+      print(error)
+    }
   }
   
-  static var current: WhatManager!
+  static var current: WhatManager?
+}
+
+extension FileManager {
+  static var documentDirectoryURL: URL {
+    FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+  }
+}
+
+func load<T: Decodable>(_ filename: String) throws -> T {
+  let fileURL = FileManager.documentDirectoryURL.appendingPathComponent(filename)
+  let data = try Data(contentsOf: fileURL)
+  let decoder = JSONDecoder()
+  return try decoder.decode(T.self, from: data)
+}
+
+func save<T: Encodable>(filename: String, data: T) throws -> Void {
+  let fileURL = FileManager.documentDirectoryURL.appendingPathComponent(filename)
+  let encoder = JSONEncoder()
+  let encodeData = try encoder.encode(data)
+  try encodeData.write(to: fileURL)
 }
