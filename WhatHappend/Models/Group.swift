@@ -82,8 +82,6 @@ final class WhatGroup: Identifiable, ObservableObject {
     self.times = times
     self.uuid = uuid
     
-    print(uuid)
-    
     self.cancelable = $times.sink(receiveValue: { [weak self]_ in
       self?.isDirtyDatesGroupedByMonth = true
       self?.isDirtyCountGroupedByYear = true

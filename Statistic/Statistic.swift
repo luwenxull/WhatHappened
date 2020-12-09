@@ -30,9 +30,12 @@ struct Provider: IntentTimelineProvider {
       entries.append(entry)
     }
     
-    do {
-      let count: [Int: Int] = (try? load("count.json")) ?? [Int: Int]()
-    }
+    
+    let counts: [String: [Int: Int]] = (try? load("counts.json")) ?? [:]
+    let names: [String: String] = (try? load("names.json")) ?? [:]
+    print(FileManager.documentDirectoryURL)
+    print(counts)
+    print(names)
     
     let timeline = Timeline(entries: entries, policy: .atEnd)
     completion(timeline)

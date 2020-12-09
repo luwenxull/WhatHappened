@@ -27,11 +27,14 @@ class WhatManager: ObservableObject {
     }
     // 额外保存年度的计算数据
     var counts: [String: [Int: Int]] = [:]
+    var names: [String: String] = [:]
     for group in groups {
       counts[group.uuid.uuidString] = group.countGroupedByYear
+      names[group.uuid.uuidString] = group.name
     }
     do {
       try save(filename: "counts.json", data: counts)
+      try save(filename: "names.json", data: names)
     } catch {
       print(error)
     }
@@ -47,6 +50,7 @@ extension FileManager {
 }
 
 func load<T: Decodable>(_ filename: String) throws -> T {
+  print(FileManager.documentDirectoryURL)
   let fileURL = FileManager.documentDirectoryURL.appendingPathComponent(filename)
   let data = try Data(contentsOf: fileURL)
   let decoder = JSONDecoder()
