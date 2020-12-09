@@ -31,12 +31,9 @@ struct Provider: IntentTimelineProvider {
     }
     
     
-    let counts: [String: [Int: Int]] = (try? load("counts.json")) ?? [:]
-    let names: [String: String] = (try? load("names.json")) ?? [:]
-    print(FileManager.documentDirectoryURL)
-    print(counts)
-    print(names)
-    
+    let counts: [String: [Int: Int]] = (try? load("counts.json", url: FileManager.sharedContainerURL)) ?? [:]
+    let names: [String: String] = (try? load("names.json", url: FileManager.sharedContainerURL)) ?? [:]
+
     let timeline = Timeline(entries: entries, policy: .atEnd)
     completion(timeline)
   }

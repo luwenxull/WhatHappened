@@ -33,8 +33,8 @@ class WhatManager: ObservableObject {
       names[group.uuid.uuidString] = group.name
     }
     do {
-      try save(filename: "counts.json", data: counts)
-      try save(filename: "names.json", data: names)
+      try save(filename: "counts.json", data: counts, url: FileManager.sharedContainerURL)
+      try save(filename: "names.json", data: names, url: FileManager.sharedContainerURL)
     } catch {
       print(error)
     }
@@ -47,18 +47,21 @@ extension FileManager {
   static var documentDirectoryURL: URL {
     FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
   }
+  
+  static var sharedContainerURL: URL {
+    FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.your.domain")!
+  }
 }
 
-func load<T: Decodable>(_ filename: String) throws -> T {
-  print(FileManager.documentDirectoryURL)
-  let fileURL = FileManager.documentDirectoryURL.appendingPathComponent(filename)
+func load<T: Decodable>(_ filename: String, url: URL = FileManager.documentDirectoryURL) throws -> T {
+  let fileURL = url.appendingPathComponent(filename)
   let data = try Data(contentsOf: fileURL)
   let decoder = JSONDecoder()
   return try decoder.decode(T.self, from: data)
 }
 
-func save<T: Encodable>(filename: String, data: T) throws -> Void {
-  let fileURL = FileManager.documentDirectoryURL.appendingPathComponent(filename)
+func save<T: Encodable>(filename: String, data: T, url: URL = FileManager.documentDirectoryURL) throws -> Void {
+  let fileURL = url.appendingPathComponent(filename)
   let encoder = JSONEncoder()
   let encodeData = try encoder.encode(data)
   try encodeData.write(to: fileURL)

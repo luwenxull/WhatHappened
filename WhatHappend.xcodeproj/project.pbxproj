@@ -79,6 +79,8 @@
 		2881C6D025806B4900B7F39F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2881C6D225806B4900B7F39F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2881C6F025806DE000B7F39F /* Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.swift; sourceTree = "<group>"; };
+		2881C6FD2580953500B7F39F /* WhatHappend.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WhatHappend.entitlements; sourceTree = "<group>"; };
+		2881C706258098B700B7F39F /* StatisticExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StatisticExtension.entitlements; sourceTree = "<group>"; };
 		28FAC5B9256D6C4F00FEFD0D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		28FAC5BC256D6C5700FEFD0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,6 +108,7 @@
 		28628BE2256D53740079AA69 = {
 			isa = PBXGroup;
 			children = (
+				2881C706258098B700B7F39F /* StatisticExtension.entitlements */,
 				28628BED256D53740079AA69 /* WhatHappend */,
 				2881C6CC25806B4700B7F39F /* Statistic */,
 				2881C6C725806B4700B7F39F /* Frameworks */,
@@ -125,6 +128,7 @@
 		28628BED256D53740079AA69 /* WhatHappend */ = {
 			isa = PBXGroup;
 			children = (
+				2881C6FD2580953500B7F39F /* WhatHappend.entitlements */,
 				28FAC5BA256D6C4F00FEFD0D /* Localizable.strings */,
 				28628C04256D57A50079AA69 /* Models */,
 				28628BEE256D53740079AA69 /* WhatHappendApp.swift */,
@@ -461,6 +465,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WhatHappend/WhatHappend.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"WhatHappend/Preview Content\"";
@@ -486,6 +491,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WhatHappend/WhatHappend.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"WhatHappend/Preview Content\"";
@@ -510,6 +516,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = StatisticExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 56HL2M6M45;
@@ -533,6 +540,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = StatisticExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 56HL2M6M45;
