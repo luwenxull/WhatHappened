@@ -23,7 +23,6 @@ struct ChartView: View {
   
   var body: some View {
     VStack {
-      
       HStack {
         VStack(alignment: .leading) {
           HStack(alignment: .firstTextBaseline) {
@@ -77,7 +76,6 @@ struct ChartView: View {
       .font(.system(size: 12))
       .foregroundColor(.gray)
     }
-    .padding()
   }
 }
 

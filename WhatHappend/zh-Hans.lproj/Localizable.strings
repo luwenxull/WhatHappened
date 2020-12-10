@@ -21,7 +21,11 @@
 "Statistic" = "统计";
 "Group name can't be empty!" = "分组名不能为空！";
 "times" = "次";
-"Choose a month" = "选择月份";
+"Choose a month to see detail" = "选择月份查看详情";
 "No event group, please add fisrt" = "暂无事件组，请先添加";
 "No record, please add fisrt" = "暂无记录，请先添加";
 "Delete event group will delete all records in this group!" = "删除事件组将会删除该组的所有记录！";
+
+"Total records" = "记录总数";
+"First record" = "首条记录";
+"Last record" = "最后记录";

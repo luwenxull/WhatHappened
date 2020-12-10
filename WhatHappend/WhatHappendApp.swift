@@ -11,7 +11,7 @@ import SwiftUI
 struct WhatHappendApp: App {
   let manager: WhatManager
   var body: some Scene {
-    return WindowGroup {
+    WindowGroup {
       ContentView()
         .environmentObject(manager)
     }
