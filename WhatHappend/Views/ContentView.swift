@@ -24,7 +24,7 @@ struct ContentView: View {
       return AnyView(
         VStack {
           Image("empty")
-          Text("No group, please add fisrt")
+          Text("No event group, please add fisrt")
             .foregroundColor(.gray)
             .font(.footnote)
         }
@@ -41,12 +41,12 @@ struct ContentView: View {
           Button(action: {
             sheetIsPresented = true
           }, label: {
-            Text("Add group")
+            Text("Add event group")
           })
         })
       })
       .sheet(isPresented: $sheetIsPresented, content: {
-        AddGroupView()
+        ModifyGroupView()
       })
     }
     .listStyle(PlainListStyle())

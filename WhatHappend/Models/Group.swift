@@ -17,23 +17,18 @@ struct WhatTime: Hashable, Codable {
   var description: String = ""
 }
 
+typealias SimpleWhatGroup = (name: String, emotion: WhatEmotion)
+
 final class WhatGroup: Identifiable, ObservableObject {
-  let name: String
-  let emotion: WhatEmotion
   let uuid: UUID
-  @Published var times: [WhatTime] {
-    didSet {
-      WhatManager.current?.saveAsJson()
-    }
-  }
-  
-  private var cancelable: AnyCancellable?
+  @Published var name: String
+  @Published var emotion: WhatEmotion
+  @Published var times: [WhatTime]
   
   // 按月分组数据
-  private var isDirtyDatesGroupedByMonth: Bool = true
   private var _datesGroupedByMonth: [String: [Date]]?
   var datesGroupedByMonth: [String: [Date]] {
-    if isDirtyDatesGroupedByMonth || _datesGroupedByMonth == nil {
+    if _datesGroupedByMonth == nil {
       var all = [String: [Date]]()
       for time in times {
         let month = time.date.month
@@ -43,16 +38,14 @@ final class WhatGroup: Identifiable, ObservableObject {
         all[month]?.append(time.date)
       }
       _datesGroupedByMonth = all
-      isDirtyDatesGroupedByMonth = false
     }
     return _datesGroupedByMonth!
   }
   
   // 按年分组的数据
-  private var isDirtyCountGroupedByYear: Bool = true
   private var _countGroupedByYear: [Int: Int]?
   var countGroupedByYear: [Int: Int] {
-    if isDirtyCountGroupedByYear || _countGroupedByYear == nil {
+    if _countGroupedByYear == nil {
       var all = [Int: Int]()
       for time in times {
         let year = time.date.year
@@ -62,18 +55,26 @@ final class WhatGroup: Identifiable, ObservableObject {
         all[year]! += 1
       }
       _countGroupedByYear = all
-      isDirtyCountGroupedByYear = false
     }
     return _countGroupedByYear!
   }
   
   func addRecord(_ time: WhatTime) -> Void {
     times.append(time)
+    _countGroupedByYear = nil
+    WhatManager.current.saveAsJson(updateCounts: true, updateNames: false)
   }
   
   func removeRecord(_ index: Int) -> Void {
     times.remove(at: index)
-    print(self.id)
+    _countGroupedByYear = nil
+    WhatManager.current.saveAsJson(updateCounts: true, updateNames: false)
+  }
+  
+  func updateFrom(_ from: SimpleWhatGroup) {
+    name = from.name
+    emotion = from.emotion
+    WhatManager.current.saveAsJson(updateCounts: false, updateNames: true)
   }
   
   init(name: String, emotion: WhatEmotion, times: [WhatTime], uuid: UUID = UUID()) {
@@ -81,11 +82,6 @@ final class WhatGroup: Identifiable, ObservableObject {
     self.emotion = emotion
     self.times = times
     self.uuid = uuid
-    
-    self.cancelable = $times.sink(receiveValue: { [weak self]_ in
-      self?.isDirtyDatesGroupedByMonth = true
-      self?.isDirtyCountGroupedByYear = true
-    })
   }
 }
 

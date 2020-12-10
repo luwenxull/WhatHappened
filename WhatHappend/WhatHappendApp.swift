@@ -21,6 +21,7 @@ struct WhatHappendApp: App {
     let groups: [WhatGroup] = (try? load("groups.json")) ?? []
     manager = WhatManager(groups)
     WhatManager.current = manager
+    print(FileManager.sharedContainerURL)
   }
 }
 

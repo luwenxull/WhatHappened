@@ -9,47 +9,103 @@ import WidgetKit
 import SwiftUI
 import Intents
 
-struct Provider: IntentTimelineProvider {
-  func placeholder(in context: Context) -> SimpleEntry {
-    SimpleEntry(date: Date(), configuration: ConfigurationIntent())
+struct YearCount: Hashable {
+  let group: String
+  let count: Int
+}
+
+class Provider: IntentTimelineProvider {
+  var yearCounts: [YearCount] = []
+  
+  func placeholder(in context: Context) -> StatEntry {
+    print("placeholder")
+    return StatEntry(date: Date(), configuration: ConfigurationIntent(), yearCounts: [])
   }
   
-  func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-    let entry = SimpleEntry(date: Date(), configuration: configuration)
+  func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (StatEntry) -> ()) {
+    print("isPreview", context.isPreview)
+    print(yearCounts)
+    let entry = StatEntry(date: Date(), configuration: configuration, yearCounts: yearCounts)
     completion(entry)
   }
   
-  func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-    var entries: [SimpleEntry] = []
-    
-    // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-    let currentDate = Date()
-    for hourOffset in 0 ..< 5 {
-      let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-      let entry = SimpleEntry(date: entryDate, configuration: configuration)
-      entries.append(entry)
-    }
-    
+   func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+    print("get timeline")
     
     let counts: [String: [Int: Int]] = (try? load("counts.json", url: FileManager.sharedContainerURL)) ?? [:]
     let names: [String: String] = (try? load("names.json", url: FileManager.sharedContainerURL)) ?? [:]
-
-    let timeline = Timeline(entries: entries, policy: .atEnd)
+    
+    let year = Date().year
+    var yearCounts: [YearCount] = []
+    
+    for group in counts.keys {
+      if let count = (counts[group]!)[year] {
+        yearCounts.append(YearCount(group: names[group]!, count: count))
+      }
+    }
+    
+    yearCounts.sort { (v1, v2) -> Bool in
+      v1.count > v2.count
+    }
+    
+    self.yearCounts = yearCounts
+    
+    let timeline = Timeline(entries: [StatEntry(date: Date(), configuration: configuration, yearCounts: yearCounts)], policy: .never)
     completion(timeline)
   }
 }
 
-struct SimpleEntry: TimelineEntry {
+struct StatEntry: TimelineEntry {
   let date: Date
   let configuration: ConfigurationIntent
+  let yearCounts: [YearCount]
 }
 
 struct StatisticEntryView : View {
   var entry: Provider.Entry
   
+  var maxCount: Int {
+    return entry.yearCounts.reduce(into: 0) { ( _max, yearCount) in
+      _max = max(_max, yearCount.count)
+    }
+  }
+  
   var body: some View {
-    print(WhatManager.current == nil)
-    return Text(entry.date, style: .time)
+    VStack(alignment: .leading, spacing: 0) {
+      HStack {
+        Text("Annual statistic")
+          .font(.system(size: 14))
+          .foregroundColor(.accentColor)
+          .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+        Spacer()
+      }
+      .padding(8)
+      
+      HStack {
+        ForEach(entry.yearCounts, id: \.self, content: { yearCount in
+          VStack {
+            GeometryReader { proxy in
+              ZStack(alignment: .bottom) {
+                HStack {
+                  Spacer()
+                  RoundedRectangle(cornerRadius: 4)
+                    .fill(Color.accentColor)
+                    .frame(width: 30, height: proxy.size.height * CGFloat(yearCount.count) / CGFloat(maxCount))
+                  Spacer()
+                }
+                VStack{}
+                  .frame(height: proxy.size.height)
+              }
+            }
+            Text(yearCount.group)
+              .font(.caption)
+              .foregroundColor(.gray)
+          }
+        })
+      }
+      .padding(8)
+    }
+//    .background(Color.black)
   }
 }
 
@@ -62,13 +118,21 @@ struct Statistic: Widget {
       StatisticEntryView(entry: entry)
     }
     .configurationDisplayName("Statistic")
-    .description("This is an example widget.")
+    .description("Statistics of this year")
+    .supportedFamilies([.systemMedium])
   }
 }
 
 struct Statistic_Previews: PreviewProvider {
   static var previews: some View {
-    StatisticEntryView(entry: SimpleEntry(date: Date(), configuration: ConfigurationIntent()))
-      .previewContext(WidgetPreviewContext(family: .systemSmall))
+    StatisticEntryView(entry: StatEntry(
+      date: Date(),
+      configuration: ConfigurationIntent(),
+      yearCounts: [
+        YearCount(group: "测试", count: 3),
+        YearCount(group: "aother test", count: 50)
+      ]
+    ))
+    .previewContext(WidgetPreviewContext(family: .systemMedium))
   }
 }

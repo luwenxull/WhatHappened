@@ -7,12 +7,14 @@
 
 import SwiftUI
 
-struct AddGroupView: View {
+struct ModifyGroupView: View {
+  var group: WhatGroup?
   @State var name: String = ""
   @State var emotion: WhatEmotion = .happy
   @State var alertIsPresented: Bool = false
   @Environment(\.presentationMode) var presentationMode
   @EnvironmentObject var whatManager: WhatManager
+  
   struct ImageStyle: ViewModifier {
     let size: CGFloat
     func body(content: Content) -> some View {
@@ -44,46 +46,17 @@ struct AddGroupView: View {
         .scaleEffect(0.6)
         .opacity(0.6)
         .animation(.spring())
-      
-      
     }
   }
   
   var body: some View {
-    VStack(alignment: .leading) {
-      Text("Add group").padding(.vertical).font(.title2)
-      Divider()
-      TextField("Group name", text: $name)
+    VStack(spacing: 0) {
       HStack {
-        Text("Choose emotion")
-        Spacer()
-        Group {
-          withCircle(image: Image("happy"), with: emotion == .happy, size: 40)
-            .onTapGesture {
-              emotion = .happy
-            }
-          withCircle(image: Image("unhappy"), with: emotion == .unhappy, size: 40)
-            .onTapGesture {
-              emotion = .unhappy
-            }
-        }
-      }
-      
-      Spacer()
-      
-      HStack {
-        Spacer()
-        
         Button(action: {
           presentationMode.wrappedValue.dismiss()
         }, label: {
           Text("Cancel")
         })
-        .padding()
-        .overlay(
-          RoundedRectangle(cornerRadius: 8)
-            .stroke(Color.accentColor, lineWidth: 2)
-        )
         
         Spacer()
         
@@ -91,30 +64,60 @@ struct AddGroupView: View {
           if (name.isEmpty) {
             alertIsPresented = true
           } else {
-            whatManager.addGroup(WhatGroup(name: name, emotion: emotion, times: []))
+            if self.group == nil {
+              whatManager.addGroup(WhatGroup(name: name, emotion: emotion, times: []))
+            } else {
+              self.group!.updateFrom((name: name, emotion: emotion))
+            }
             presentationMode.wrappedValue.dismiss()
           }
         }, label: {
           Text("Confirm")
         })
-        .padding()
-        .overlay(
-          RoundedRectangle(cornerRadius: 8)
-            .stroke(Color.accentColor, lineWidth: 2)
-        )
-        
-        Spacer()
+        .alert(isPresented: $alertIsPresented, content: {
+          Alert(title: Text("Group name can't be empty!"))
+        })
       }
+      .padding()
+      
+      Divider()
+
+      VStack {
+//        Text("Add group")
+//          .font(.title2)
+//          .padding(.vertical)
+        
+        TextField("Group name", text: $name)
+        HStack {
+          Text("Choose emotion")
+          Spacer()
+          Group {
+            withCircle(image: Image("happy"), with: emotion == .happy, size: 40)
+              .onTapGesture {
+                emotion = .happy
+              }
+            withCircle(image: Image("unhappy"), with: emotion == .unhappy, size: 40)
+              .onTapGesture {
+                emotion = .unhappy
+              }
+          }
+        }
+      }
+      .padding()
+      
+      Spacer()
     }
-    .padding()
-    .alert(isPresented: $alertIsPresented, content: {
-      Alert(title: Text("Group name can't be empty!"))
+    .onAppear(perform: {
+      if group != nil {
+        name = group!.name
+        emotion = group!.emotion
+      }
     })
   }
 }
 
 struct AddGroupView_Previews: PreviewProvider {
   static var previews: some View {
-    AddGroupView()
+    ModifyGroupView()
   }
 }

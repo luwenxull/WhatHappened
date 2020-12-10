@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import WidgetKit
 
 class WhatManager: ObservableObject {
   @Published var groups: [WhatGroup]
@@ -16,31 +17,45 @@ class WhatManager: ObservableObject {
   
   func addGroup(_ group: WhatGroup) {
     groups.append(group)
-    self.saveAsJson()
+    self.saveAsJson(updateCounts: true, updateNames: true)
   }
   
-  func saveAsJson() {
+  func removeGroup(_ group: WhatGroup) {
+    groups = groups.filter { (_group) -> Bool in
+      group !== _group
+    }
+    self.saveAsJson(updateCounts: true, updateNames: true)
+  }
+  
+  func saveAsJson(updateCounts: Bool, updateNames: Bool) {
     do {
       try save(filename: "groups.json", data: groups)
     } catch {
       print(error)
     }
-    // 额外保存年度的计算数据
+    // 年度数据
     var counts: [String: [Int: Int]] = [:]
+    // id -> name的映射
     var names: [String: String] = [:]
     for group in groups {
       counts[group.uuid.uuidString] = group.countGroupedByYear
       names[group.uuid.uuidString] = group.name
     }
     do {
-      try save(filename: "counts.json", data: counts, url: FileManager.sharedContainerURL)
-      try save(filename: "names.json", data: names, url: FileManager.sharedContainerURL)
+      if updateCounts {
+        try save(filename: "counts.json", data: counts, url: FileManager.sharedContainerURL)
+      }
+      if updateNames {
+        try save(filename: "names.json", data: names, url: FileManager.sharedContainerURL)
+      }
     } catch {
       print(error)
     }
+    
+    WidgetCenter.shared.reloadAllTimelines()
   }
   
-  static var current: WhatManager?
+  static var current: WhatManager!
 }
 
 extension FileManager {
@@ -49,7 +64,7 @@ extension FileManager {
   }
   
   static var sharedContainerURL: URL {
-    FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.your.domain")!
+    FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.wenxu.EmotionDiary")!
   }
 }
 

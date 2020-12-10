@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28052C672580D98D00B1B181 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28052C692580D98D00B1B181 /* Localizable.strings */; };
 		2810CB182574D24C00DD6DDF /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810CB172574D24C00DD6DDF /* ChartView.swift */; };
 		28135D9A256F942000478120 /* TimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28135D99256F942000478120 /* TimesView.swift */; };
-		2839FEB62576311B007309DD /* AddGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2839FEB52576311B007309DD /* AddGroupView.swift */; };
+		281510B72581B88500030571 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28628BF2256D53760079AA69 /* Assets.xcassets */; };
+		2839FEB62576311B007309DD /* ModifyGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2839FEB52576311B007309DD /* ModifyGroupView.swift */; };
 		284D616C256FA4A50004DDA5 /* AddTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284D616B256FA4A50004DDA5 /* AddTimeView.swift */; };
 		285AC4F8257769010036ABF2 /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285AC4F7257769010036ABF2 /* StatView.swift */; };
 		28628BEF256D53740079AA69 /* WhatHappendApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628BEE256D53740079AA69 /* WhatHappendApp.swift */; };
@@ -57,9 +59,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		28052C682580D98D00B1B181 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		28052C6A2580D99100B1B181 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		2810CB172574D24C00DD6DDF /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		28135D99256F942000478120 /* TimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesView.swift; sourceTree = "<group>"; };
-		2839FEB52576311B007309DD /* AddGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGroupView.swift; sourceTree = "<group>"; };
+		2839FEB52576311B007309DD /* ModifyGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyGroupView.swift; sourceTree = "<group>"; };
 		284D616B256FA4A50004DDA5 /* AddTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTimeView.swift; sourceTree = "<group>"; };
 		285AC4F7257769010036ABF2 /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
 		28628BEB256D53740079AA69 /* WhatHappend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatHappend.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,7 +157,7 @@
 			children = (
 				28628BF0256D53740079AA69 /* ContentView.swift */,
 				28628C01256D57980079AA69 /* GroupView.swift */,
-				2839FEB52576311B007309DD /* AddGroupView.swift */,
+				2839FEB52576311B007309DD /* ModifyGroupView.swift */,
 				28135D99256F942000478120 /* TimesView.swift */,
 				285AC4F7257769010036ABF2 /* StatView.swift */,
 				284D616B256FA4A50004DDA5 /* AddTimeView.swift */,
@@ -185,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				2881C6CD25806B4700B7F39F /* Statistic.swift */,
+				28052C692580D98D00B1B181 /* Localizable.strings */,
 				2881C6CF25806B4700B7F39F /* Statistic.intentdefinition */,
 				2881C6D025806B4900B7F39F /* Assets.xcassets */,
 				2881C6D225806B4900B7F39F /* Info.plist */,
@@ -284,6 +289,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2881C6D125806B4900B7F39F /* Assets.xcassets in Resources */,
+				281510B72581B88500030571 /* Assets.xcassets in Resources */,
+				28052C672580D98D00B1B181 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,7 +312,7 @@
 				28628C06256D5CB70079AA69 /* Manager.swift in Sources */,
 				284D616C256FA4A50004DDA5 /* AddTimeView.swift in Sources */,
 				2810CB182574D24C00DD6DDF /* ChartView.swift in Sources */,
-				2839FEB62576311B007309DD /* AddGroupView.swift in Sources */,
+				2839FEB62576311B007309DD /* ModifyGroupView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +338,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		28052C692580D98D00B1B181 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				28052C682580D98D00B1B181 /* en */,
+				28052C6A2580D99100B1B181 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		28FAC5BA256D6C4F00FEFD0D /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
