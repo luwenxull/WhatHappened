@@ -7,9 +7,9 @@
 */
 "Emotion Diary" = "心情日记";
 "Add event group" = "添加事件组";
-"Modify group" = "修改事件组";
+"Modify" = "修改";
+"Delete" = "删除";
 "Group name" = "事件组名称";
-"Delete group" = "删除事件组";
 "Choose emotion" = "选择心情";
 "Date" = "日期";
 "Add quickly" = "快速新增";

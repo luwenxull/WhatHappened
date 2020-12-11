@@ -27,13 +27,18 @@ struct GroupView: View {
       Button(action: {
         sheetIsPresented = true
       }, label: {
-        Text("Modify group")
+        HStack {
+          Image(systemName: "pencil.circle")
+          Text("Modify")
+        }
       })
       Button(action: {
         actionSheetIsPresented = true
       }, label: {
-        Text("Delete group")
-          .foregroundColor(.red)
+        HStack {
+          Image(systemName: "trash.circle")
+          Text("Delete")
+        }
       })
     })
     .sheet(isPresented: $sheetIsPresented, content: {

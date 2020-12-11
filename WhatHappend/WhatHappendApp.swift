@@ -12,8 +12,10 @@ struct WhatHappendApp: App {
   let manager: WhatManager
   var body: some Scene {
     WindowGroup {
-      ContentView()
-        .environmentObject(manager)
+      ZStack {
+        ContentView()
+          .environmentObject(manager)
+      }
     }
   }
   
