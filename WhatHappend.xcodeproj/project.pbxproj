@@ -12,6 +12,7 @@
 		28135D9A256F942000478120 /* TimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28135D99256F942000478120 /* TimesView.swift */; };
 		281510B72581B88500030571 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28628BF2256D53760079AA69 /* Assets.xcassets */; };
 		2839FEB62576311B007309DD /* ModifyGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2839FEB52576311B007309DD /* ModifyGroupView.swift */; };
+		28463A032583021D00BBFB10 /* HalfSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28463A022583021C00BBFB10 /* HalfSheet.swift */; };
 		284D616C256FA4A50004DDA5 /* AddTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284D616B256FA4A50004DDA5 /* AddTimeView.swift */; };
 		285AC4F8257769010036ABF2 /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285AC4F7257769010036ABF2 /* StatView.swift */; };
 		28628BEF256D53740079AA69 /* WhatHappendApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628BEE256D53740079AA69 /* WhatHappendApp.swift */; };
@@ -64,6 +65,7 @@
 		2810CB172574D24C00DD6DDF /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		28135D99256F942000478120 /* TimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesView.swift; sourceTree = "<group>"; };
 		2839FEB52576311B007309DD /* ModifyGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyGroupView.swift; sourceTree = "<group>"; };
+		28463A022583021C00BBFB10 /* HalfSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSheet.swift; sourceTree = "<group>"; };
 		284D616B256FA4A50004DDA5 /* AddTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTimeView.swift; sourceTree = "<group>"; };
 		285AC4F7257769010036ABF2 /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
 		28628BEB256D53740079AA69 /* WhatHappend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatHappend.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +138,7 @@
 				28FAC5BA256D6C4F00FEFD0D /* Localizable.strings */,
 				28628C04256D57A50079AA69 /* Models */,
 				28628BEE256D53740079AA69 /* WhatHappendApp.swift */,
+				28463A022583021C00BBFB10 /* HalfSheet.swift */,
 				28628BFF256D546C0079AA69 /* Views */,
 				28628BF2256D53760079AA69 /* Assets.xcassets */,
 				28628BF7256D53760079AA69 /* Info.plist */,
@@ -310,6 +313,7 @@
 				28628C09256D5CCA0079AA69 /* Group.swift in Sources */,
 				28628C02256D57980079AA69 /* GroupView.swift in Sources */,
 				28628C06256D5CB70079AA69 /* Manager.swift in Sources */,
+				28463A032583021D00BBFB10 /* HalfSheet.swift in Sources */,
 				284D616C256FA4A50004DDA5 /* AddTimeView.swift in Sources */,
 				2810CB182574D24C00DD6DDF /* ChartView.swift in Sources */,
 				2839FEB62576311B007309DD /* ModifyGroupView.swift in Sources */,

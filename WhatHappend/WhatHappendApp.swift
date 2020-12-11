@@ -10,11 +10,13 @@ import SwiftUI
 @main
 struct WhatHappendApp: App {
   let manager: WhatManager
+  @ObservedObject var hsm: HSController
   var body: some Scene {
     WindowGroup {
       ZStack {
         ContentView()
           .environmentObject(manager)
+        hsm.view
       }
     }
   }
@@ -22,8 +24,10 @@ struct WhatHappendApp: App {
   init() {
     let groups: [WhatGroup] = (try? load("groups.json")) ?? []
     manager = WhatManager(groups)
+    hsm = HSController()
     WhatManager.current = manager
-    print(FileManager.sharedContainerURL)
+    HSController.current = hsm
+//    print(FileManager.sharedContainerURL)
   }
 }
 

@@ -42,33 +42,24 @@ struct StatView: View {
         RoundedRectangle(cornerRadius: 8)
           .stroke(Color.accentColor, lineWidth: 2)
       )
-      .popover(isPresented: $showPopover, content: {
-        VStack(spacing: 0) {
-          HStack {
-            Button(action: {
-              showPopover = false
-            }, label: {
-              Text("Cancel")
-            })
-            Spacer()
-            Button(action: {
-              month = tempMonth
-              showPopover = false
-            }, label: {
-              Text("Confirm")
-            })
+      .halfSheet(isPresented: $showPopover, content: {
+        return List {
+          ForEach(allMonths, id: \.self) { key in
+            HStack {
+              Button(action: {
+                month = key
+                showPopover = false
+              }, label: {
+                Text(key)
+              })
+              Text(month)
+              Spacer()
+              if (key == month) {
+                Image(systemName: "checkmark")
+              }
+            }
+            .foregroundColor(.accentColor)
           }
-          .padding()
-          
-          Divider()
-          
-          Picker("", selection: $tempMonth, content: {
-            ForEach(allMonths, id: \.self, content: { key in
-              Text(key).tag(key)
-            })
-          })
-          
-          Spacer()
         }
       })
     }
