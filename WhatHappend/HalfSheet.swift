@@ -8,69 +8,93 @@
 import SwiftUI
 
 struct HalfSheetView<Content: View>: View {
-  var presented: Binding<Bool>
+  var presented: HSBinding
   var content: () -> Content
-  let id: UUID = UUID()
+  @Environment(\.colorScheme) var colorScheme
   var body: some View {
-    return ZStack(alignment: .bottom) {
-      Color.black
-        .opacity(presented.wrappedValue ? 0.3 : 0)
-        .animation(/*@START_MENU_TOKEN@*/.easeIn/*@END_MENU_TOKEN@*/)
-        .onTapGesture {
-          presented.wrappedValue = false
-        }
-      VStack {
-        HStack {
-          Spacer()
-          RoundedRectangle(cornerRadius: 6)
-            .frame(width: 80, height: 6, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            .foregroundColor(.gray)
-            .padding()
-          
-          Spacer()
-        }
-        content()
-        Spacer()
+    ZStack {
+      if presented.wrappedValue {
+        Color.gray
+          .opacity(0.2)
+          .animation(.easeIn(duration: 0.2))
+          .onTapGesture {
+            presented.wrappedValue = false
+          }
       }
-      .frame(height: 260)
-      .background(Color.white)
-      .cornerRadius(25)
-      .animation(.easeIn)
-      .offset(x: 0, y: presented.wrappedValue ? 0 : 260)
+      
+      VStack {
+        Spacer()
+        VStack {
+          HStack {
+            Spacer()
+            RoundedRectangle(cornerRadius: 6)
+              .frame(width: 80, height: 6, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+              .foregroundColor(.gray)
+              .padding(8)
+            
+            Spacer()
+          }
+          content()
+          Spacer()
+        }
+        .frame(height: 260)
+        .background(colorScheme == .light ? Color.white : Color.black)
+        .cornerRadius(25)
+        .animation(.easeIn(duration: 0.2))
+        .offset(x: 0, y: presented.wrappedValue ? 0 : 260)
+      }
     }
     .ignoresSafeArea(.container, edges: .all)
+    //    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
   }
 }
 
 class HSController: ObservableObject {
-  @Published var view: HalfSheetView<AnyView>?
+  var binding: HSBinding?
+  @Published var content: (() -> AnyView)?
+  @Published var refreshID: UUID = UUID()
   static var current: HSController!
 }
 
-@propertyWrapper struct HSBinding {
-  var value: Bool
+@propertyWrapper class HSBinding {
+  var value: Bool = false
+  
   var wrappedValue: Bool {
     get {
       value
     }
+    
     set {
       value = newValue
+      HSController.current.refreshID = UUID()
     }
+  }
+  
+  var projectedValue: HSBinding {
+    self
+  }
+  
+  
+  init(value: Bool) {
+    print("new HSBinding")
+    self.value = value
   }
 }
 
 extension View {
-  func halfSheet<Content: View>(isPresented: Binding<Bool>, content: @escaping () -> Content) -> some View {
-    HSController.current.view = HalfSheetView(presented: isPresented, content: { AnyView(content()) })
+  func halfSheet<Content: View>(isPresented: HSBinding, content: @escaping () -> Content) -> some View {
+    HSController.current.content = { AnyView(content()) }
+    HSController.current.binding = isPresented
     return self.onDisappear(perform: {
-      HSController.current.view = nil
+      HSController.current.content = nil
+      HSController.current.binding = nil
     })
   }
 }
 
 struct HalfSheetView_Previews: PreviewProvider {
   static var previews: some View {
-    HalfSheetView(presented: .constant(true), content: {Text("hello world")})
+    HalfSheetView(presented: HSBinding(value: true), content: {Text("hello world")})
   }
 }
 

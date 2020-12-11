@@ -6,17 +6,22 @@
 //
 
 import SwiftUI
+import Combine
 
 @main
 struct WhatHappendApp: App {
   let manager: WhatManager
-  @ObservedObject var hsm: HSController
+  @ObservedObject var hsController: HSController
+  
   var body: some Scene {
     WindowGroup {
       ZStack {
         ContentView()
           .environmentObject(manager)
-        hsm.view
+          .blur(radius: hsController.binding?.wrappedValue == true ? 3 : 0)
+        if let binding = hsController.binding, let content = hsController.content {
+          HalfSheetView(presented: binding, content: content)
+        }
       }
     }
   }
@@ -24,10 +29,9 @@ struct WhatHappendApp: App {
   init() {
     let groups: [WhatGroup] = (try? load("groups.json")) ?? []
     manager = WhatManager(groups)
-    hsm = HSController()
+    hsController = HSController()
     WhatManager.current = manager
-    HSController.current = hsm
-//    print(FileManager.sharedContainerURL)
+    HSController.current = hsController
   }
 }
 

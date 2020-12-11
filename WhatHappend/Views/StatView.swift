@@ -11,7 +11,7 @@ struct StatView: View {
   var group: WhatGroup
   @State var month: String = ""
   @State var tempMonth: String = ""
-  @State var showPopover: Bool = false
+  @HSBinding(value: false) var showHalfSheet: Bool
   
   var allMonths: [Dictionary<String, Any>.Key] {
     Array(group.datesGroupedByMonth.keys).sorted()
@@ -33,7 +33,7 @@ struct StatView: View {
       Spacer()
       
       Button(action: {
-        showPopover.toggle()
+        showHalfSheet.toggle()
       }, label: {
         Text("Choose a month to see detail")
       })
@@ -42,17 +42,16 @@ struct StatView: View {
         RoundedRectangle(cornerRadius: 8)
           .stroke(Color.accentColor, lineWidth: 2)
       )
-      .halfSheet(isPresented: $showPopover, content: {
+      .halfSheet(isPresented: $showHalfSheet, content: {
         return List {
           ForEach(allMonths, id: \.self) { key in
             HStack {
               Button(action: {
                 month = key
-                showPopover = false
+                showHalfSheet = false
               }, label: {
                 Text(key)
               })
-              Text(month)
               Spacer()
               if (key == month) {
                 Image(systemName: "checkmark")
