@@ -62,12 +62,14 @@ final class WhatGroup: Identifiable, ObservableObject {
   func addRecord(_ time: WhatTime) -> Void {
     times.append(time)
     _countGroupedByYear = nil
+    _datesGroupedByMonth = nil
     WhatManager.current.saveAsJson(updateCounts: true, updateNames: false)
   }
   
   func removeRecord(_ index: Int) -> Void {
     times.remove(at: index)
     _countGroupedByYear = nil
+    _datesGroupedByMonth = nil
     WhatManager.current.saveAsJson(updateCounts: true, updateNames: false)
   }
   

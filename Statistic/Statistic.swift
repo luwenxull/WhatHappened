@@ -18,19 +18,15 @@ class Provider: IntentTimelineProvider {
   var yearCounts: [YearCount] = []
   
   func placeholder(in context: Context) -> StatEntry {
-    print("placeholder")
-    return StatEntry(date: Date(), configuration: ConfigurationIntent(), yearCounts: [])
+    StatEntry(date: Date(), configuration: ConfigurationIntent(), yearCounts: [])
   }
   
   func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (StatEntry) -> ()) {
-    print("isPreview", context.isPreview)
-    print(yearCounts)
     let entry = StatEntry(date: Date(), configuration: configuration, yearCounts: yearCounts)
     completion(entry)
   }
   
    func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-    print("get timeline")
     
     let counts: [String: [Int: Int]] = (try? load("counts.json", url: FileManager.sharedContainerURL)) ?? [:]
     let names: [String: String] = (try? load("names.json", url: FileManager.sharedContainerURL)) ?? [:]
@@ -47,6 +43,19 @@ class Provider: IntentTimelineProvider {
     yearCounts.sort { (v1, v2) -> Bool in
       v1.count > v2.count
     }
+    
+    var count: Int
+    
+    switch configuration.count {
+    case .four:
+      count = 4
+      break
+    default:
+      count = 3
+    }
+    
+    count = min(count, yearCounts.count)
+    yearCounts = Array(yearCounts[0..<count])
     
     self.yearCounts = yearCounts
     
@@ -100,6 +109,7 @@ struct StatisticEntryView : View {
             Text(yearCount.group)
               .font(.caption)
               .foregroundColor(.gray)
+              .lineLimit(1)
           }
         })
       }

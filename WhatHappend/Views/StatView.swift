@@ -10,7 +10,6 @@ import SwiftUI
 struct StatView: View {
   var group: WhatGroup
   @State var month: String = ""
-  @State var tempMonth: String = ""
   @HSBinding(value: false) var showHalfSheet: Bool
   
   var allMonths: [Dictionary<String, Any>.Key] {
@@ -24,9 +23,17 @@ struct StatView: View {
         getStatLine(hint: "First record", detail: formatTime(time: group.times.first!))
         getStatLine(hint: "Last record", detail: formatTime(time: group.times.last!))
       }
-      .padding(.vertical)
+      .padding()
+      .overlay(
+        RoundedRectangle(cornerRadius: 8)
+          .fill(Color.accentColor.opacity(0.2))
+          .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+      )
       
+      Divider()
+
       if (!month.isEmpty) {
+        Spacer()
         ChartView(bars: getBars(), height: 150).id(UUID())
       }
       
@@ -93,12 +100,11 @@ struct StatView: View {
         Text(": ")
       }
       .font(.system(size: 14))
-      .foregroundColor(.gray)
-      
       Text(detail)
         .font(.system(size: 14))
       Spacer()
     }
+    .foregroundColor(.gray)
   }
 }
 

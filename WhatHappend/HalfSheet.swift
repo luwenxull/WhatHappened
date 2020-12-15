@@ -39,7 +39,7 @@ struct HalfSheetView<Content: View>: View {
         }
         .frame(height: 260)
         .background(colorScheme == .light ? Color.white : Color.black)
-        .cornerRadius(25)
+        .cornerRadius(8)
         .animation(.easeIn(duration: 0.2))
         .offset(x: 0, y: presented.wrappedValue ? 0 : 260)
       }
@@ -76,7 +76,6 @@ class HSController: ObservableObject {
   
   
   init(value: Bool) {
-    print("new HSBinding")
     self.value = value
   }
 }

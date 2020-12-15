@@ -10,7 +10,8 @@
 		28052C672580D98D00B1B181 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28052C692580D98D00B1B181 /* Localizable.strings */; };
 		2810CB182574D24C00DD6DDF /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810CB172574D24C00DD6DDF /* ChartView.swift */; };
 		28135D9A256F942000478120 /* TimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28135D99256F942000478120 /* TimesView.swift */; };
-		281510B72581B88500030571 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28628BF2256D53760079AA69 /* Assets.xcassets */; };
+		2813A4B825885A56002553A6 /* Statistic.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2813A4BB25885A56002553A6 /* Statistic.intentdefinition */; };
+		2813A4B925885A56002553A6 /* Statistic.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2813A4BB25885A56002553A6 /* Statistic.intentdefinition */; };
 		2839FEB62576311B007309DD /* ModifyGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2839FEB52576311B007309DD /* ModifyGroupView.swift */; };
 		28463A032583021D00BBFB10 /* HalfSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28463A022583021C00BBFB10 /* HalfSheet.swift */; };
 		284D616C256FA4A50004DDA5 /* AddTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284D616B256FA4A50004DDA5 /* AddTimeView.swift */; };
@@ -26,8 +27,6 @@
 		2881C6CB25806B4700B7F39F /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2881C6CA25806B4700B7F39F /* SwiftUI.framework */; };
 		2881C6CE25806B4700B7F39F /* Statistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2881C6CD25806B4700B7F39F /* Statistic.swift */; };
 		2881C6D125806B4900B7F39F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2881C6D025806B4900B7F39F /* Assets.xcassets */; };
-		2881C6D325806B4900B7F39F /* Statistic.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2881C6CF25806B4700B7F39F /* Statistic.intentdefinition */; };
-		2881C6D425806B4900B7F39F /* Statistic.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2881C6CF25806B4700B7F39F /* Statistic.intentdefinition */; };
 		2881C6D725806B4900B7F39F /* StatisticExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2881C6C625806B4700B7F39F /* StatisticExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2881C6E825806CB900B7F39F /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C08256D5CCA0079AA69 /* Group.swift */; };
 		2881C6EB25806CD800B7F39F /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C05256D5CB70079AA69 /* Manager.swift */; };
@@ -64,6 +63,8 @@
 		28052C6A2580D99100B1B181 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		2810CB172574D24C00DD6DDF /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		28135D99256F942000478120 /* TimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesView.swift; sourceTree = "<group>"; };
+		2813A4BA25885A56002553A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Statistic.intentdefinition; sourceTree = "<group>"; };
+		2813A4C425885B06002553A6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Statistic.strings"; sourceTree = "<group>"; };
 		2839FEB52576311B007309DD /* ModifyGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyGroupView.swift; sourceTree = "<group>"; };
 		28463A022583021C00BBFB10 /* HalfSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSheet.swift; sourceTree = "<group>"; };
 		284D616B256FA4A50004DDA5 /* AddTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTimeView.swift; sourceTree = "<group>"; };
@@ -81,7 +82,6 @@
 		2881C6C825806B4700B7F39F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		2881C6CA25806B4700B7F39F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		2881C6CD25806B4700B7F39F /* Statistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistic.swift; sourceTree = "<group>"; };
-		2881C6CF25806B4700B7F39F /* Statistic.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Statistic.intentdefinition; sourceTree = "<group>"; };
 		2881C6D025806B4900B7F39F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2881C6D225806B4900B7F39F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2881C6F025806DE000B7F39F /* Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.swift; sourceTree = "<group>"; };
@@ -193,7 +193,7 @@
 			children = (
 				2881C6CD25806B4700B7F39F /* Statistic.swift */,
 				28052C692580D98D00B1B181 /* Localizable.strings */,
-				2881C6CF25806B4700B7F39F /* Statistic.intentdefinition */,
+				2813A4BB25885A56002553A6 /* Statistic.intentdefinition */,
 				2881C6D025806B4900B7F39F /* Assets.xcassets */,
 				2881C6D225806B4900B7F39F /* Info.plist */,
 			);
@@ -292,7 +292,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2881C6D125806B4900B7F39F /* Assets.xcassets in Resources */,
-				281510B72581B88500030571 /* Assets.xcassets in Resources */,
 				28052C672580D98D00B1B181 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,7 +307,7 @@
 				2881C6F125806DE000B7F39F /* Bar.swift in Sources */,
 				28628BF1256D53740079AA69 /* ContentView.swift in Sources */,
 				28628BEF256D53740079AA69 /* WhatHappendApp.swift in Sources */,
-				2881C6D425806B4900B7F39F /* Statistic.intentdefinition in Sources */,
+				2813A4B825885A56002553A6 /* Statistic.intentdefinition in Sources */,
 				28135D9A256F942000478120 /* TimesView.swift in Sources */,
 				28628C09256D5CCA0079AA69 /* Group.swift in Sources */,
 				28628C02256D57980079AA69 /* GroupView.swift in Sources */,
@@ -326,7 +325,7 @@
 			files = (
 				2881C6E825806CB900B7F39F /* Group.swift in Sources */,
 				2881C6CE25806B4700B7F39F /* Statistic.swift in Sources */,
-				2881C6D325806B4900B7F39F /* Statistic.intentdefinition in Sources */,
+				2813A4B925885A56002553A6 /* Statistic.intentdefinition in Sources */,
 				2881C6EB25806CD800B7F39F /* Manager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -349,6 +348,15 @@
 				28052C6A2580D99100B1B181 /* zh-Hans */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		2813A4BB25885A56002553A6 /* Statistic.intentdefinition */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2813A4BA25885A56002553A6 /* Base */,
+				2813A4C425885B06002553A6 /* zh-Hans */,
+			);
+			name = Statistic.intentdefinition;
 			sourceTree = "<group>";
 		};
 		28FAC5BA256D6C4F00FEFD0D /* Localizable.strings */ = {
@@ -501,7 +509,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -527,7 +535,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -541,7 +549,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 56HL2M6M45;
 				INFOPLIST_FILE = Statistic/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -551,7 +559,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -565,7 +573,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 56HL2M6M45;
 				INFOPLIST_FILE = Statistic/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -575,7 +583,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

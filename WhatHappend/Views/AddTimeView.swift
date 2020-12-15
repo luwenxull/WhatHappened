@@ -14,26 +14,13 @@ struct AddTimeView: View {
   @ObservedObject var group: WhatGroup
   
   var body: some View {
-    VStack(alignment: .leading) {
-      Text("Add record").padding(.vertical).font(.title2)
-      Divider()
-      
-      DatePicker("Date", selection: $whatTime.date)
-      TextField("Description(Optional)", text: $whatTime.description)
-      Spacer()
+    VStack(spacing: 0) {
       HStack {
-        Spacer()
-        
         Button(action: {
           presentationMode.wrappedValue.dismiss()
         }, label: {
           Text("Cancel")
         })
-        .padding()
-        .overlay(
-          RoundedRectangle(cornerRadius: 8)
-            .stroke(Color.accentColor, lineWidth: 2)
-        )
         
         Spacer()
         
@@ -43,16 +30,18 @@ struct AddTimeView: View {
         }, label: {
           Text("Confirm")
         })
-        .padding()
-        .overlay(
-          RoundedRectangle(cornerRadius: 8)
-            .stroke(Color.accentColor, lineWidth: 2)
-        )
-        
-        Spacer()
       }
+      .padding()
+      
+      Divider()
+      
+      VStack {
+        DatePicker("Date", selection: $whatTime.date)
+        TextField("Description(Optional)", text: $whatTime.description)
+      }.padding()
+
+      Spacer()
     }
-    .padding()
   }
 }
 
