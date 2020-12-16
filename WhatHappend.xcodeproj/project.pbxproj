@@ -12,6 +12,8 @@
 		28135D9A256F942000478120 /* TimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28135D99256F942000478120 /* TimesView.swift */; };
 		2813A4B825885A56002553A6 /* Statistic.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2813A4BB25885A56002553A6 /* Statistic.intentdefinition */; };
 		2813A4B925885A56002553A6 /* Statistic.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2813A4BB25885A56002553A6 /* Statistic.intentdefinition */; };
+		282ADD252589DACD002F041E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282ADD242589DACD002F041E /* LoginView.swift */; };
+		282ADD2A2589E22D002F041E /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282ADD292589E22D002F041E /* Request.swift */; };
 		2839FEB62576311B007309DD /* ModifyGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2839FEB52576311B007309DD /* ModifyGroupView.swift */; };
 		28463A032583021D00BBFB10 /* HalfSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28463A022583021C00BBFB10 /* HalfSheet.swift */; };
 		284D616C256FA4A50004DDA5 /* AddTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284D616B256FA4A50004DDA5 /* AddTimeView.swift */; };
@@ -65,6 +67,8 @@
 		28135D99256F942000478120 /* TimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesView.swift; sourceTree = "<group>"; };
 		2813A4BA25885A56002553A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Statistic.intentdefinition; sourceTree = "<group>"; };
 		2813A4C425885B06002553A6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Statistic.strings"; sourceTree = "<group>"; };
+		282ADD242589DACD002F041E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		282ADD292589E22D002F041E /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		2839FEB52576311B007309DD /* ModifyGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyGroupView.swift; sourceTree = "<group>"; };
 		28463A022583021C00BBFB10 /* HalfSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSheet.swift; sourceTree = "<group>"; };
 		284D616B256FA4A50004DDA5 /* AddTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTimeView.swift; sourceTree = "<group>"; };
@@ -139,6 +143,7 @@
 				28628C04256D57A50079AA69 /* Models */,
 				28628BEE256D53740079AA69 /* WhatHappendApp.swift */,
 				28463A022583021C00BBFB10 /* HalfSheet.swift */,
+				282ADD292589E22D002F041E /* Request.swift */,
 				28628BFF256D546C0079AA69 /* Views */,
 				28628BF2256D53760079AA69 /* Assets.xcassets */,
 				28628BF7256D53760079AA69 /* Info.plist */,
@@ -159,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				28628BF0256D53740079AA69 /* ContentView.swift */,
+				282ADD242589DACD002F041E /* LoginView.swift */,
 				28628C01256D57980079AA69 /* GroupView.swift */,
 				2839FEB52576311B007309DD /* ModifyGroupView.swift */,
 				28135D99256F942000478120 /* TimesView.swift */,
@@ -310,7 +316,9 @@
 				2813A4B825885A56002553A6 /* Statistic.intentdefinition in Sources */,
 				28135D9A256F942000478120 /* TimesView.swift in Sources */,
 				28628C09256D5CCA0079AA69 /* Group.swift in Sources */,
+				282ADD2A2589E22D002F041E /* Request.swift in Sources */,
 				28628C02256D57980079AA69 /* GroupView.swift in Sources */,
+				282ADD252589DACD002F041E /* LoginView.swift in Sources */,
 				28628C06256D5CB70079AA69 /* Manager.swift in Sources */,
 				28463A032583021D00BBFB10 /* HalfSheet.swift in Sources */,
 				284D616C256FA4A50004DDA5 /* AddTimeView.swift in Sources */,
@@ -496,6 +504,7 @@
 				CODE_SIGN_ENTITLEMENTS = WhatHappend/WhatHappend.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"WhatHappend/Preview Content\"";
 				DEVELOPMENT_TEAM = 56HL2M6M45;
 				ENABLE_PREVIEWS = YES;
@@ -522,6 +531,7 @@
 				CODE_SIGN_ENTITLEMENTS = WhatHappend/WhatHappend.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"WhatHappend/Preview Content\"";
 				DEVELOPMENT_TEAM = 56HL2M6M45;
 				ENABLE_PREVIEWS = YES;
@@ -547,6 +557,7 @@
 				CODE_SIGN_ENTITLEMENTS = StatisticExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 56HL2M6M45;
 				INFOPLIST_FILE = Statistic/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -571,6 +582,7 @@
 				CODE_SIGN_ENTITLEMENTS = StatisticExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 56HL2M6M45;
 				INFOPLIST_FILE = Statistic/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;

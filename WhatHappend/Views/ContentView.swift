@@ -35,19 +35,26 @@ struct ContentView: View {
   var body: some View {
     NavigationView {
       content
-      .navigationBarTitle("Emotion Diary")
-      .toolbar(content: {
-        ToolbarItem(placement: ToolbarItemPlacement.automatic, content: {
-          Button(action: {
-            sheetIsPresented = true
-          }, label: {
-            Text("Add event group")
+        .navigationBarTitle("Emotion Diary")
+        .toolbar(content: {
+          ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing, content: {
+            NavigationLink(
+              destination: LoginView(),
+              label: {
+                Image(systemName: "person.circle")
+              })
+          })
+          ToolbarItem(placement: ToolbarItemPlacement.status, content: {
+            Button(action: {
+              sheetIsPresented = true
+            }, label: {
+              Text("Add event group")
+            })
           })
         })
-      })
-      .sheet(isPresented: $sheetIsPresented, content: {
-        ModifyGroupView()
-      })
+        .sheet(isPresented: $sheetIsPresented, content: {
+          ModifyGroupView()
+        })
     }
     .listStyle(PlainListStyle())
   }
