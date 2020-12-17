@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Dispatch
 
 enum LoginStatus {
   case login, register
@@ -15,15 +16,19 @@ struct LoginView: View {
   @State var username: String = ""
   @State var password: String = ""
   @State var status: LoginStatus = .login
+  @State var hint: String = ""
+  @State var showHint: Bool = false
+  @Environment(\.presentationMode) var presentationMode
+  
   var body: some View {
     VStack {
-      VStack {
+      VStack(spacing: 16) {
         TextField("Username", text: $username)
           .padding()
           .overlay(
             RoundedRectangle(cornerRadius: 8).stroke(Color.accentColor, lineWidth: 2.0)
           )
-          
+        
         SecureField("Password", text: $password)
           .padding()
           .overlay(
@@ -37,22 +42,24 @@ struct LoginView: View {
             .fill(Color.accentColor)
             .frame(height: 50)
             .overlay(
-              Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                Text("Login")
+              Button(action: {
+                login()
+              }, label: {
+                Text("Sign in")
               })
               .foregroundColor(.white)
             )
           Button(action: {
             status = .register
           }, label: {
-            Text("No account. Register")
+            Text("No account, create one")
               .foregroundColor(.gray)
               .font(.system(size: 12))
           })
         }
         .padding()
       }
-
+      
       if status == .register {
         VStack {
           RoundedRectangle(cornerRadius: 25.0)
@@ -62,32 +69,53 @@ struct LoginView: View {
               Button(action: {
                 register()
               }, label: {
-                Text("Register")
+                Text("Sign up")
               })
               .foregroundColor(.white)
             )
           Button(action: {
             status = .login
           }, label: {
-            Text("Have account. Login")
+            Text("Already have an account")
               .foregroundColor(.gray)
               .font(.system(size: 12))
           })
         }
         .padding()
       }
-
-
     }
     .padding()
-    .navigationBarTitle("Login")
+    .alert(isPresented: $showHint, content: {
+        Alert(title: Text(LocalizedStringKey(hint)))
+    })
+    .navigationBarTitle("Sign in")
     .navigationBarTitleDisplayMode(.inline)
   }
   
+  func login() {
+    makeRequest(url: "https://wxxfj.xyz:3000/login", config: postConfig(json: ["username": username, "password": password]), success: { _ in
+      UserDefaults.standard.setValue(username, forKey: "username")
+      DispatchQueue.main.async {
+        presentationMode.wrappedValue.dismiss()
+      }
+    }, fail: { rf in
+      if rf.response != nil {
+        hint = rf.response!.message
+        showHint = true
+      }
+    })
+  }
+  
   func register() {
-    makeRequest(url: "https://wxxfj.xyz:3000/user", config: postConfig(json: ["username": username, "password": password])) { (res) in
-      print("hello")
-    }
+    makeRequest(url: "https://wxxfj.xyz:3000/user", config: postConfig(json: ["username": username, "password": password]), success: { (data) in
+      UserDefaults.standard.setValue(username, forKey: "username")
+      presentationMode.wrappedValue.dismiss()
+    }, fail: { rf in
+      if rf.response != nil {
+        hint = rf.response!.message
+        showHint = true
+      }
+    })
   }
 }
 

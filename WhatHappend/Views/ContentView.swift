@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
   @EnvironmentObject var whatManager: WhatManager
   @State var sheetIsPresented: Bool = false
+  @State var user: String? = UserDefaults.standard.string(forKey: "username")
   
   var content: some View {
     if whatManager.groups.count > 0 {
@@ -38,11 +39,26 @@ struct ContentView: View {
         .navigationBarTitle("Emotion Diary")
         .toolbar(content: {
           ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing, content: {
-            NavigationLink(
-              destination: LoginView(),
-              label: {
+            if (user == nil) {
+              NavigationLink(
+                destination: LoginView(),
+                label: {
+                  Image(systemName: "person.circle")
+                })
+            }
+            if (user != nil) {
+              Menu(content: {
+                Button(action: {
+                  UserDefaults.standard.removeObject(forKey: "username")
+                  user = nil
+                }, label: {
+                  Text("Logout")
+                })
+              }, label: {
                 Image(systemName: "person.circle")
               })
+            }
+
           })
           ToolbarItem(placement: ToolbarItemPlacement.status, content: {
             Button(action: {

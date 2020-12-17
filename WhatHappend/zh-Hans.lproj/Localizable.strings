@@ -29,3 +29,17 @@
 "Total records" = "记录总数";
 "First record" = "首条记录";
 "Last record" = "最后记录";
+
+// 登录相关
+"Logout" = "退出登录";
+"Username" = "用户名";
+"Password" = "密码";
+"Sign in" = "登录";
+"Sign up" = "注册";
+"No account, create one" = "创建账号";
+"Already have an account" = "已有账号";
+"The username is already in use" = "该用户名已被使用";
+"The user was not found" = "未找到该用户";
+"Wrong password" = "密码错误";
+
+
