@@ -86,36 +86,44 @@ struct LoginView: View {
     }
     .padding()
     .alert(isPresented: $showHint, content: {
-        Alert(title: Text(LocalizedStringKey(hint)))
+      Alert(title: Text(LocalizedStringKey(hint)))
     })
     .navigationBarTitle("Sign in")
     .navigationBarTitleDisplayMode(.inline)
   }
   
   func login() {
-    makeRequest(url: "https://wxxfj.xyz:3000/login", config: postConfig(json: ["username": username, "password": password]), success: { _ in
-      UserDefaults.standard.setValue(username, forKey: "username")
-      DispatchQueue.main.async {
-        presentationMode.wrappedValue.dismiss()
-      }
-    }, fail: { rf in
-      if rf.response != nil {
-        hint = rf.response!.message
-        showHint = true
-      }
-    })
+    makeRequest(
+      url: "\(WhatRequestConfig.baseURL)/login",
+      config: jsonConfig(data: try? JSONSerialization.data(withJSONObject: ["username": username, "password": password]), method: "POST"),
+      success: { _ in
+        UserDefaults.standard.setValue(username, forKey: "username")
+        DispatchQueue.main.async {
+          presentationMode.wrappedValue.dismiss()
+        }
+      },
+      fail: { rf in
+        if rf.response != nil {
+          hint = rf.response!.message
+          showHint = true
+        }
+      })
   }
   
   func register() {
-    makeRequest(url: "https://wxxfj.xyz:3000/user", config: postConfig(json: ["username": username, "password": password]), success: { (data) in
-      UserDefaults.standard.setValue(username, forKey: "username")
-      presentationMode.wrappedValue.dismiss()
-    }, fail: { rf in
-      if rf.response != nil {
-        hint = rf.response!.message
-        showHint = true
-      }
-    })
+    makeRequest(
+      url: "\(WhatRequestConfig.baseURL)/user",
+      config: jsonConfig(data: try? JSONSerialization.data(withJSONObject: ["username": username, "password": password]), method: "POST"),
+      success: { (data) in
+        UserDefaults.standard.setValue(username, forKey: "username")
+        presentationMode.wrappedValue.dismiss()
+      },
+      fail: { rf in
+        if rf.response != nil {
+          hint = rf.response!.message
+          showHint = true
+        }
+      })
   }
 }
 

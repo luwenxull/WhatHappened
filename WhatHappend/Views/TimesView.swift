@@ -11,6 +11,7 @@ struct TimesView: View {
   @ObservedObject var group: WhatGroup
   @State var isPressing: Bool = false
   @State var showSheet: Bool = false
+  @State var isFetching: Bool = true
   
   var content: some View {
     if group.times.count > 0 {
@@ -48,37 +49,42 @@ struct TimesView: View {
   
   var body: some View {
     VStack {
-      content
-      
-      Spacer()
-      HStack {
-        Spacer()
-        
-        Button(action: {
-          group.addRecord(WhatTime())
-        }, label: {
-          Text("Add quickly")
-        })
-        .padding()
-        .overlay(
-          RoundedRectangle(cornerRadius: 8)
-            .stroke(Color.accentColor, lineWidth: 2)
-        )
+      if isFetching {
+        ProgressView()
+      } else {
+        content
         
         Spacer()
         
-        Button(action: {
-          showSheet = true
-        }, label: {
-          Text("Add")
-        })
-        .padding()
-        .overlay(
-          RoundedRectangle(cornerRadius: 8)
-            .stroke(Color.accentColor, lineWidth: 2)
-        )
-        
-        Spacer()
+        HStack {
+          Spacer()
+          
+          Button(action: {
+            group.addRecord(WhatTime())
+          }, label: {
+            Text("Add quickly")
+          })
+          .padding()
+          .overlay(
+            RoundedRectangle(cornerRadius: 8)
+              .stroke(Color.accentColor, lineWidth: 2)
+          )
+          
+          Spacer()
+          
+          Button(action: {
+            showSheet = true
+          }, label: {
+            Text("Add")
+          })
+          .padding()
+          .overlay(
+            RoundedRectangle(cornerRadius: 8)
+              .stroke(Color.accentColor, lineWidth: 2)
+          )
+          
+          Spacer()
+        }
       }
     }
     .navigationBarTitle(group.name)
@@ -99,6 +105,22 @@ struct TimesView: View {
     .sheet(isPresented: $showSheet, content: {
       AddTimeView(group: group)
     })
+    .onAppear {
+      if UserDefaults.standard.string(forKey: "username") != nil && group.timesGotted == false {
+        makeRequest(
+          url: WhatRequestConfig.baseURL + "/group/\(group.uuid.uuidString)/time",
+          config: jsonConfig(data: nil, method: "GET"),
+          success: { times in
+            DispatchQueue.main.async {
+              isFetching = false
+              group.timesGotted = true
+              group.times = try! JSONDecoder().decode(WhatServerResponse<[WhatTime]>.self, from: times).data
+            }
+          })
+      } else {
+        isFetching = false
+      }
+    }
   }
 }
 

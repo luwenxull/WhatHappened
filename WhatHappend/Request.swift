@@ -7,30 +7,39 @@
 
 import Foundation
 
-struct WhatServerResponse: Decodable {
+struct WhatServerResponse<T: Decodable>: Decodable {
   let message: String
+  let data: T
 }
 
 struct WhatRequestFail {
   let reason: String
-  let response: WhatServerResponse?
+  let response: WhatServerResponse<String>?
 }
 
-func postConfig(json: Any) -> (inout URLRequest) -> Void {
+struct WhatRequestConfig {
+  static let baseURL = "https://wxxfj.xyz:3000"
+}
+
+func jsonConfig(data: Data?, method: String) -> (inout URLRequest) -> Void {
   return {(request: inout URLRequest) -> Void in
-    request.httpMethod = "POST"
-    let jsonData = try? JSONSerialization.data(withJSONObject: json)
+    request.httpMethod = method
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     request.addValue("application/json", forHTTPHeaderField: "Accept")
-    request.httpBody = jsonData
+    
+    if let username = UserDefaults.standard.string(forKey: "username") {
+      request.addValue(username, forHTTPHeaderField: "username")
+    }
+    
+    request.httpBody = data
   }
 }
 
 func makeRequest(
   url: String,
   config: (inout URLRequest) -> Void,
-  success: ((Data) -> Void)?,
-  fail: ((WhatRequestFail) -> Void)?
+  success: ((Data) -> Void)? = nil,
+  fail: ((WhatRequestFail) -> Void)? = nil
 ) {
   let url = URL(string: url)!
   var request = URLRequest(url: url)
@@ -38,6 +47,7 @@ func makeRequest(
   config(&request)
   
   URLSession.shared.dataTask(with: request) { data, response, error in
+//    print("Handling response")
     guard let data = data else {                                              // check for fundamental networking error
       if let fail = fail {
         fail(WhatRequestFail(reason: "No response data", response: nil))
@@ -60,7 +70,7 @@ func makeRequest(
     }
     
     
-    guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+    guard (200 ... 299) ~= response.statusCode else { // check for http errors
       if let fail = fail {
         fail(WhatRequestFail(reason: "Not a success status code", response: try? JSONDecoder().decode(WhatServerResponse.self, from: data)))
       }

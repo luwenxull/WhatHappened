@@ -13,6 +13,10 @@ struct ContentView: View {
   @State var user: String? = UserDefaults.standard.string(forKey: "username")
   
   var content: some View {
+    if whatManager.loading {
+      return AnyView(ProgressView())
+    }
+    
     if whatManager.groups.count > 0 {
       return AnyView(List {
         ForEach(whatManager.groups) {group in
@@ -25,7 +29,7 @@ struct ContentView: View {
       return AnyView(
         VStack {
           Image("empty")
-          Text("No event group, please add fisrt")
+          Text("No event, please add fisrt")
             .foregroundColor(.gray)
             .font(.footnote)
         }
@@ -38,7 +42,7 @@ struct ContentView: View {
       content
         .navigationBarTitle("Emotion Diary")
         .toolbar(content: {
-          ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing, content: {
+          ToolbarItem(placement: ToolbarItemPlacement.navigationBarLeading, content: {
             if (user == nil) {
               NavigationLink(
                 destination: LoginView(),
@@ -58,13 +62,13 @@ struct ContentView: View {
                 Image(systemName: "person.circle")
               })
             }
-
+            
           })
-          ToolbarItem(placement: ToolbarItemPlacement.status, content: {
+          ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing, content: {
             Button(action: {
               sheetIsPresented = true
             }, label: {
-              Text("Add event group")
+              Text("Add event")
             })
           })
         })

@@ -6,10 +6,10 @@
   
 */
 "Emotion Diary" = "心情日记";
-"Add event group" = "添加事件组";
+"Add event" = "添加事件";
 "Modify" = "修改";
 "Delete" = "删除";
-"Group name" = "事件组名称";
+"Event name" = "事件名称";
 "Choose emotion" = "选择心情";
 "Date" = "日期";
 "Add quickly" = "快速新增";
@@ -19,12 +19,12 @@
 "Add" = "新增";
 "Description(Optional)" = "描述（选填）";
 "Statistic" = "统计";
-"Group name can't be empty!" = "分组名不能为空！";
+"Event name can't be empty!" = "事件名不能为空！";
 "times" = "次";
 "Choose a month to see detail" = "选择月份查看详情";
-"No event group, please add fisrt" = "暂无事件组，请先添加";
+"No event, please add fisrt" = "暂无事件，请先添加";
 "No record, please add fisrt" = "暂无记录，请先添加";
-"Delete event group will delete all records in this group!" = "删除事件组将会删除该组的所有记录！";
+"Delete event group will delete all records in this group!" = "删除事件将会删除该事件的所有记录！";
 
 "Total records" = "记录总数";
 "First record" = "首条记录";

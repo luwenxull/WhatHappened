@@ -75,7 +75,7 @@ struct ModifyGroupView: View {
           Text("Confirm")
         })
         .alert(isPresented: $alertIsPresented, content: {
-          Alert(title: Text("Group name can't be empty!"))
+          Alert(title: Text("Event name can't be empty!"))
         })
       }
       .padding()
@@ -87,7 +87,7 @@ struct ModifyGroupView: View {
 //          .font(.title2)
 //          .padding(.vertical)
         
-        TextField("Group name", text: $name)
+        TextField("Event name", text: $name)
         HStack {
           Text("Choose emotion")
           Spacer()

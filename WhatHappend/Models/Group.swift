@@ -13,6 +13,7 @@ enum WhatEmotion: Int, Codable {
 }
 
 struct WhatTime: Hashable, Codable {
+  var _id: String? = nil
   var date: Date = Date()
   var description: String = ""
 }
@@ -21,6 +22,8 @@ typealias SimpleWhatGroup = (name: String, emotion: WhatEmotion)
 
 final class WhatGroup: Identifiable, ObservableObject {
   let uuid: UUID
+  // 是否已经获取了时间记录，仅在已登录时有效
+  var timesGotted: Bool
   @Published var name: String
   @Published var emotion: WhatEmotion
   @Published var times: [WhatTime]
@@ -43,9 +46,9 @@ final class WhatGroup: Identifiable, ObservableObject {
   }
   
   // 按年分组的数据
-  private var _countGroupedByYear: [Int: Int]?
+  private var _countsGroupedByYear: [Int: Int]?
   var countGroupedByYear: [Int: Int] {
-    if _countGroupedByYear == nil {
+    if _countsGroupedByYear == nil {
       var all = [Int: Int]()
       for time in times {
         let year = time.date.year
@@ -54,23 +57,44 @@ final class WhatGroup: Identifiable, ObservableObject {
         }
         all[year]! += 1
       }
-      _countGroupedByYear = all
+      _countsGroupedByYear = all
     }
-    return _countGroupedByYear!
+    return _countsGroupedByYear!
   }
   
   func addRecord(_ time: WhatTime) -> Void {
-    times.append(time)
-    _countGroupedByYear = nil
-    _datesGroupedByMonth = nil
-    WhatManager.current.saveAsJson(updateCounts: true, updateNames: false)
+    if UserDefaults.standard.string(forKey: "username") != nil {
+      makeRequest(
+        url:WhatRequestConfig.baseURL + "/group/\(uuid.uuidString)/time",
+        config: jsonConfig(data: try? JSONEncoder().encode(time), method: "POST"),
+        success: { _ in
+          DispatchQueue.main.async {
+            self.times.append(time)
+            self._countsGroupedByYear = nil
+            self._datesGroupedByMonth = nil
+          }
+        }
+      )
+    } else {
+      times.append(time)
+      _countsGroupedByYear = nil
+      _datesGroupedByMonth = nil
+      WhatManager.current.saveAsJson(updateCounts: true, updateNames: false)
+    }
   }
   
   func removeRecord(_ index: Int) -> Void {
+    let time = times[index]
+    
     times.remove(at: index)
-    _countGroupedByYear = nil
+    _countsGroupedByYear = nil
     _datesGroupedByMonth = nil
     WhatManager.current.saveAsJson(updateCounts: true, updateNames: false)
+    
+    // TODO：删除失败
+    if UserDefaults.standard.string(forKey: "username") != nil {
+      makeRequest(url: WhatRequestConfig.baseURL + "/group/time/\(time._id)", config: jsonConfig(data: nil, method: "DELETE"))
+    }
   }
   
   func updateFrom(_ from: SimpleWhatGroup) {
@@ -84,6 +108,7 @@ final class WhatGroup: Identifiable, ObservableObject {
     self.emotion = emotion
     self.times = times
     self.uuid = uuid
+    self.timesGotted = false
   }
 }
 
@@ -100,7 +125,7 @@ extension WhatGroup: Codable {
     try container.encode(uuid, forKey: .uuid)
   }
   
-   convenience init(from decoder: Decoder) throws {
+  convenience init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     let name = try values.decode(String.self, forKey: .name)
     let emotion = try values.decode(WhatEmotion.self, forKey: .emotion)

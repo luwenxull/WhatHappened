@@ -10,21 +10,73 @@ import WidgetKit
 
 class WhatManager: ObservableObject {
   @Published var groups: [WhatGroup]
+  @Published var loading: Bool = false
   
-  init(_ groups: [WhatGroup]) {
-    self.groups = groups
+  init(_ groups: [WhatGroup]? = nil) {
+    if groups != nil {
+      self.groups = groups!
+    } else {
+      if UserDefaults.standard.string(forKey: "username") != nil {
+        // 从数据库读取
+        self.groups = []
+        self.loading = true
+        makeRequest(url: WhatRequestConfig.baseURL + "/group", config: jsonConfig(data: nil, method: "GET"), success: { data in
+          DispatchQueue.main.async {
+            self.loading = false
+            self.groups = try! JSONDecoder().decode(WhatServerResponse<[WhatGroup]>.self, from: data).data
+          }
+        }, fail: { _ in
+          DispatchQueue.main.async {
+            self.loading = false
+          }
+        })
+      } else {
+        // 从本地读取
+        self.groups = (try? load("groups.json")) ?? []
+      }
+    }
   }
   
   func addGroup(_ group: WhatGroup) {
-    groups.append(group)
-    self.saveAsJson(updateCounts: true, updateNames: true)
+    if UserDefaults.standard.string(forKey: "username") != nil {
+      loading = true
+      makeRequest(
+        url: WhatRequestConfig.baseURL + "/group",
+        config: jsonConfig(data: try? JSONEncoder().encode(group), method: "POST"),
+        success: { _ in
+          DispatchQueue.main.async {
+            self.loading = false
+            self.groups.append(group)
+          }
+        }
+      )
+    } else {
+      groups.append(group)
+      self.saveAsJson(updateCounts: true, updateNames: true)
+    }
   }
   
   func removeGroup(_ group: WhatGroup) {
-    groups = groups.filter { (_group) -> Bool in
-      group !== _group
+    if UserDefaults.standard.string(forKey: "username") != nil {
+      loading = true
+      makeRequest(
+        url: WhatRequestConfig.baseURL + "/group/\(group.uuid.uuidString)",
+        config: jsonConfig(data: nil, method: "DELETE"),
+        success: { _ in
+          DispatchQueue.main.async {
+            self.loading = false
+            self.groups = self.groups.filter { (_group) -> Bool in
+              group !== _group
+            }
+          }
+        }
+      )
+    } else {
+      groups = groups.filter { (_group) -> Bool in
+        group !== _group
+      }
+      self.saveAsJson(updateCounts: true, updateNames: true)
     }
-    self.saveAsJson(updateCounts: true, updateNames: true)
   }
   
   func saveAsJson(updateCounts: Bool, updateNames: Bool) {

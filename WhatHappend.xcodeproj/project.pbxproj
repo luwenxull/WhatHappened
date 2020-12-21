@@ -33,6 +33,7 @@
 		2881C6E825806CB900B7F39F /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C08256D5CCA0079AA69 /* Group.swift */; };
 		2881C6EB25806CD800B7F39F /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C05256D5CB70079AA69 /* Manager.swift */; };
 		2881C6F125806DE000B7F39F /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2881C6F025806DE000B7F39F /* Bar.swift */; };
+		28BA7086258C583C00FA2644 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282ADD292589E22D002F041E /* Request.swift */; };
 		28FAC5B8256D6C4F00FEFD0D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28FAC5BA256D6C4F00FEFD0D /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -333,6 +334,7 @@
 			files = (
 				2881C6E825806CB900B7F39F /* Group.swift in Sources */,
 				2881C6CE25806B4700B7F39F /* Statistic.swift in Sources */,
+				28BA7086258C583C00FA2644 /* Request.swift in Sources */,
 				2813A4B925885A56002553A6 /* Statistic.intentdefinition in Sources */,
 				2881C6EB25806CD800B7F39F /* Manager.swift in Sources */,
 			);

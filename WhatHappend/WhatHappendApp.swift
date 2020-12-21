@@ -27,8 +27,7 @@ struct WhatHappendApp: App {
   }
   
   init() {
-    let groups: [WhatGroup] = (try? load("groups.json")) ?? []
-    manager = WhatManager(groups)
+    manager = WhatManager()
     hsController = HSController()
     WhatManager.current = manager
     HSController.current = hsController
