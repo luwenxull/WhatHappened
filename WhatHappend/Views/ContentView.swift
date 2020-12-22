@@ -55,11 +55,17 @@ struct ContentView: View {
                 Button(action: {
                   UserDefaults.standard.removeObject(forKey: "username")
                   user = nil
+                  whatManager.refresh()
                 }, label: {
                   Text("Logout")
                 })
               }, label: {
-                Image(systemName: "person.circle")
+                Text(String(user!.first!).capitalized)
+                  .padding(4)
+                  .overlay(
+                    Circle()
+                      .stroke(Color.accentColor, lineWidth: 2)
+                  )
               })
             }
             
@@ -75,6 +81,11 @@ struct ContentView: View {
         .sheet(isPresented: $sheetIsPresented, content: {
           ModifyGroupView()
         })
+        .onAppear {
+          if user != UserDefaults.standard.string(forKey: "username") {
+            user = UserDefaults.standard.string(forKey: "username")
+          }
+        }
     }
     .listStyle(PlainListStyle())
   }

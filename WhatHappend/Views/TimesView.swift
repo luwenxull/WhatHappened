@@ -114,7 +114,7 @@ struct TimesView: View {
             DispatchQueue.main.async {
               isFetching = false
               group.timesGotted = true
-              group.times = try! JSONDecoder().decode(WhatServerResponse<[WhatTime]>.self, from: times).data
+              group.times = try! JSONDecoder().decode(WhatServerResponse<[WhatTime]>.self, from: times).data!
             }
           })
       } else {

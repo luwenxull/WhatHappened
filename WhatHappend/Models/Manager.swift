@@ -16,24 +16,28 @@ class WhatManager: ObservableObject {
     if groups != nil {
       self.groups = groups!
     } else {
-      if UserDefaults.standard.string(forKey: "username") != nil {
-        // 从数据库读取
-        self.groups = []
-        self.loading = true
-        makeRequest(url: WhatRequestConfig.baseURL + "/group", config: jsonConfig(data: nil, method: "GET"), success: { data in
-          DispatchQueue.main.async {
-            self.loading = false
-            self.groups = try! JSONDecoder().decode(WhatServerResponse<[WhatGroup]>.self, from: data).data
-          }
-        }, fail: { _ in
-          DispatchQueue.main.async {
-            self.loading = false
-          }
-        })
-      } else {
-        // 从本地读取
-        self.groups = (try? load("groups.json")) ?? []
-      }
+      self.groups = []
+      self.refresh()
+    }
+  }
+  
+  func refresh() -> Void {
+    if UserDefaults.standard.string(forKey: "username") != nil {
+      // 从数据库读取
+      loading = true
+      makeRequest(url: WhatRequestConfig.baseURL + "/group", config: jsonConfig(data: nil, method: "GET"), success: { data in
+        DispatchQueue.main.async {
+          self.loading = false
+          self.groups = (try! JSONDecoder().decode(WhatServerResponse<[WhatGroup]>.self, from: data)).data!
+        }
+      }, fail: { _ in
+        DispatchQueue.main.async {
+          self.loading = false
+        }
+      })
+    } else {
+      // 从本地读取
+      groups = (try? load("groups.json")) ?? []
     }
   }
   

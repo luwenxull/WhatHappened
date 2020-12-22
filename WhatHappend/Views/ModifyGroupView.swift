@@ -67,7 +67,7 @@ struct ModifyGroupView: View {
             if self.group == nil {
               whatManager.addGroup(WhatGroup(name: name, emotion: emotion, times: []))
             } else {
-              self.group!.updateFrom((name: name, emotion: emotion))
+              group!.updateFrom(WhatGroupForUpate(name: name, emotion: emotion))
             }
             presentationMode.wrappedValue.dismiss()
           }
@@ -83,9 +83,6 @@ struct ModifyGroupView: View {
       Divider()
 
       VStack {
-//        Text("Add group")
-//          .font(.title2)
-//          .padding(.vertical)
         
         TextField("Event name", text: $name)
         HStack {

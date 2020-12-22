@@ -9,7 +9,7 @@ import Foundation
 
 struct WhatServerResponse<T: Decodable>: Decodable {
   let message: String
-  let data: T
+  let data: T?
 }
 
 struct WhatRequestFail {
@@ -72,7 +72,7 @@ func makeRequest(
     
     guard (200 ... 299) ~= response.statusCode else { // check for http errors
       if let fail = fail {
-        fail(WhatRequestFail(reason: "Not a success status code", response: try? JSONDecoder().decode(WhatServerResponse.self, from: data)))
+        fail(WhatRequestFail(reason: "Not a success status code", response: try? JSONDecoder().decode(WhatServerResponse<String>.self, from: data)))
       }
       return
     }

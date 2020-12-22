@@ -19,6 +19,7 @@ struct LoginView: View {
   @State var hint: String = ""
   @State var showHint: Bool = false
   @Environment(\.presentationMode) var presentationMode
+  @EnvironmentObject var whatManager: WhatManager
   
   var body: some View {
     VStack {
@@ -99,6 +100,7 @@ struct LoginView: View {
       success: { _ in
         UserDefaults.standard.setValue(username, forKey: "username")
         DispatchQueue.main.async {
+          whatManager.refresh()
           presentationMode.wrappedValue.dismiss()
         }
       },
@@ -116,7 +118,9 @@ struct LoginView: View {
       config: jsonConfig(data: try? JSONSerialization.data(withJSONObject: ["username": username, "password": password]), method: "POST"),
       success: { (data) in
         UserDefaults.standard.setValue(username, forKey: "username")
-        presentationMode.wrappedValue.dismiss()
+        DispatchQueue.main.async {
+          presentationMode.wrappedValue.dismiss()
+        }
       },
       fail: { rf in
         if rf.response != nil {

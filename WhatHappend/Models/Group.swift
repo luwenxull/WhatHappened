@@ -18,7 +18,10 @@ struct WhatTime: Hashable, Codable {
   var description: String = ""
 }
 
-typealias SimpleWhatGroup = (name: String, emotion: WhatEmotion)
+struct WhatGroupForUpate: Codable {
+  let name: String
+  let emotion: WhatEmotion
+}
 
 final class WhatGroup: Identifiable, ObservableObject {
   let uuid: UUID
@@ -67,9 +70,9 @@ final class WhatGroup: Identifiable, ObservableObject {
       makeRequest(
         url:WhatRequestConfig.baseURL + "/group/\(uuid.uuidString)/time",
         config: jsonConfig(data: try? JSONEncoder().encode(time), method: "POST"),
-        success: { _ in
+        success: { res in
           DispatchQueue.main.async {
-            self.times.append(time)
+            self.times.append(try! JSONDecoder().decode(WhatServerResponse<WhatTime>.self, from: res).data!)
             self._countsGroupedByYear = nil
             self._datesGroupedByMonth = nil
           }
@@ -85,22 +88,41 @@ final class WhatGroup: Identifiable, ObservableObject {
   
   func removeRecord(_ index: Int) -> Void {
     let time = times[index]
-    
-    times.remove(at: index)
-    _countsGroupedByYear = nil
-    _datesGroupedByMonth = nil
-    WhatManager.current.saveAsJson(updateCounts: true, updateNames: false)
-    
-    // TODO：删除失败
     if UserDefaults.standard.string(forKey: "username") != nil {
-      makeRequest(url: WhatRequestConfig.baseURL + "/group/time/\(time._id)", config: jsonConfig(data: nil, method: "DELETE"))
+      makeRequest(
+        url: WhatRequestConfig.baseURL + "/group/time/\(time._id!)",
+        config: jsonConfig(data: nil, method: "DELETE"),
+        success: { _ in
+          DispatchQueue.main.async {
+            self.times.remove(at: index)
+            self._countsGroupedByYear = nil
+            self._datesGroupedByMonth = nil
+          }
+        }
+      )
+    } else {
+      times.remove(at: index)
+      _countsGroupedByYear = nil
+      _datesGroupedByMonth = nil
+      WhatManager.current.saveAsJson(updateCounts: true, updateNames: false)
     }
   }
   
-  func updateFrom(_ from: SimpleWhatGroup) {
-    name = from.name
-    emotion = from.emotion
-    WhatManager.current.saveAsJson(updateCounts: false, updateNames: true)
+  func updateFrom(_ from: WhatGroupForUpate) {
+    if UserDefaults.standard.string(forKey: "username") != nil {
+      makeRequest(
+        url: WhatRequestConfig.baseURL + "/group/:\(uuid.uuidString)",
+        config: jsonConfig(data: try? JSONEncoder().encode(from), method: "PUT"),
+        success: { _ in
+          self.name = from.name
+          self.emotion = from.emotion
+        }
+      )
+    } else {
+      name = from.name
+      emotion = from.emotion
+      WhatManager.current.saveAsJson(updateCounts: false, updateNames: true)
+    }
   }
   
   init(name: String, emotion: WhatEmotion, times: [WhatTime], uuid: UUID = UUID()) {
