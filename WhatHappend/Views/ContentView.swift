@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-  @EnvironmentObject var whatManager: WhatManager
+  @EnvironmentObject var manager: WHManager
   @State var sheetIsPresented: Bool = false
   @State var user: String? = UserDefaults.standard.string(forKey: "username")
   
   var content: some View {
-    if whatManager.loading {
+    if manager.loading {
       return AnyView(ProgressView())
     }
     
-    if whatManager.groups.count > 0 {
+    if manager.events.count > 0 {
       return AnyView(List {
-        ForEach(whatManager.groups) {group in
-          NavigationLink(destination: TimesView(group: group)) {
-            GroupView(group: group)
+        ForEach(manager.events) {event in
+          NavigationLink(destination: Text("TODo")) {
+            EventView(event: event)
           }
         }
       })
@@ -55,7 +55,7 @@ struct ContentView: View {
                 Button(action: {
                   UserDefaults.standard.removeObject(forKey: "username")
                   user = nil
-                  whatManager.refresh()
+                  manager.refresh()
                 }, label: {
                   Text("Logout")
                 })
@@ -79,7 +79,7 @@ struct ContentView: View {
           })
         })
         .sheet(isPresented: $sheetIsPresented, content: {
-          ModifyGroupView()
+          ModifyEventView()
         })
         .onAppear {
           if user != UserDefaults.standard.string(forKey: "username") {
@@ -93,12 +93,12 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView().environmentObject(WhatManager([
-      WhatGroup(name: "上下班又下雨了", emotion: .unhappy, times: [WhatTime()]),
-      WhatGroup(name: "打球", emotion: .happy, times: [WhatTime()]),
+    ContentView().environmentObject(WHManager([
+      WHEvent(name: "上下班又下雨了", emotion: .unhappy, times: [WhatTime()]),
+      WHEvent(name: "打球", emotion: .happy, times: [WhatTime()]),
     ]))
     ContentView()
       .environment(\.colorScheme, .dark)
-      .environmentObject(WhatManager([]))
+      .environmentObject(WHManager([]))
   }
 }

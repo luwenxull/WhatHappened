@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TimesView: View {
-  @ObservedObject var group: WhatGroup
+  @ObservedObject var group: WHEvent
   @State var isPressing: Bool = false
   @State var showSheet: Bool = false
   @State var isFetching: Bool = true
@@ -126,6 +126,6 @@ struct TimesView: View {
 
 struct TimesView_Previews: PreviewProvider {
   static var previews: some View {
-    TimesView(group: WhatGroup(name: "Test", emotion: .happy, times: [WhatTime()]))
+    TimesView(group: WHEvent(name: "Test", emotion: .happy, times: [WhatTime()]))
   }
 }

@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct GroupView: View {
-  @ObservedObject var group: WhatGroup
+struct EventView: View {
+  @ObservedObject var event: WHEvent
   @State var sheetIsPresented: Bool = false
   @State var actionSheetIsPresented: Bool = false
-  @EnvironmentObject var whatManager: WhatManager
+  @EnvironmentObject var manager: WHManager
   
   var body: some View {
     HStack {
@@ -20,7 +20,7 @@ struct GroupView: View {
         .scaledToFit()
         .frame(width: 40, height: 40)
       Spacer()
-      Text(group.name)
+      Text(event.name)
     }
     .padding()
     .contextMenu(menuItems: {
@@ -42,7 +42,7 @@ struct GroupView: View {
       })
     })
     .sheet(isPresented: $sheetIsPresented, content: {
-      ModifyGroupView(group: group)
+      ModifyEventView(event: event)
     })
     .actionSheet(isPresented: $actionSheetIsPresented, content: {
       ActionSheet(
@@ -50,19 +50,19 @@ struct GroupView: View {
         buttons: [
           .cancel(Text("Cancel")),
           .destructive(Text("Confirm"), action: {
-            whatManager.removeGroup(group)
+            manager.removeEvent(event)
           })
         ])
     })
   }
   
   func getImage() -> Image {
-    group.emotion == .happy ? Image("happy") : Image("unhappy")
+    event.emotion == .happy ? Image("happy") : Image("unhappy")
   }
 }
 
 struct GroupView_Previews: PreviewProvider {
   static var previews: some View {
-    GroupView(group: WhatGroup(name: "Test", emotion: .happy, times: [WhatTime()]))
+    EventView(event: WHEvent(name: "Test", emotion: .happy, times: [WhatTime()]))
   }
 }

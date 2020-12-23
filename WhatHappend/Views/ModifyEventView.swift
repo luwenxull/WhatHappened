@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct ModifyGroupView: View {
-  var group: WhatGroup?
+struct ModifyEventView: View {
+  var event: WHEvent?
   @State var name: String = ""
   @State var emotion: WhatEmotion = .happy
   @State var alertIsPresented: Bool = false
   @Environment(\.presentationMode) var presentationMode
-  @EnvironmentObject var whatManager: WhatManager
+  @EnvironmentObject var manager: WHManager
   
   struct ImageStyle: ViewModifier {
     let size: CGFloat
@@ -64,10 +64,10 @@ struct ModifyGroupView: View {
           if (name.isEmpty) {
             alertIsPresented = true
           } else {
-            if self.group == nil {
-              whatManager.addGroup(WhatGroup(name: name, emotion: emotion, times: []))
+            if self.event == nil {
+              manager.addEvent(WHEvent(name: name, emotion: emotion, times: []))
             } else {
-              group!.updateFrom(WhatGroupForUpate(name: name, emotion: emotion))
+              event!.updateFrom(WHEventForUpate(name: name, emotion: emotion))
             }
             presentationMode.wrappedValue.dismiss()
           }
@@ -105,9 +105,9 @@ struct ModifyGroupView: View {
       Spacer()
     }
     .onAppear(perform: {
-      if group != nil {
-        name = group!.name
-        emotion = group!.emotion
+      if event != nil {
+        name = event!.name
+        emotion = event!.emotion
       }
     })
   }
@@ -115,6 +115,6 @@ struct ModifyGroupView: View {
 
 struct AddGroupView_Previews: PreviewProvider {
   static var previews: some View {
-    ModifyGroupView()
+    ModifyEventView()
   }
 }

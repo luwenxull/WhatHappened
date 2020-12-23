@@ -19,7 +19,7 @@ struct LoginView: View {
   @State var hint: String = ""
   @State var showHint: Bool = false
   @Environment(\.presentationMode) var presentationMode
-  @EnvironmentObject var whatManager: WhatManager
+  @EnvironmentObject var manager: WHManager
   
   var body: some View {
     VStack {
@@ -100,7 +100,7 @@ struct LoginView: View {
       success: { _ in
         UserDefaults.standard.setValue(username, forKey: "username")
         DispatchQueue.main.async {
-          whatManager.refresh()
+          manager.refresh()
           presentationMode.wrappedValue.dismiss()
         }
       },

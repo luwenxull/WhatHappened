@@ -10,7 +10,7 @@ import Combine
 
 @main
 struct WhatHappendApp: App {
-  let manager: WhatManager
+  let manager: WHManager
   @ObservedObject var hsController: HSController
   
   var body: some Scene {
@@ -27,9 +27,9 @@ struct WhatHappendApp: App {
   }
   
   init() {
-    manager = WhatManager()
+    manager = WHManager()
     hsController = HSController()
-    WhatManager.current = manager
+    WHManager.current = manager
     HSController.current = hsController
   }
 }

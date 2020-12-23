@@ -8,15 +8,15 @@
 import Foundation
 import WidgetKit
 
-class WhatManager: ObservableObject {
-  @Published var groups: [WhatGroup]
+class WHManager: ObservableObject {
+  @Published var events: [WHEvent]
   @Published var loading: Bool = false
   
-  init(_ groups: [WhatGroup]? = nil) {
-    if groups != nil {
-      self.groups = groups!
+  init(_ events: [WHEvent]? = nil) {
+    if events != nil {
+      self.events = events!
     } else {
-      self.groups = []
+      self.events = []
       self.refresh()
     }
   }
@@ -28,7 +28,7 @@ class WhatManager: ObservableObject {
       makeRequest(url: WhatRequestConfig.baseURL + "/group", config: jsonConfig(data: nil, method: "GET"), success: { data in
         DispatchQueue.main.async {
           self.loading = false
-          self.groups = (try! JSONDecoder().decode(WhatServerResponse<[WhatGroup]>.self, from: data)).data!
+          self.events = (try! JSONDecoder().decode(WhatServerResponse<[WHEvent]>.self, from: data)).data!
         }
       }, fail: { _ in
         DispatchQueue.main.async {
@@ -37,47 +37,47 @@ class WhatManager: ObservableObject {
       })
     } else {
       // 从本地读取
-      groups = (try? load("groups.json")) ?? []
+      events = (try? load("events.json")) ?? []
     }
   }
   
-  func addGroup(_ group: WhatGroup) {
+  func addEvent(_ event: WHEvent) {
     if UserDefaults.standard.string(forKey: "username") != nil {
       loading = true
       makeRequest(
         url: WhatRequestConfig.baseURL + "/group",
-        config: jsonConfig(data: try? JSONEncoder().encode(group), method: "POST"),
+        config: jsonConfig(data: try? JSONEncoder().encode(event), method: "POST"),
         success: { _ in
           DispatchQueue.main.async {
             self.loading = false
-            self.groups.append(group)
+            self.events.append(event)
           }
         }
       )
     } else {
-      groups.append(group)
+      events.append(event)
       self.saveAsJson(updateCounts: true, updateNames: true)
     }
   }
   
-  func removeGroup(_ group: WhatGroup) {
+  func removeEvent(_ event: WHEvent) {
     if UserDefaults.standard.string(forKey: "username") != nil {
       loading = true
       makeRequest(
-        url: WhatRequestConfig.baseURL + "/group/\(group.uuid.uuidString)",
+        url: WhatRequestConfig.baseURL + "/group/\(event.uuid.uuidString)",
         config: jsonConfig(data: nil, method: "DELETE"),
         success: { _ in
           DispatchQueue.main.async {
             self.loading = false
-            self.groups = self.groups.filter { (_group) -> Bool in
-              group !== _group
+            self.events = self.events.filter { (_group) -> Bool in
+              event !== _group
             }
           }
         }
       )
     } else {
-      groups = groups.filter { (_group) -> Bool in
-        group !== _group
+      events = events.filter { (_group) -> Bool in
+        event !== _group
       }
       self.saveAsJson(updateCounts: true, updateNames: true)
     }
@@ -85,7 +85,7 @@ class WhatManager: ObservableObject {
   
   func saveAsJson(updateCounts: Bool, updateNames: Bool) {
     do {
-      try save(filename: "groups.json", data: groups)
+      try save(filename: "events.json", data: events)
     } catch {
       print(error)
     }
@@ -93,7 +93,7 @@ class WhatManager: ObservableObject {
     var counts: [String: [Int: Int]] = [:]
     // id -> name的映射
     var names: [String: String] = [:]
-    for group in groups {
+    for group in events {
       counts[group.uuid.uuidString] = group.countGroupedByYear
       names[group.uuid.uuidString] = group.name
     }
@@ -111,7 +111,7 @@ class WhatManager: ObservableObject {
     WidgetCenter.shared.reloadAllTimelines()
   }
   
-  static var current: WhatManager!
+  static var current: WHManager!
 }
 
 extension FileManager {

@@ -18,12 +18,12 @@ struct WhatTime: Hashable, Codable {
   var description: String = ""
 }
 
-struct WhatGroupForUpate: Codable {
+struct WHEventForUpate: Codable {
   let name: String
   let emotion: WhatEmotion
 }
 
-final class WhatGroup: Identifiable, ObservableObject {
+final class WHEvent: Identifiable, ObservableObject {
   let uuid: UUID
   // 是否已经获取了时间记录，仅在已登录时有效
   var timesGotted: Bool
@@ -82,7 +82,7 @@ final class WhatGroup: Identifiable, ObservableObject {
       times.append(time)
       _countsGroupedByYear = nil
       _datesGroupedByMonth = nil
-      WhatManager.current.saveAsJson(updateCounts: true, updateNames: false)
+      WHManager.current.saveAsJson(updateCounts: true, updateNames: false)
     }
   }
   
@@ -104,11 +104,11 @@ final class WhatGroup: Identifiable, ObservableObject {
       times.remove(at: index)
       _countsGroupedByYear = nil
       _datesGroupedByMonth = nil
-      WhatManager.current.saveAsJson(updateCounts: true, updateNames: false)
+      WHManager.current.saveAsJson(updateCounts: true, updateNames: false)
     }
   }
   
-  func updateFrom(_ from: WhatGroupForUpate) {
+  func updateFrom(_ from: WHEventForUpate) {
     if UserDefaults.standard.string(forKey: "username") != nil {
       makeRequest(
         url: WhatRequestConfig.baseURL + "/group/:\(uuid.uuidString)",
@@ -121,7 +121,7 @@ final class WhatGroup: Identifiable, ObservableObject {
     } else {
       name = from.name
       emotion = from.emotion
-      WhatManager.current.saveAsJson(updateCounts: false, updateNames: true)
+      WHManager.current.saveAsJson(updateCounts: false, updateNames: true)
     }
   }
   
@@ -134,7 +134,7 @@ final class WhatGroup: Identifiable, ObservableObject {
   }
 }
 
-extension WhatGroup: Codable {
+extension WHEvent: Codable {
   enum CodingKeys: CodingKey {
     case name, emotion, times, uuid
   }

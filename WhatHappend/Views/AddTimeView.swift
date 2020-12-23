@@ -11,7 +11,7 @@ struct AddTimeView: View {
   @State var hasError: Bool = false
   @State var whatTime: WhatTime = WhatTime()
   @Environment(\.presentationMode) var presentationMode
-  @ObservedObject var group: WhatGroup
+  @ObservedObject var group: WHEvent
   
   var body: some View {
     VStack(spacing: 0) {
@@ -47,6 +47,6 @@ struct AddTimeView: View {
 
 struct AddTimeView_Previews: PreviewProvider {
   static var previews: some View {
-    AddTimeView(group: WhatGroup(name: "Test", emotion: .happy, times: [WhatTime()]))
+    AddTimeView(group: WHEvent(name: "Test", emotion: .happy, times: [WhatTime()]))
   }
 }

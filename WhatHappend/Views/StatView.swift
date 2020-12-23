@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StatView: View {
-  var group: WhatGroup
+  var group: WHEvent
   @State var month: String = ""
   @HSBinding(value: false) var showHalfSheet: Bool
   
@@ -113,7 +113,7 @@ struct StatView_Previews: PreviewProvider {
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd"
     
-    return StatView(group: WhatGroup(name: "", emotion: .happy, times: [
+    return StatView(group: WHEvent(name: "", emotion: .happy, times: [
       WhatTime(date: formatter.date(from: "2020-12-31")!, description: ".."),
       WhatTime(date: formatter.date(from: "2020-02-02")!, description: "..")
     ]))
