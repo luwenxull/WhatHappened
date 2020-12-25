@@ -19,6 +19,7 @@ class WHManager: ObservableObject {
       self.events = []
       self.refresh()
     }
+    print(FileManager.sharedContainerURL)
   }
   
   func refresh() -> Void {
@@ -39,7 +40,7 @@ class WHManager: ObservableObject {
       // 从本地读取
 //      events = (try? load("events.json")) ?? []
       do {
-        let _events: [WHEventCodable] = try load("events.json")
+        let _events: [WHEventCodable] = try load("events.json", url: FileManager.sharedContainerURL)
         events = _events.map({ e in
           WHEvent(from: e)
         })
@@ -96,7 +97,7 @@ class WHManager: ObservableObject {
     do {
       try save(filename: "events.json", data: events.map({ e in
         WHEventCodable(from: e)
-      }))
+      }), url: FileManager.sharedContainerURL)
     } catch {
       print(error)
     }

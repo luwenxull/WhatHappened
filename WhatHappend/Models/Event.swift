@@ -8,22 +8,12 @@
 import Foundation
 import Combine
 
-enum WhatEmotion: Int, Codable {
-  case happy, unhappy
-}
-
-struct WhatTime: Hashable, Codable {
-  var _id: String? = nil
-  var date: Date = Date()
-  var description: String = ""
-}
-
 struct WHEventForUpate: Codable {
-  let name: String
-  let emotion: WhatEmotion
+  
 }
 
-typealias WHRecords = Dictionary<String, Dictionary<String, Int>>
+// [月-[日-次数]]
+typealias WHRecords = Dictionary<String, Dictionary<Int, Int>>
 
 final class WHEvent: Identifiable, ObservableObject {
   let uuid: UUID
@@ -32,9 +22,34 @@ final class WHEvent: Identifiable, ObservableObject {
   var asDailyTarget: Bool
   var targetCount: Int?
   var targetUnit: String?
-  var records: WHRecords
+  @Published var records: WHRecords
   
-  func addRecord(_ time: WhatTime) -> Void {
+  
+  func getTodayCount() -> Int {
+    let date = Date()
+    guard let _records = records[date.yearMonthString] else {
+      return 0
+    }
+    guard let count = _records[date.day] else {
+      return 0
+    }
+    return count
+  }
+  
+  func addRecord() -> Void {
+    let date = Date()
+    if records[date.yearMonthString] == nil {
+      records[date.yearMonthString] = [:]
+    }
+    // always true
+    if var _records = records[date.yearMonthString] {
+      if let count = _records[date.day] {
+        _records[date.day] = count + 1
+      } else {
+        _records[date.day] = 1
+      }
+      records[date.yearMonthString] = _records
+    }
     if UserDefaults.standard.string(forKey: "username") != nil {
 //      makeRequest(
 //        url:WHRequestConfig.baseURL + "/group/\(uuid.uuidString)/time",
@@ -48,10 +63,7 @@ final class WHEvent: Identifiable, ObservableObject {
 //        }
 //      )
     } else {
-//      times.append(time)
-//      _countsGroupedByYear = nil
-//      _datesGroupedByMonth = nil
-//      WHManager.current.saveAsJson(updateCounts: true, updateNames: false)
+      WHManager.current.saveAsJson()
     }
   }
   
@@ -76,6 +88,19 @@ final class WHEvent: Identifiable, ObservableObject {
 //      WHManager.current.saveAsJson(updateCounts: true, updateNames: false)
     }
   }
+  
+  func resetToday() {
+    let date = Date()
+    if records[date.yearMonthString] != nil {
+      (records[date.yearMonthString]!)[date.day] = nil
+    }
+    if UserDefaults.standard.string(forKey: "username") != nil {
+      
+    } else {
+      WHManager.current.saveAsJson()
+    }
+  }
+  
   
   func updateFrom(_ from: WHEventForUpate) {
 //    if UserDefaults.standard.string(forKey: "username") != nil {
