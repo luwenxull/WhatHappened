@@ -25,7 +25,7 @@ final class WHEvent: Identifiable, ObservableObject {
   @Published var records: WHRecords
   
   
-  func getTodayCount() -> Int {
+  var todayCount: Int {
     let date = Date()
     guard let _records = records[date.yearMonthString] else {
       return 0
@@ -34,6 +34,23 @@ final class WHEvent: Identifiable, ObservableObject {
       return 0
     }
     return count
+  }
+  
+  var monthDistribution: [Int] {
+    let date = Date()
+    let lastDay = Calendar.lastDayOfMonth(date).day
+    
+    guard let _records = records[date.yearMonthString] else {
+      return Array.init(repeating: 0, count: lastDay)
+    }
+    
+    var array: [Int] = []
+    for d in 1...lastDay {
+      array.append(_records[d] == nil ? 0 : _records[d]!)
+    }
+    
+    print(lastDay, array)
+    return array
   }
   
   func addRecord() -> Void {
@@ -118,6 +135,7 @@ final class WHEvent: Identifiable, ObservableObject {
 //      WHManager.current.saveAsJson(updateCounts: false, updateNames: true)
 //    }
   }
+  
   
   init(
     name: String,

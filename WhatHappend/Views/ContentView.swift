@@ -18,13 +18,13 @@ struct ContentView: View {
     }
     
     if manager.events.count > 0 {
-//      return AnyView(List {
-//        ForEach(manager.events) {event in
-//          NavigationLink(destination: Text("TODO")) {
-//            EventView(event: event)
-//          }
-//        }
-//      })
+      //      return AnyView(List {
+      //        ForEach(manager.events) {event in
+      //          NavigationLink(destination: Text("TODO")) {
+      //            EventView(event: event)
+      //          }
+      //        }
+      //      })
       
       return AnyView(
         ScrollView {
@@ -106,11 +106,11 @@ struct ContentView_Previews: PreviewProvider {
       WHEvent(name: "上下班又下雨了"),
       WHEvent(name: "Test", asDailyTarget: true, targetCount: 5, targetUnit: "次", records: [:])
     ]))
-//    ContentView()
-//      .environment(\.colorScheme, .dark)
-//      .environmentObject(WHManager([
-//        WHEvent(name: "上下班又下雨了"),
-//        WHEvent(name: "打球"),
-//      ]))
+    ContentView()
+      .environment(\.colorScheme, .dark)
+      .environmentObject(WHManager([
+        WHEvent(name: "上下班又下雨了"),
+        WHEvent(name: "Test", asDailyTarget: true, targetCount: 5, targetUnit: "次", records: [:])
+      ]))
   }
 }

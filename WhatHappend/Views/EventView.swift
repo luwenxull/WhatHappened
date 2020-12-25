@@ -18,7 +18,7 @@ struct EventView: View {
     guard event.asDailyTarget else {
       return nil
     }
-    return min(1.0, CGFloat(event.getTodayCount()) / CGFloat(event.targetCount!))
+    return min(1.0, CGFloat(event.todayCount) / CGFloat(event.targetCount!))
   }
   
   var content: AnyView {
@@ -45,7 +45,7 @@ struct EventView: View {
         
         Spacer()
         
-        if event.getTodayCount() == 0 {
+        if event.todayCount == 0 {
           HStack {
             Text("今日无记录")
               .foregroundColor(.gray)
@@ -65,8 +65,8 @@ struct EventView: View {
             }
           } else {
             HStack() {
-              Text("\(event.getTodayCount())")
-                .font(.system(size: 48))
+              Text("\(event.todayCount)")
+                .font(.system(size: 36))
                 .italic()
                 .underline()
               Text("/\(event.targetCount!)\(event.targetUnit!)")
@@ -90,12 +90,21 @@ struct EventView: View {
       })
     } else {
       return AnyView(VStack {
-        HStack {
+        HStack(alignment: .top) {
           Text(event.name)
             .font(.title3)
           Spacer()
+          Button(action: {
+            event.addRecord()
+          }, label: {
+            Image(systemName: "record.circle")
+              .font(.system(size: 36))
+          })
         }
         Spacer()
+        
+        BarsView(bars: event.monthDistribution, height: 40)
+        
         HStack {
           Spacer()
           Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
@@ -108,25 +117,27 @@ struct EventView: View {
   }
   
   var body: some View {
-    RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+    RoundedRectangle(cornerRadius: 16)
       .fill(
-        Color.white
+        colorScheme == .light ? Color.white : Color(red: 0.09, green: 0.09, blue: 0.09)
       )
-      .shadow(radius: 4)
+      .shadow(color: Color.gray.opacity(0.6), radius: 4, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/)
       .frame(height: 160)
       .overlay(
-        ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
-          if event.asDailyTarget {
-            RoundedRectangle(cornerRadius: 0)
-              .fill(ratio == 1.0 ? Color.green.opacity(0.4) : Color.accentColor.opacity(0.4))
-              .frame(height: 160 * ratio!)
-              .animation(.easeIn)
+        GeometryReader { reader in
+          ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
+            if event.asDailyTarget {
+              RoundedRectangle(cornerRadius: 0)
+                .fill(ratio == 1.0 ? Color.green.opacity(0.4) : Color.accentColor.opacity(0.4))
+                .frame(width: reader.size.width * ratio!)
+                .animation(.easeIn)
+            }
+            content
+              .padding()
           }
-          content
-            .padding()
+          .contentShape(RoundedRectangle(cornerRadius: 16))
+          .clipShape(RoundedRectangle(cornerRadius: 16))
         }
-        .contentShape(RoundedRectangle(cornerRadius: 25))
-        .clipShape(RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/))
       )
       .contextMenu(menuItems: {
         Button(action: {
@@ -134,7 +145,7 @@ struct EventView: View {
         }, label: {
           HStack {
             Image(systemName: "minus.circle")
-            Text("重置今日统计")
+            Text("重置今日打卡")
           }
         })
         Button(action: {
@@ -172,6 +183,10 @@ struct EventView: View {
 
 struct GroupView_Previews: PreviewProvider {
   static var previews: some View {
-    EventView(event: WHEvent(name: "Test", asDailyTarget: true, targetCount: 5, targetUnit: "次", records: [:]))
+    VStack {
+      EventView(event: WHEvent(name: "Test", asDailyTarget: true, targetCount: 5, targetUnit: "次", records: [:]))
+      EventView(event: WHEvent(name: "Another"))
+    }
+    .padding()
   }
 }

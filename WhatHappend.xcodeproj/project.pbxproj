@@ -7,16 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28052C672580D98D00B1B181 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28052C692580D98D00B1B181 /* Localizable.strings */; };
-		2810CB182574D24C00DD6DDF /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810CB172574D24C00DD6DDF /* ChartView.swift */; };
-		28135D9A256F942000478120 /* TimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28135D99256F942000478120 /* TimesView.swift */; };
-		2813A4B825885A56002553A6 /* Statistic.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2813A4BB25885A56002553A6 /* Statistic.intentdefinition */; };
-		2813A4B925885A56002553A6 /* Statistic.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2813A4BB25885A56002553A6 /* Statistic.intentdefinition */; };
 		282ADD252589DACD002F041E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282ADD242589DACD002F041E /* LoginView.swift */; };
 		282ADD2A2589E22D002F041E /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282ADD292589E22D002F041E /* Request.swift */; };
 		2839FEB62576311B007309DD /* ModifyEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2839FEB52576311B007309DD /* ModifyEventView.swift */; };
 		28463A032583021D00BBFB10 /* HalfSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28463A022583021C00BBFB10 /* HalfSheet.swift */; };
-		284D616C256FA4A50004DDA5 /* AddTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284D616B256FA4A50004DDA5 /* AddTimeView.swift */; };
 		285AC4F8257769010036ABF2 /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285AC4F7257769010036ABF2 /* StatView.swift */; };
 		28628BEF256D53740079AA69 /* WhatHappendApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628BEE256D53740079AA69 /* WhatHappendApp.swift */; };
 		28628BF1256D53740079AA69 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628BF0256D53740079AA69 /* ContentView.swift */; };
@@ -24,28 +18,11 @@
 		28628BF6256D53760079AA69 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28628BF5256D53760079AA69 /* Preview Assets.xcassets */; };
 		28628C02256D57980079AA69 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C01256D57980079AA69 /* EventView.swift */; };
 		28628C06256D5CB70079AA69 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C05256D5CB70079AA69 /* Manager.swift */; };
-		28628C09256D5CCA0079AA69 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C08256D5CCA0079AA69 /* Group.swift */; };
-		2881C6C925806B4700B7F39F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2881C6C825806B4700B7F39F /* WidgetKit.framework */; };
-		2881C6CB25806B4700B7F39F /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2881C6CA25806B4700B7F39F /* SwiftUI.framework */; };
-		2881C6CE25806B4700B7F39F /* Statistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2881C6CD25806B4700B7F39F /* Statistic.swift */; };
-		2881C6D125806B4900B7F39F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2881C6D025806B4900B7F39F /* Assets.xcassets */; };
-		2881C6D725806B4900B7F39F /* StatisticExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2881C6C625806B4700B7F39F /* StatisticExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		2881C6E825806CB900B7F39F /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C08256D5CCA0079AA69 /* Group.swift */; };
-		2881C6EB25806CD800B7F39F /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C05256D5CB70079AA69 /* Manager.swift */; };
-		2881C6F125806DE000B7F39F /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2881C6F025806DE000B7F39F /* Bar.swift */; };
-		28BA7086258C583C00FA2644 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282ADD292589E22D002F041E /* Request.swift */; };
-		28FAC5B8256D6C4F00FEFD0D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28FAC5BA256D6C4F00FEFD0D /* Localizable.strings */; };
+		28628C09256D5CCA0079AA69 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C08256D5CCA0079AA69 /* Event.swift */; };
+		287641BE2595C0F70020933E /* StatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287641BD2595C0F70020933E /* StatusBarView.swift */; };
+		28828890259375B70024E4EB /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2882888F259375B70024E4EB /* Checker.swift */; };
+		28D3B90A2595E44C0088AB95 /* BarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D3B9092595E44C0088AB95 /* BarsView.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		2881C6D525806B4900B7F39F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 28628BE3256D53740079AA69 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2881C6C525806B4700B7F39F;
-			remoteInfo = StatisticExtension;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		2881C6D825806B4900B7F39F /* Embed App Extensions */ = {
@@ -54,7 +31,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				2881C6D725806B4900B7F39F /* StatisticExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,17 +38,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		28052C682580D98D00B1B181 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		28052C6A2580D99100B1B181 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		2810CB172574D24C00DD6DDF /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
-		28135D99256F942000478120 /* TimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesView.swift; sourceTree = "<group>"; };
-		2813A4BA25885A56002553A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Statistic.intentdefinition; sourceTree = "<group>"; };
-		2813A4C425885B06002553A6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Statistic.strings"; sourceTree = "<group>"; };
 		282ADD242589DACD002F041E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		282ADD292589E22D002F041E /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		2839FEB52576311B007309DD /* ModifyEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyEventView.swift; sourceTree = "<group>"; };
 		28463A022583021C00BBFB10 /* HalfSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSheet.swift; sourceTree = "<group>"; };
-		284D616B256FA4A50004DDA5 /* AddTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTimeView.swift; sourceTree = "<group>"; };
 		285AC4F7257769010036ABF2 /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
 		28628BEB256D53740079AA69 /* WhatHappend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatHappend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28628BEE256D53740079AA69 /* WhatHappendApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatHappendApp.swift; sourceTree = "<group>"; };
@@ -82,18 +51,14 @@
 		28628BF7256D53760079AA69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		28628C01256D57980079AA69 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		28628C05256D5CB70079AA69 /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
-		28628C08256D5CCA0079AA69 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
-		2881C6C625806B4700B7F39F /* StatisticExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = StatisticExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		28628C08256D5CCA0079AA69 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		287641BD2595C0F70020933E /* StatusBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarView.swift; sourceTree = "<group>"; };
 		2881C6C825806B4700B7F39F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		2881C6CA25806B4700B7F39F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		2881C6CD25806B4700B7F39F /* Statistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistic.swift; sourceTree = "<group>"; };
-		2881C6D025806B4900B7F39F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2881C6D225806B4900B7F39F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2881C6F025806DE000B7F39F /* Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.swift; sourceTree = "<group>"; };
 		2881C6FD2580953500B7F39F /* WhatHappend.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WhatHappend.entitlements; sourceTree = "<group>"; };
 		2881C706258098B700B7F39F /* StatisticExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StatisticExtension.entitlements; sourceTree = "<group>"; };
-		28FAC5B9256D6C4F00FEFD0D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		28FAC5BC256D6C5700FEFD0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2882888F259375B70024E4EB /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
+		28D3B9092595E44C0088AB95 /* BarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,15 +66,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2881C6C325806B4700B7F39F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2881C6CB25806B4700B7F39F /* SwiftUI.framework in Frameworks */,
-				2881C6C925806B4700B7F39F /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,7 +77,6 @@
 			children = (
 				2881C706258098B700B7F39F /* StatisticExtension.entitlements */,
 				28628BED256D53740079AA69 /* WhatHappend */,
-				2881C6CC25806B4700B7F39F /* Statistic */,
 				2881C6C725806B4700B7F39F /* Frameworks */,
 				28628BEC256D53740079AA69 /* Products */,
 			);
@@ -131,7 +86,6 @@
 			isa = PBXGroup;
 			children = (
 				28628BEB256D53740079AA69 /* WhatHappend.app */,
-				2881C6C625806B4700B7F39F /* StatisticExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,11 +94,11 @@
 			isa = PBXGroup;
 			children = (
 				2881C6FD2580953500B7F39F /* WhatHappend.entitlements */,
-				28FAC5BA256D6C4F00FEFD0D /* Localizable.strings */,
 				28628C04256D57A50079AA69 /* Models */,
 				28628BEE256D53740079AA69 /* WhatHappendApp.swift */,
 				28463A022583021C00BBFB10 /* HalfSheet.swift */,
 				282ADD292589E22D002F041E /* Request.swift */,
+				2882888F259375B70024E4EB /* Checker.swift */,
 				28628BFF256D546C0079AA69 /* Views */,
 				28628BF2256D53760079AA69 /* Assets.xcassets */,
 				28628BF7256D53760079AA69 /* Info.plist */,
@@ -165,13 +119,12 @@
 			isa = PBXGroup;
 			children = (
 				28628BF0256D53740079AA69 /* ContentView.swift */,
+				28D3B9092595E44C0088AB95 /* BarsView.swift */,
+				287641BD2595C0F70020933E /* StatusBarView.swift */,
 				282ADD242589DACD002F041E /* LoginView.swift */,
 				28628C01256D57980079AA69 /* EventView.swift */,
 				2839FEB52576311B007309DD /* ModifyEventView.swift */,
-				28135D99256F942000478120 /* TimesView.swift */,
 				285AC4F7257769010036ABF2 /* StatView.swift */,
-				284D616B256FA4A50004DDA5 /* AddTimeView.swift */,
-				2810CB172574D24C00DD6DDF /* ChartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -180,8 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				28628C05256D5CB70079AA69 /* Manager.swift */,
-				28628C08256D5CCA0079AA69 /* Group.swift */,
-				2881C6F025806DE000B7F39F /* Bar.swift */,
+				28628C08256D5CCA0079AA69 /* Event.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -193,18 +145,6 @@
 				2881C6CA25806B4700B7F39F /* SwiftUI.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		2881C6CC25806B4700B7F39F /* Statistic */ = {
-			isa = PBXGroup;
-			children = (
-				2881C6CD25806B4700B7F39F /* Statistic.swift */,
-				28052C692580D98D00B1B181 /* Localizable.strings */,
-				2813A4BB25885A56002553A6 /* Statistic.intentdefinition */,
-				2881C6D025806B4900B7F39F /* Assets.xcassets */,
-				2881C6D225806B4900B7F39F /* Info.plist */,
-			);
-			path = Statistic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,29 +162,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				2881C6D625806B4900B7F39F /* PBXTargetDependency */,
 			);
 			name = WhatHappend;
 			productName = WhatHappend;
 			productReference = 28628BEB256D53740079AA69 /* WhatHappend.app */;
 			productType = "com.apple.product-type.application";
-		};
-		2881C6C525806B4700B7F39F /* StatisticExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2881C6DB25806B4900B7F39F /* Build configuration list for PBXNativeTarget "StatisticExtension" */;
-			buildPhases = (
-				2881C6C225806B4700B7F39F /* Sources */,
-				2881C6C325806B4700B7F39F /* Frameworks */,
-				2881C6C425806B4700B7F39F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = StatisticExtension;
-			productName = StatisticExtension;
-			productReference = 2881C6C625806B4700B7F39F /* StatisticExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -258,9 +180,6 @@
 					28628BEA256D53740079AA69 = {
 						CreatedOnToolsVersion = 12.0.1;
 					};
-					2881C6C525806B4700B7F39F = {
-						CreatedOnToolsVersion = 12.2;
-					};
 				};
 			};
 			buildConfigurationList = 28628BE6256D53740079AA69 /* Build configuration list for PBXProject "WhatHappend" */;
@@ -269,7 +188,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 				"zh-Hans",
 			);
 			mainGroup = 28628BE2256D53740079AA69;
@@ -278,7 +196,6 @@
 			projectRoot = "";
 			targets = (
 				28628BEA256D53740079AA69 /* WhatHappend */,
-				2881C6C525806B4700B7F39F /* StatisticExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -289,17 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28628BF6256D53760079AA69 /* Preview Assets.xcassets in Resources */,
-				28FAC5B8256D6C4F00FEFD0D /* Localizable.strings in Resources */,
 				28628BF3256D53760079AA69 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2881C6C425806B4700B7F39F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2881C6D125806B4900B7F39F /* Assets.xcassets in Resources */,
-				28052C672580D98D00B1B181 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,74 +218,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				285AC4F8257769010036ABF2 /* StatView.swift in Sources */,
-				2881C6F125806DE000B7F39F /* Bar.swift in Sources */,
 				28628BF1256D53740079AA69 /* ContentView.swift in Sources */,
 				28628BEF256D53740079AA69 /* WhatHappendApp.swift in Sources */,
-				2813A4B825885A56002553A6 /* Statistic.intentdefinition in Sources */,
-				28135D9A256F942000478120 /* TimesView.swift in Sources */,
-				28628C09256D5CCA0079AA69 /* Group.swift in Sources */,
+				28628C09256D5CCA0079AA69 /* Event.swift in Sources */,
 				282ADD2A2589E22D002F041E /* Request.swift in Sources */,
 				28628C02256D57980079AA69 /* EventView.swift in Sources */,
+				28D3B90A2595E44C0088AB95 /* BarsView.swift in Sources */,
 				282ADD252589DACD002F041E /* LoginView.swift in Sources */,
 				28628C06256D5CB70079AA69 /* Manager.swift in Sources */,
+				287641BE2595C0F70020933E /* StatusBarView.swift in Sources */,
+				28828890259375B70024E4EB /* Checker.swift in Sources */,
 				28463A032583021D00BBFB10 /* HalfSheet.swift in Sources */,
-				284D616C256FA4A50004DDA5 /* AddTimeView.swift in Sources */,
-				2810CB182574D24C00DD6DDF /* ChartView.swift in Sources */,
 				2839FEB62576311B007309DD /* ModifyEventView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2881C6C225806B4700B7F39F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2881C6E825806CB900B7F39F /* Group.swift in Sources */,
-				2881C6CE25806B4700B7F39F /* Statistic.swift in Sources */,
-				28BA7086258C583C00FA2644 /* Request.swift in Sources */,
-				2813A4B925885A56002553A6 /* Statistic.intentdefinition in Sources */,
-				2881C6EB25806CD800B7F39F /* Manager.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		2881C6D625806B4900B7F39F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2881C6C525806B4700B7F39F /* StatisticExtension */;
-			targetProxy = 2881C6D525806B4900B7F39F /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		28052C692580D98D00B1B181 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				28052C682580D98D00B1B181 /* en */,
-				28052C6A2580D99100B1B181 /* zh-Hans */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		2813A4BB25885A56002553A6 /* Statistic.intentdefinition */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2813A4BA25885A56002553A6 /* Base */,
-				2813A4C425885B06002553A6 /* zh-Hans */,
-			);
-			name = Statistic.intentdefinition;
-			sourceTree = "<group>";
-		};
-		28FAC5BA256D6C4F00FEFD0D /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				28FAC5B9256D6C4F00FEFD0D /* zh-Hans */,
-				28FAC5BC256D6C5700FEFD0D /* en */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		28628BF8256D53760079AA69 /* Debug */ = {
@@ -551,56 +406,6 @@
 			};
 			name = Release;
 		};
-		2881C6D925806B4900B7F39F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = StatisticExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 56HL2M6M45;
-				INFOPLIST_FILE = Statistic/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wenxu.EmotionDiary.Statistic;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		2881C6DA25806B4900B7F39F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = StatisticExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 56HL2M6M45;
-				INFOPLIST_FILE = Statistic/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wenxu.EmotionDiary.Statistic;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -618,15 +423,6 @@
 			buildConfigurations = (
 				28628BFB256D53760079AA69 /* Debug */,
 				28628BFC256D53760079AA69 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2881C6DB25806B4900B7F39F /* Build configuration list for PBXNativeTarget "StatisticExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2881C6D925806B4900B7F39F /* Debug */,
-				2881C6DA25806B4900B7F39F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
