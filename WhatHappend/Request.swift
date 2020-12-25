@@ -17,7 +17,7 @@ struct WhatRequestFail {
   let response: WhatServerResponse<String>?
 }
 
-struct WhatRequestConfig {
+struct WHRequestConfig {
   static let baseURL = "https://wxxfj.xyz:3000"
 }
 

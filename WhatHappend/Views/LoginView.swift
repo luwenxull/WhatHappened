@@ -95,7 +95,7 @@ struct LoginView: View {
   
   func login() {
     makeRequest(
-      url: "\(WhatRequestConfig.baseURL)/login",
+      url: "\(WHRequestConfig.baseURL)/login",
       config: jsonConfig(data: try? JSONSerialization.data(withJSONObject: ["username": username, "password": password]), method: "POST"),
       success: { _ in
         UserDefaults.standard.setValue(username, forKey: "username")
@@ -114,7 +114,7 @@ struct LoginView: View {
   
   func register() {
     makeRequest(
-      url: "\(WhatRequestConfig.baseURL)/user",
+      url: "\(WHRequestConfig.baseURL)/user",
       config: jsonConfig(data: try? JSONSerialization.data(withJSONObject: ["username": username, "password": password]), method: "POST"),
       success: { (data) in
         UserDefaults.standard.setValue(username, forKey: "username")

@@ -24,91 +24,84 @@ class WHManager: ObservableObject {
   func refresh() -> Void {
     if UserDefaults.standard.string(forKey: "username") != nil {
       // 从数据库读取
-      loading = true
-      makeRequest(url: WhatRequestConfig.baseURL + "/group", config: jsonConfig(data: nil, method: "GET"), success: { data in
-        DispatchQueue.main.async {
-          self.loading = false
-          self.events = (try! JSONDecoder().decode(WhatServerResponse<[WHEvent]>.self, from: data)).data!
-        }
-      }, fail: { _ in
-        DispatchQueue.main.async {
-          self.loading = false
-        }
-      })
+//      loading = true
+//      makeRequest(url: WHRequestConfig.baseURL + "/group", config: jsonConfig(data: nil, method: "GET"), success: { data in
+//        DispatchQueue.main.async {
+//          self.loading = false
+//          self.events = (try! JSONDecoder().decode(WhatServerResponse<[WHEvent]>.self, from: data)).data!
+//        }
+//      }, fail: { _ in
+//        DispatchQueue.main.async {
+//          self.loading = false
+//        }
+//      })
     } else {
       // 从本地读取
-      events = (try? load("events.json")) ?? []
+//      events = (try? load("events.json")) ?? []
+      do {
+        let _events: [WHEventCodable] = try load("events.json")
+        events = _events.map({ e in
+          WHEvent(from: e)
+        })
+      } catch {
+        events = []
+      }
+      
     }
   }
   
   func addEvent(_ event: WHEvent) {
     if UserDefaults.standard.string(forKey: "username") != nil {
-      loading = true
-      makeRequest(
-        url: WhatRequestConfig.baseURL + "/group",
-        config: jsonConfig(data: try? JSONEncoder().encode(event), method: "POST"),
-        success: { _ in
-          DispatchQueue.main.async {
-            self.loading = false
-            self.events.append(event)
-          }
-        }
-      )
+//      loading = true
+//      makeRequest(
+//        url: WHRequestConfig.baseURL + "/group",
+//        config: jsonConfig(data: try? JSONEncoder().encode(event), method: "POST"),
+//        success: { _ in
+//          DispatchQueue.main.async {
+//            self.loading = false
+//            self.events.append(event)
+//          }
+//        }
+//      )
     } else {
       events.append(event)
-      self.saveAsJson(updateCounts: true, updateNames: true)
+      self.saveAsJson()
     }
   }
   
   func removeEvent(_ event: WHEvent) {
     if UserDefaults.standard.string(forKey: "username") != nil {
-      loading = true
-      makeRequest(
-        url: WhatRequestConfig.baseURL + "/group/\(event.uuid.uuidString)",
-        config: jsonConfig(data: nil, method: "DELETE"),
-        success: { _ in
-          DispatchQueue.main.async {
-            self.loading = false
-            self.events = self.events.filter { (_group) -> Bool in
-              event !== _group
-            }
-          }
-        }
-      )
+//      loading = true
+//      makeRequest(
+//        url: WHRequestConfig.baseURL + "/group/\(event.uuid.uuidString)",
+//        config: jsonConfig(data: nil, method: "DELETE"),
+//        success: { _ in
+//          DispatchQueue.main.async {
+//            self.loading = false
+//            self.events = self.events.filter { (_group) -> Bool in
+//              event !== _group
+//            }
+//          }
+//        }
+//      )
     } else {
-      events = events.filter { (_group) -> Bool in
-        event !== _group
+      events = events.filter { (e) -> Bool in
+        event !== e
       }
-      self.saveAsJson(updateCounts: true, updateNames: true)
+      self.saveAsJson()
     }
   }
   
-  func saveAsJson(updateCounts: Bool, updateNames: Bool) {
+  func saveAsJson() {
     do {
-      try save(filename: "events.json", data: events)
-    } catch {
-      print(error)
-    }
-    // 年度数据
-    var counts: [String: [Int: Int]] = [:]
-    // id -> name的映射
-    var names: [String: String] = [:]
-    for group in events {
-      counts[group.uuid.uuidString] = group.countGroupedByYear
-      names[group.uuid.uuidString] = group.name
-    }
-    do {
-      if updateCounts {
-        try save(filename: "counts.json", data: counts, url: FileManager.sharedContainerURL)
-      }
-      if updateNames {
-        try save(filename: "names.json", data: names, url: FileManager.sharedContainerURL)
-      }
+      try save(filename: "events.json", data: events.map({ e in
+        WHEventCodable(from: e)
+      }))
     } catch {
       print(error)
     }
     
-    WidgetCenter.shared.reloadAllTimelines()
+//    WidgetCenter.shared.reloadAllTimelines()
   }
   
   static var current: WHManager!

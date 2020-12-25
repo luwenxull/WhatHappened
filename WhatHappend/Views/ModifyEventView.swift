@@ -7,97 +7,88 @@
 
 import SwiftUI
 
+struct TextFieldView: View {
+  let label: String
+  let value: Binding<String>
+  let error: String?
+
+  var body: some View {
+    VStack(spacing: 4) {
+      HStack {
+        Text(label)
+        TextField("", text: value)
+          .padding(8)
+          .overlay(
+            RoundedRectangle(cornerRadius: 4)
+              .stroke(error == nil ? Color.gray : Color.red, lineWidth: 2)
+          )
+      }
+      if error != nil {
+        HStack {
+          Spacer()
+          Text(error!)
+            .font(.system(size: 12))
+            .foregroundColor(.red)
+        }
+      }
+    }
+  }
+}
+
 struct ModifyEventView: View {
   var event: WHEvent?
-  @State var name: String = ""
-  @State var emotion: WhatEmotion = .happy
-  @State var alertIsPresented: Bool = false
+  @ObservedObject var name: WHChecker<String> = WHChecker(value: "", validators: [requiredChecker])
+  @ObservedObject var targetCount: WHChecker<String> = WHChecker(value: "1", validators: [requiredChecker, IntChecker])
+  @ObservedObject var targetUnit: WHChecker<String> = WHChecker(value: "次", validators: [requiredChecker])
+  
+  @State var asDailyTarget: Bool = false
   @Environment(\.presentationMode) var presentationMode
   @EnvironmentObject var manager: WHManager
   
-  struct ImageStyle: ViewModifier {
-    let size: CGFloat
-    func body(content: Content) -> some View {
-      content
-        .scaledToFit()
-        .frame(width: size, height: size)
+  func check() -> Bool {
+    if asDailyTarget {
+      let errors = [name.check(), targetCount.check(), targetUnit.check()]
+      return !errors.contains(false)
+    } else {
+      return name.check()
     }
   }
   
-  func withCircle(
-    image: Image,
-    with: Bool,
-    size: CGFloat
-  ) -> some View {
-    if with {
-      return
-        image
-        .resizable()
-        .modifier(ImageStyle(size: size - 2))
-        .scaleEffect(1)
-        .opacity(1)
-        .animation(.spring())
-      
-    } else {
-      return
-        image
-        .resizable()
-        .modifier(ImageStyle(size: size))
-        .scaleEffect(0.6)
-        .opacity(0.6)
-        .animation(.spring())
-    }
-  }
   
   var body: some View {
-    VStack(spacing: 0) {
+    VStack {
       HStack {
         Button(action: {
           presentationMode.wrappedValue.dismiss()
         }, label: {
-          Text("Cancel")
+          Text("取消")
         })
         
         Spacer()
         
         Button(action: {
-          if (name.isEmpty) {
-            alertIsPresented = true
-          } else {
-            if self.event == nil {
-              manager.addEvent(WHEvent(name: name, emotion: emotion, times: []))
+          if check() {
+            if asDailyTarget {
+              manager.addEvent(WHEvent(name: name.value, asDailyTarget: true, targetCount: Int(targetCount.value)!, targetUnit: targetUnit.value, records: [:]))
             } else {
-              event!.updateFrom(WHEventForUpate(name: name, emotion: emotion))
+              manager.addEvent(WHEvent(name: name.value))
             }
             presentationMode.wrappedValue.dismiss()
           }
         }, label: {
-          Text("Confirm")
-        })
-        .alert(isPresented: $alertIsPresented, content: {
-          Alert(title: Text("Event name can't be empty!"))
+          Text("确认")
         })
       }
       .padding()
       
       Divider()
 
-      VStack {
-        
-        TextField("Event name", text: $name)
-        HStack {
-          Text("Choose emotion")
-          Spacer()
-          Group {
-            withCircle(image: Image("happy"), with: emotion == .happy, size: 40)
-              .onTapGesture {
-                emotion = .happy
-              }
-            withCircle(image: Image("unhappy"), with: emotion == .unhappy, size: 40)
-              .onTapGesture {
-                emotion = .unhappy
-              }
-          }
+      VStack(spacing: 16) {
+        TextFieldView(label: "事件名称：", value: name.binding, error: name.error)
+        Toggle(isOn: $asDailyTarget, label: { Text("作为每日目标：") })
+        if asDailyTarget {
+          TextFieldView(label: "目标计数：", value: targetCount.binding, error: targetCount.error)
+          TextFieldView(label: "计数单位：", value: targetUnit.binding, error: targetUnit.error)
         }
       }
       .padding()
@@ -105,10 +96,9 @@ struct ModifyEventView: View {
       Spacer()
     }
     .onAppear(perform: {
-      if event != nil {
-        name = event!.name
-        emotion = event!.emotion
-      }
+//      if event != nil {
+//        name = event!.name
+//      }
     })
   }
 }

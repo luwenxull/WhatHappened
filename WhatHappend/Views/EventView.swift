@@ -15,11 +15,6 @@ struct EventView: View {
   
   var body: some View {
     HStack {
-      getImage()
-        .resizable()
-        .scaledToFit()
-        .frame(width: 40, height: 40)
-      Spacer()
       Text(event.name)
     }
     .padding()
@@ -29,7 +24,7 @@ struct EventView: View {
       }, label: {
         HStack {
           Image(systemName: "pencil.circle")
-          Text("Modify")
+          Text("修改")
         }
       })
       Button(action: {
@@ -37,7 +32,7 @@ struct EventView: View {
       }, label: {
         HStack {
           Image(systemName: "trash.circle")
-          Text("Delete")
+          Text("删除")
         }
       })
     })
@@ -46,23 +41,19 @@ struct EventView: View {
     })
     .actionSheet(isPresented: $actionSheetIsPresented, content: {
       ActionSheet(
-        title: Text("Delete event group will delete all records in this group!"),
+        title: Text("删除事件同时会删除事件下的所有记录，是否继续？"),
         buttons: [
-          .cancel(Text("Cancel")),
-          .destructive(Text("Confirm"), action: {
+          .cancel(Text("取消")),
+          .destructive(Text("确认"), action: {
             manager.removeEvent(event)
           })
         ])
     })
   }
-  
-  func getImage() -> Image {
-    event.emotion == .happy ? Image("happy") : Image("unhappy")
-  }
 }
 
 struct GroupView_Previews: PreviewProvider {
   static var previews: some View {
-    EventView(event: WHEvent(name: "Test", emotion: .happy, times: [WhatTime()]))
+    EventView(event: WHEvent(name: "Test"))
   }
 }

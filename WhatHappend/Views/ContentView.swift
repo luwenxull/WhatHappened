@@ -20,7 +20,7 @@ struct ContentView: View {
     if manager.events.count > 0 {
       return AnyView(List {
         ForEach(manager.events) {event in
-          NavigationLink(destination: Text("TODo")) {
+          NavigationLink(destination: Text("TODO")) {
             EventView(event: event)
           }
         }
@@ -29,7 +29,7 @@ struct ContentView: View {
       return AnyView(
         VStack {
           Image("empty")
-          Text("No event, please add fisrt")
+          Text("还没有事件，先添加一个吧！")
             .foregroundColor(.gray)
             .font(.footnote)
         }
@@ -40,7 +40,7 @@ struct ContentView: View {
   var body: some View {
     NavigationView {
       content
-        .navigationBarTitle("Emotion Diary")
+        .navigationBarTitle("我的一天")
         .toolbar(content: {
           ToolbarItem(placement: ToolbarItemPlacement.navigationBarLeading, content: {
             if (user == nil) {
@@ -57,7 +57,7 @@ struct ContentView: View {
                   user = nil
                   manager.refresh()
                 }, label: {
-                  Text("Logout")
+                  Text("退出登录")
                 })
               }, label: {
                 Text(String(user!.first!).capitalized)
@@ -74,7 +74,7 @@ struct ContentView: View {
             Button(action: {
               sheetIsPresented = true
             }, label: {
-              Text("Add event")
+              Text("添加事件")
             })
           })
         })
@@ -94,8 +94,8 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     ContentView().environmentObject(WHManager([
-      WHEvent(name: "上下班又下雨了", emotion: .unhappy, times: [WhatTime()]),
-      WHEvent(name: "打球", emotion: .happy, times: [WhatTime()]),
+      WHEvent(name: "上下班又下雨了"),
+      WHEvent(name: "打球"),
     ]))
     ContentView()
       .environment(\.colorScheme, .dark)
