@@ -70,7 +70,7 @@ struct EventView: View {
                 .italic()
                 .underline()
               Text("/\(event.targetCount!)\(event.targetUnit!)")
-                .font(.system(size: 24))
+                .font(.system(size: 18))
                 .foregroundColor(.gray)
               Spacer()
             }
@@ -128,7 +128,7 @@ struct EventView: View {
           ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
             if event.asDailyTarget {
               RoundedRectangle(cornerRadius: 0)
-                .fill(ratio == 1.0 ? Color.green.opacity(0.4) : Color.accentColor.opacity(0.4))
+                .fill(ratio == 1.0 ? Color.green.opacity(0.4) : Color.accentColor.opacity(0.5))
                 .frame(width: reader.size.width * ratio!)
                 .animation(.easeIn)
             }

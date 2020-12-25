@@ -37,17 +37,14 @@ class WHManager: ObservableObject {
 //        }
 //      })
     } else {
-      // 从本地读取
-//      events = (try? load("events.json")) ?? []
-      do {
-        let _events: [WHEventCodable] = try load("events.json", url: FileManager.sharedContainerURL)
-        events = _events.map({ e in
-          WHEvent(from: e)
-        })
-      } catch {
-        events = []
+      let names: [String] = (try? load(filename: "events.json")) ?? []
+      var _events: [WHEvent] = []
+      for filename in names {
+        if let event: WHEventCodable = try? load(filename: filename) {
+          _events.append(WHEvent(from: event))
+        }
       }
-      
+      events = _events
     }
   }
   
@@ -66,7 +63,7 @@ class WHManager: ObservableObject {
 //      )
     } else {
       events.append(event)
-      self.saveAsJson()
+      self.saveAsJson(event: event)
     }
   }
   
@@ -89,20 +86,35 @@ class WHManager: ObservableObject {
       events = events.filter { (e) -> Bool in
         event !== e
       }
-      self.saveAsJson()
+      self.saveAsJson(event: event, needRemove: true)
     }
   }
   
-  func saveAsJson() {
+  func saveAsJson(event: WHEvent?, needRemove: Bool = false) {
     do {
       try save(filename: "events.json", data: events.map({ e in
-        WHEventCodable(from: e)
-      }), url: FileManager.sharedContainerURL)
+        e.uuid.uuidString
+      }))
     } catch {
       print(error)
     }
     
-//    WidgetCenter.shared.reloadAllTimelines()
+    if event != nil {
+      do {
+        try save(filename: event!.uuid.uuidString, data: WHEventCodable(from: event!))
+      } catch {
+        print(error)
+      }
+      
+      if needRemove {
+        do {
+          try remove(filename: event!.uuid.uuidString)
+        } catch {
+          print(error)
+        }
+      }
+    }
+    
   }
   
   static var current: WHManager!
@@ -118,16 +130,20 @@ extension FileManager {
   }
 }
 
-func load<T: Decodable>(_ filename: String, url: URL = FileManager.documentDirectoryURL) throws -> T {
+func load<T: Decodable>(filename: String, url: URL = FileManager.sharedContainerURL) throws -> T {
   let fileURL = url.appendingPathComponent(filename)
   let data = try Data(contentsOf: fileURL)
   let decoder = JSONDecoder()
   return try decoder.decode(T.self, from: data)
 }
 
-func save<T: Encodable>(filename: String, data: T, url: URL = FileManager.documentDirectoryURL) throws -> Void {
+func save<T: Encodable>(filename: String, data: T, url: URL = FileManager.sharedContainerURL) throws -> Void {
   let fileURL = url.appendingPathComponent(filename)
   let encoder = JSONEncoder()
   let encodeData = try encoder.encode(data)
   try encodeData.write(to: fileURL)
+}
+
+func remove(filename: String, url: URL = FileManager.sharedContainerURL) throws -> Void {
+  try FileManager.default.removeItem(at: url.appendingPathComponent(filename))
 }

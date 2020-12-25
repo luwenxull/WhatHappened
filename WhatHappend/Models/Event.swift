@@ -80,29 +80,7 @@ final class WHEvent: Identifiable, ObservableObject {
 //        }
 //      )
     } else {
-      WHManager.current.saveAsJson()
-    }
-  }
-  
-  func removeRecord(_ index: Int) -> Void {
-//    let time = times[index]
-    if UserDefaults.standard.string(forKey: "username") != nil {
-//      makeRequest(
-//        url: WHRequestConfig.baseURL + "/group/time/\(time._id!)",
-//        config: jsonConfig(data: nil, method: "DELETE"),
-//        success: { _ in
-//          DispatchQueue.main.async {
-//            self.times.remove(at: index)
-//            self._countsGroupedByYear = nil
-//            self._datesGroupedByMonth = nil
-//          }
-//        }
-//      )
-    } else {
-//      times.remove(at: index)
-//      _countsGroupedByYear = nil
-//      _datesGroupedByMonth = nil
-//      WHManager.current.saveAsJson(updateCounts: true, updateNames: false)
+      WHManager.current.saveAsJson(event: self)
     }
   }
   
@@ -114,7 +92,7 @@ final class WHEvent: Identifiable, ObservableObject {
     if UserDefaults.standard.string(forKey: "username") != nil {
       
     } else {
-      WHManager.current.saveAsJson()
+      WHManager.current.saveAsJson(event: self)
     }
   }
   
