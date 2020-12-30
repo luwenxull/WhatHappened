@@ -24,21 +24,10 @@ final class WHEvent: Identifiable, ObservableObject {
   var targetUnit: String?
   @Published var records: WHRecords
   
-  
-  var todayCount: Int {
-    let date = Date()
-    guard let _records = records[date.yearMonthString] else {
-      return 0
-    }
-    guard let count = _records[date.day] else {
-      return 0
-    }
-    return count
-  }
-  
   var monthDistribution: [Int] {
     let date = Date()
-    let lastDay = Calendar.lastDayOfMonth(date).day
+    let (_, end) = Calendar.containingMonth(date)
+    let lastDay = end.day
     
     guard let _records = records[date.yearMonthString] else {
       return Array.init(repeating: 0, count: lastDay)
@@ -49,7 +38,6 @@ final class WHEvent: Identifiable, ObservableObject {
       array.append(_records[d] == nil ? 0 : _records[d]!)
     }
     
-    print(lastDay, array)
     return array
   }
   
@@ -115,6 +103,32 @@ final class WHEvent: Identifiable, ObservableObject {
   }
   
   
+  func getDayCount(month: String, day: Int) -> Int {
+    guard let _records = records[month] else {
+      return 0
+    }
+    guard let count = _records[day] else {
+      return 0
+    }
+    return count
+  }
+  
+  func getDayCount(date: Date) -> Int {
+    getDayCount(month: date.yearMonthString, day: date.day)
+  }
+  
+  func getDayProgress(month: String, day: Int) -> Float {
+    let count = getDayCount(month: month, day: day)
+    guard asDailyTarget else {
+      return 0
+    }
+    return Float(count) / Float(targetCount!)
+  }
+  
+  func getDayProgress(date: Date) -> Float {
+    getDayProgress(month: date.yearMonthString, day: date.day)
+  }
+  
   init(
     name: String,
     asDailyTarget: Bool,
@@ -168,8 +182,7 @@ struct WHEventCodable: Codable {
 
 extension Date {
   var year: Int {
-    let components = Calendar.current.dateComponents([.year], from: self)
-    return components.year!
+    Calendar.current.dateComponents([.year], from: self).year!
   }
   
   var yearMonthString: String {
@@ -178,14 +191,33 @@ extension Date {
   }
   
   var day: Int {
-    let components = Calendar.current.dateComponents([.day], from: self)
-    return components.day!
+    Calendar.current.dateComponents([.day], from: self).day!
+  }
+  
+  var weekDay: Int {
+    Calendar.current.dateComponents([.weekday], from: self).weekday!
   }
 }
 
 extension Calendar {
-  static func lastDayOfMonth(_ date: Date) -> Date {
-    let end = Calendar.current.dateInterval(of: .month, for: date)?.end
-    return Calendar.current.date(byAdding: .second, value: -1, to: end!)!
+  static func containingMonth(_ date: Date) -> (Date, Date) {
+    let interval = Calendar.current.dateInterval(of: .month, for: date)
+    return (interval!.start, Calendar.current.date(byAdding: .second, value: -1, to: interval!.end)!)
+  }
+  
+  static func prevMonth(_ date: Date) -> (Date, Date) {
+    let (start, _) = Calendar.containingMonth(date)
+    return (
+      Calendar.current.date(byAdding: .month, value: -1, to: start)!,
+      Calendar.current.date(byAdding: .second, value: -1, to: start)!
+    )
+  }
+  
+  static func nextMonth(_ date: Date) -> (Date, Date) {
+    let (_, end) = Calendar.containingMonth(date)
+    return (
+      Calendar.current.date(byAdding: .second, value: 1, to: end)!,
+      Calendar.current.date(byAdding: .month, value: 1, to: end)!
+    )
   }
 }

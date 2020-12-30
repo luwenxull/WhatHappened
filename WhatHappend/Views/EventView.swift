@@ -14,38 +14,36 @@ struct EventView: View {
   @EnvironmentObject var manager: WHManager
   @Environment(\.colorScheme) var colorScheme
   
+  let today: Date = Date()
+  
   var ratio: CGFloat? {
     guard event.asDailyTarget else {
       return nil
     }
-    return min(1.0, CGFloat(event.todayCount) / CGFloat(event.targetCount!))
+    return min(1.0, CGFloat(event.getDayProgress(date: today)))
   }
   
   var content: AnyView {
     if event.asDailyTarget {
       return AnyView(VStack(alignment: .leading) {
         
-        HStack(alignment: .top) {
+        HStack {
           Text(event.name)
             .font(.title3)
+          
           Spacer()
-          Button(action: {
-            event.addRecord()
-          }, label: {
-            if ratio == 1.0 {
-              Image(systemName: "checkmark.circle")
-                .font(.system(size: 36))
-                .foregroundColor(.green)
-            } else {
-              Image(systemName: "record.circle")
-                .font(.system(size: 36))
-            }
-          })
+          
+          if ratio == 1.0 {
+            Image(systemName: "checkmark.circle")
+              .font(.system(size: 24))
+              .foregroundColor(.green)
+          }
+          
         }
         
         Spacer()
         
-        if event.todayCount == 0 {
+        if event.getDayCount(date: today) == 0 {
           HStack {
             Text("今日无记录")
               .foregroundColor(.gray)
@@ -59,13 +57,13 @@ struct EventView: View {
                 .italic()
                 .underline()
                 .foregroundColor(.accentColor)
-                Text("今日打卡目标已完成!")
-                  .foregroundColor(.gray)
+              Text("今日打卡目标已完成!")
+                .foregroundColor(.gray)
               Spacer()
             }
           } else {
             HStack() {
-              Text("\(event.todayCount)")
+              Text("\(event.getDayCount(date: today))")
                 .font(.system(size: 36))
                 .italic()
                 .underline()
@@ -81,36 +79,62 @@ struct EventView: View {
         Spacer()
         
         HStack {
-          Spacer()
-          Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-            Text("统计")
-            Image(systemName: "arrow.right.circle")
-          })
-        }
-      })
-    } else {
-      return AnyView(VStack {
-        HStack(alignment: .top) {
-          Text(event.name)
-            .font(.title3)
-          Spacer()
           Button(action: {
             event.addRecord()
           }, label: {
-            Image(systemName: "record.circle")
-              .font(.system(size: 36))
+            HStack(spacing: 0) {
+              Image(systemName: "hand.tap")
+              Text("打卡")
+            }
           })
+          Spacer()
+          NavigationLink(
+            destination: StatView(event: event),
+            label: {
+              HStack(spacing: 0) {
+                Text("统计")
+                Image(systemName: "arrow.right.circle")
+              }
+            })
         }
+      })
+    } else {
+      return AnyView(VStack(alignment: .leading) {
+        Text(event.name)
+          .font(.title3)
+        
         Spacer()
         
-        BarsView(bars: event.monthDistribution, height: 40)
+        VStack(spacing: 0) {
+          HStack {
+            Text("当月速览")
+              .font(.system(size: 14))
+              .foregroundColor(.gray)
+            Spacer()
+          }
+          BarsView(bars: event.monthDistribution, height: 35)
+        }
+        
+        Spacer()
         
         HStack {
-          Spacer()
-          Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-            Text("统计")
-            Image(systemName: "arrow.right.circle")
+          Button(action: {
+            event.addRecord()
+          }, label: {
+            HStack(spacing: 0) {
+              Image(systemName: "hand.tap")
+              Text("打卡")
+            }
           })
+          Spacer()
+          NavigationLink(
+            destination: StatView(event: event),
+            label: {
+              HStack(spacing: 0) {
+                Text("统计")
+                Image(systemName: "arrow.right.circle")
+              }
+            })
         }
       })
     }
@@ -119,9 +143,8 @@ struct EventView: View {
   var body: some View {
     RoundedRectangle(cornerRadius: 16)
       .fill(
-        colorScheme == .light ? Color.white : Color(red: 0.09, green: 0.09, blue: 0.09)
+        colorScheme == .light ? Color(red: 0.95, green: 0.95, blue: 0.95) : Color(red: 0.09, green: 0.09, blue: 0.09)
       )
-      .shadow(color: Color.gray.opacity(0.6), radius: 4, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/)
       .frame(height: 160)
       .overlay(
         GeometryReader { reader in
@@ -165,9 +188,9 @@ struct EventView: View {
           }
         })
       })
-      .sheet(isPresented: $sheetIsPresented, content: {
-        ModifyEventView(event: event)
-      })
+      //      .sheet(isPresented: $sheetIsPresented, content: {
+      //        ModifyEventView(event: event)
+      //      })
       .actionSheet(isPresented: $actionSheetIsPresented, content: {
         ActionSheet(
           title: Text("删除事件同时会删除事件下的所有记录，是否继续？"),

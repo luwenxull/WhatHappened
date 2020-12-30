@@ -18,14 +18,6 @@ struct ContentView: View {
     }
     
     if manager.events.count > 0 {
-      //      return AnyView(List {
-      //        ForEach(manager.events) {event in
-      //          NavigationLink(destination: Text("TODO")) {
-      //            EventView(event: event)
-      //          }
-      //        }
-      //      })
-      
       return AnyView(
         ScrollView {
           ForEach(manager.events) {event in
@@ -85,10 +77,10 @@ struct ContentView: View {
             }, label: {
               Text("添加事件")
             })
+            .sheet(isPresented: $sheetIsPresented, content: {
+              ModifyEventView()
+            })
           })
-        })
-        .sheet(isPresented: $sheetIsPresented, content: {
-          ModifyEventView()
         })
         .onAppear {
           if user != UserDefaults.standard.string(forKey: "username") {
