@@ -10,34 +10,27 @@ import SwiftUI
 
 typealias WHValidator<T> = (T) -> String?
 
-class WHChecker<T>: ObservableObject {
-  var binding: Binding<T>!
-  var value: T
+class WHChecker<T> {
+  var key: String
+  var binding: Binding<T>
   var validators: [WHValidator<T>]
-  @Published var error: String?
   
-  func check() -> Bool {
+  func check(collector: inout [String: String]) -> Bool {
     for validator in validators {
       let result = validator(binding.wrappedValue)
       if result != nil {
-        error = result
+        collector[key] = result
         return false
       }
     }
-    error = nil
     return true
   }
   
-  
-  
-  init(value: T, validators: [WHValidator<T>]) {
-    self.value = value
+  init(key: String, binding: Binding<T>, validators: [WHValidator<T>]) {
+    self.key = key
+    self.binding = binding
     self.validators = validators
-    self.binding = Binding(get: {[self] in self.value}, set: {[self] v in
-      self.value = v
-    })
   }
-  
 }
 
 func requiredChecker(v: String) -> String? {
@@ -48,6 +41,6 @@ func IntChecker(v: String) -> String? {
   if Int(v) != nil {
     return nil
   } else {
-    return "不是合理的数字"
+    return "非正确整数"
   }
 }

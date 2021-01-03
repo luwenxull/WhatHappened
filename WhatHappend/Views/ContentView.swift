@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ContentView: View {
   @EnvironmentObject var manager: WHManager
@@ -40,55 +41,59 @@ struct ContentView: View {
   
   var body: some View {
     NavigationView {
-      content
-        .navigationBarTitle("我的一天")
-        .toolbar(content: {
-          ToolbarItem(placement: ToolbarItemPlacement.navigationBarLeading, content: {
-            if (user == nil) {
-              NavigationLink(
-                destination: LoginView(),
-                label: {
-                  Image(systemName: "person.circle")
-                })
-            }
-            if (user != nil) {
-              Menu(content: {
-                Button(action: {
-                  UserDefaults.standard.removeObject(forKey: "username")
-                  user = nil
-                  manager.refresh()
+      VStack {
+        NavigationLink(
+          destination: LazyView {
+            ModifyEventView()
+          },
+          isActive: $sheetIsPresented,
+          label: { EmptyView() }
+        )
+        content
+          .navigationBarTitle("我的一天")
+          .toolbar(content: {
+            ToolbarItem(placement: ToolbarItemPlacement.navigationBarLeading, content: {
+              if (user == nil) {
+                NavigationLink(
+                  destination: LoginView(),
+                  label: {
+                    Image(systemName: "person.circle")
+                  })
+              }
+              if (user != nil) {
+                Menu(content: {
+                  Button(action: {
+                    UserDefaults.standard.removeObject(forKey: "username")
+                    user = nil
+                    manager.refresh()
+                  }, label: {
+                    Text("退出登录")
+                  })
                 }, label: {
-                  Text("退出登录")
+                  Text(String(user!.first!).capitalized)
+                    .padding(4)
+                    .overlay(
+                      Circle()
+                        .stroke(Color.accentColor, lineWidth: 2)
+                    )
                 })
+              }
+            })
+            ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing, content: {
+              Button(action: {
+                sheetIsPresented = true
               }, label: {
-                Text(String(user!.first!).capitalized)
-                  .padding(4)
-                  .overlay(
-                    Circle()
-                      .stroke(Color.accentColor, lineWidth: 2)
-                  )
+                Text("添加事件")
               })
+            })
+          })
+          .onAppear {
+            if user != UserDefaults.standard.string(forKey: "username") {
+              user = UserDefaults.standard.string(forKey: "username")
             }
-            
-          })
-          ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing, content: {
-            Button(action: {
-              sheetIsPresented = true
-            }, label: {
-              Text("添加事件")
-            })
-            .sheet(isPresented: $sheetIsPresented, content: {
-              ModifyEventView()
-            })
-          })
-        })
-        .onAppear {
-          if user != UserDefaults.standard.string(forKey: "username") {
-            user = UserDefaults.standard.string(forKey: "username")
           }
-        }
+      }
     }
-    .listStyle(PlainListStyle())
   }
 }
 

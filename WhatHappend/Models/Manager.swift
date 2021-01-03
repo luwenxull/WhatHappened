@@ -63,7 +63,7 @@ class WHManager: ObservableObject {
 //      )
     } else {
       events.append(event)
-      self.saveAsJson(event: event)
+      saveAsJson(event: event)
     }
   }
   
@@ -86,7 +86,7 @@ class WHManager: ObservableObject {
       events = events.filter { (e) -> Bool in
         event !== e
       }
-      self.saveAsJson(event: event, needRemove: true)
+      saveAsJson(event: event, needRemove: true)
     }
   }
   

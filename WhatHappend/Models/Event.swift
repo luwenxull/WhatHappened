@@ -8,17 +8,13 @@
 import Foundation
 import Combine
 
-struct WHEventForUpate: Codable {
-  
-}
-
 // [月-[日-次数]]
 typealias WHRecords = Dictionary<String, Dictionary<Int, Int>>
 
 final class WHEvent: Identifiable, ObservableObject {
   let uuid: UUID
   
-  @Published var name: String
+  var name: String
   var asDailyTarget: Bool
   var targetCount: Int?
   var targetUnit: String?
@@ -56,17 +52,17 @@ final class WHEvent: Identifiable, ObservableObject {
       records[date.yearMonthString] = _records
     }
     if UserDefaults.standard.string(forKey: "username") != nil {
-//      makeRequest(
-//        url:WHRequestConfig.baseURL + "/group/\(uuid.uuidString)/time",
-//        config: jsonConfig(data: try? JSONEncoder().encode(time), method: "POST"),
-//        success: { res in
-//          DispatchQueue.main.async {
-//            self.times.append(try! JSONDecoder().decode(WhatServerResponse<WhatTime>.self, from: res).data!)
-//            self._countsGroupedByYear = nil
-//            self._datesGroupedByMonth = nil
-//          }
-//        }
-//      )
+      //      makeRequest(
+      //        url:WHRequestConfig.baseURL + "/group/\(uuid.uuidString)/time",
+      //        config: jsonConfig(data: try? JSONEncoder().encode(time), method: "POST"),
+      //        success: { res in
+      //          DispatchQueue.main.async {
+      //            self.times.append(try! JSONDecoder().decode(WhatServerResponse<WhatTime>.self, from: res).data!)
+      //            self._countsGroupedByYear = nil
+      //            self._datesGroupedByMonth = nil
+      //          }
+      //        }
+      //      )
     } else {
       WHManager.current.saveAsJson(event: self)
     }
@@ -85,8 +81,19 @@ final class WHEvent: Identifiable, ObservableObject {
   }
   
   
-  func updateFrom(_ from: WHEventForUpate) {
-//    if UserDefaults.standard.string(forKey: "username") != nil {
+  func update(
+    name: String,
+    asDailyTarget: Bool,
+    targetCount: Int?,
+    targetUnit: String?
+  ) {
+    self.name = name
+    self.asDailyTarget = asDailyTarget
+    self.targetCount = asDailyTarget ? targetCount : nil
+    self.targetUnit = asDailyTarget ? targetUnit : nil
+    WHManager.current.saveAsJson(event: self)
+    WHManager.current.refresh()
+    if UserDefaults.standard.string(forKey: "username") != nil {
 //      makeRequest(
 //        url: WHRequestConfig.baseURL + "/group/:\(uuid.uuidString)",
 //        config: jsonConfig(data: try? JSONEncoder().encode(from), method: "PUT"),
@@ -95,11 +102,7 @@ final class WHEvent: Identifiable, ObservableObject {
 //          self.emotion = from.emotion
 //        }
 //      )
-//    } else {
-//      name = from.name
-//      emotion = from.emotion
-//      WHManager.current.saveAsJson(updateCounts: false, updateNames: true)
-//    }
+    }
   }
   
   
@@ -117,12 +120,12 @@ final class WHEvent: Identifiable, ObservableObject {
     getDayCount(month: date.yearMonthString, day: date.day)
   }
   
+  // 每日进度，只针对设置为每日目标的事件
   func getDayProgress(month: String, day: Int) -> Float {
-    let count = getDayCount(month: month, day: day)
     guard asDailyTarget else {
       return 0
     }
-    return Float(count) / Float(targetCount!)
+    return Float(getDayCount(month: month, day: day)) / Float(targetCount!)
   }
   
   func getDayProgress(date: Date) -> Float {

@@ -24,13 +24,13 @@ struct LoginView: View {
   var body: some View {
     VStack {
       VStack(spacing: 16) {
-        TextField("Username", text: $username)
+        TextField("用户名", text: $username)
           .padding()
           .overlay(
             RoundedRectangle(cornerRadius: 8).stroke(Color.accentColor, lineWidth: 2.0)
           )
         
-        SecureField("Password", text: $password)
+        SecureField("密码", text: $password)
           .padding()
           .overlay(
             RoundedRectangle(cornerRadius: 8).stroke(Color.accentColor, lineWidth: 2.0)
@@ -46,14 +46,14 @@ struct LoginView: View {
               Button(action: {
                 login()
               }, label: {
-                Text("Sign in")
+                Text("登录")
               })
               .foregroundColor(.white)
             )
           Button(action: {
             status = .register
           }, label: {
-            Text("No account, create one")
+            Text("还没有账户，创建一个")
               .foregroundColor(.gray)
               .font(.system(size: 12))
           })
@@ -70,14 +70,14 @@ struct LoginView: View {
               Button(action: {
                 register()
               }, label: {
-                Text("Sign up")
+                Text("注册")
               })
               .foregroundColor(.white)
             )
           Button(action: {
             status = .login
           }, label: {
-            Text("Already have an account")
+            Text("已有账户，登录")
               .foregroundColor(.gray)
               .font(.system(size: 12))
           })
@@ -89,7 +89,7 @@ struct LoginView: View {
     .alert(isPresented: $showHint, content: {
       Alert(title: Text(LocalizedStringKey(hint)))
     })
-    .navigationBarTitle("Sign in")
+//    .navigationBarTitle("Sign in")
     .navigationBarTitleDisplayMode(.inline)
   }
   

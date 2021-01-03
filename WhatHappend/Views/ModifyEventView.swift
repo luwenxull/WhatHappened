@@ -7,20 +7,35 @@
 
 import SwiftUI
 
+struct VerticalFormItem<Content: View>: View {
+  let label: String
+  let content: () -> Content
+  var body: some View {
+    VStack(spacing: 4) {
+      VStack(alignment: .leading) {
+        Text(label)
+          .foregroundColor(.gray)
+        content()
+      }
+    }
+  }
+}
+
 struct TextFieldView: View {
   let label: String
   let value: Binding<String>
   let error: String?
-
+  
   var body: some View {
     VStack(spacing: 4) {
-      HStack {
+      HStack() {
         Text(label)
+          .foregroundColor(.gray)
         TextField("", text: value)
-          .padding(8)
+          .padding(10)
           .overlay(
-            RoundedRectangle(cornerRadius: 4)
-              .stroke(error == nil ? Color.gray : Color.red, lineWidth: 2)
+            RoundedRectangle(cornerRadius: 8)
+              .stroke(error == nil ? Color.gray : Color.red, lineWidth: 1)
           )
       }
       if error != nil {
@@ -37,58 +52,55 @@ struct TextFieldView: View {
 
 struct ModifyEventView: View {
   var event: WHEvent?
-  @ObservedObject var name: WHChecker<String> = WHChecker(value: "", validators: [requiredChecker])
-  @ObservedObject var targetCount: WHChecker<String> = WHChecker(value: "1", validators: [requiredChecker, IntChecker])
-  @ObservedObject var targetUnit: WHChecker<String> = WHChecker(value: "次", validators: [requiredChecker])
-  
-  @State var asDailyTarget: Bool = false
+  @State var name: String = ""
+  @State var asDailyTarget: Bool = true
+  @State var targetUnit: String = "次"
+  @State var targetCount: Int = 1
   @Environment(\.presentationMode) var presentationMode
   @EnvironmentObject var manager: WHManager
+  @State var errors: [String: String] = [:]
   
   func check() -> Bool {
+    var checkers = [WHChecker(key: "name", binding: $name, validators: [requiredChecker])]
     if asDailyTarget {
-      let errors = [name.check(), targetCount.check(), targetUnit.check()]
-      return !errors.contains(false)
-    } else {
-      return name.check()
+      checkers.append(WHChecker(key: "targetUnit", binding: $targetUnit, validators: [requiredChecker]))
     }
+    
+    var errors: [String: String] = [:]
+    let hasError = !checkers.map {
+      $0.check(collector: &errors)
+    }.contains(false)
+    self.errors = errors
+    
+    return hasError
   }
-  
   
   var body: some View {
     VStack {
-      HStack {
-        Button(action: {
-          presentationMode.wrappedValue.dismiss()
-        }, label: {
-          Text("取消")
-        })
-        
-        Spacer()
-        
-        Button(action: {
-          if check() {
-            if asDailyTarget {
-              manager.addEvent(WHEvent(name: name.value, asDailyTarget: true, targetCount: Int(targetCount.value)!, targetUnit: targetUnit.value, records: [:]))
-            } else {
-              manager.addEvent(WHEvent(name: name.value))
-            }
-            presentationMode.wrappedValue.dismiss()
-          }
-        }, label: {
-          Text("确认")
-        })
-      }
-      .padding()
-      
-      Divider()
-
       VStack(spacing: 16) {
-        TextFieldView(label: "事件名称：", value: name.binding, error: name.error)
-        Toggle(isOn: $asDailyTarget, label: { Text("作为每日目标：") })
+        TextFieldView(label: "事件名称：", value: $name, error: errors["name"])
+        Divider()
+        Toggle(isOn: $asDailyTarget, label: { Text("每日目标：") })
+          .foregroundColor(.gray)
+        
         if asDailyTarget {
-          TextFieldView(label: "目标计数：", value: targetCount.binding, error: targetCount.error)
-          TextFieldView(label: "计数单位：", value: targetUnit.binding, error: targetUnit.error)
+          Divider()
+          
+          VStack(spacing: 16) {
+            Stepper(value: $targetCount, in: 1...10) {
+              Text("目标计数：")
+                .foregroundColor(.gray)
+            }
+            
+            TextFieldView(label: "计数单位：", value: $targetUnit, error: errors["targetUnit"])
+            
+            HStack {
+              Spacer()
+              Text("计数：\(targetCount)\(targetUnit)")
+                .underline()
+                .foregroundColor(.gray)
+            }
+          }
         }
       }
       .padding()
@@ -96,10 +108,38 @@ struct ModifyEventView: View {
       Spacer()
     }
     .onAppear(perform: {
-//      if event != nil {
-//        name = event!.name
-//      }
+      if let e = event {
+        name = e.name
+        asDailyTarget = e.asDailyTarget
+        if e.asDailyTarget {
+          targetUnit = e.targetUnit!
+          targetCount = e.targetCount!
+        }
+      }
     })
+    .navigationBarTitle(event == nil ? "添加事件" : "修改事件")
+    .navigationBarTitleDisplayMode(.inline)
+    .toolbar {
+      ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing, content: {
+        Button(action: {
+          if check() {
+            presentationMode.wrappedValue.dismiss()
+            if let e = event {
+              // 更新
+              e.update(name: name, asDailyTarget: asDailyTarget, targetCount: targetCount, targetUnit: targetUnit)
+            } else {
+              if asDailyTarget {
+                manager.addEvent(WHEvent(name: name, asDailyTarget: true, targetCount: targetCount, targetUnit: targetUnit, records: [:]))
+              } else {
+                manager.addEvent(WHEvent(name: name))
+              }
+            }
+          }
+        }, label: {
+          Text("确认")
+        })
+      })
+    }
   }
 }
 

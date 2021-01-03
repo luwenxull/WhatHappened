@@ -10,6 +10,7 @@ import SwiftUI
 struct EventView: View {
   @ObservedObject var event: WHEvent
   @State var sheetIsPresented: Bool = false
+  @State var linkIsDisplayed: Bool = false
   @State var actionSheetIsPresented: Bool = false
   @EnvironmentObject var manager: WHManager
   @Environment(\.colorScheme) var colorScheme
@@ -29,16 +30,12 @@ struct EventView: View {
         
         HStack {
           Text(event.name)
-            .font(.title3)
-          
           Spacer()
-          
           if ratio == 1.0 {
             Image(systemName: "checkmark.circle")
               .font(.system(size: 24))
               .foregroundColor(.green)
           }
-          
         }
         
         Spacer()
@@ -59,6 +56,7 @@ struct EventView: View {
                 .foregroundColor(.accentColor)
               Text("今日打卡目标已完成!")
                 .foregroundColor(.gray)
+                .font(.system(size: 14))
               Spacer()
             }
           } else {
@@ -88,23 +86,20 @@ struct EventView: View {
             }
           })
           Spacer()
-          NavigationLink(
-            destination: StatView(event: event),
-            label: {
-              HStack(spacing: 0) {
-                Text("统计")
-                Image(systemName: "arrow.right.circle")
-              }
-            })
+          Button(action: {
+            sheetIsPresented = true
+          }, label: {
+            HStack(spacing: 0) {
+              Text("统计")
+              Image(systemName: "arrow.right.circle")
+            }
+          })
         }
       })
     } else {
       return AnyView(VStack(alignment: .leading) {
         Text(event.name)
-          .font(.title3)
-        
         Spacer()
-        
         VStack(spacing: 0) {
           HStack {
             Text("当月速览")
@@ -127,80 +122,88 @@ struct EventView: View {
             }
           })
           Spacer()
-          NavigationLink(
-            destination: StatView(event: event),
-            label: {
-              HStack(spacing: 0) {
-                Text("统计")
-                Image(systemName: "arrow.right.circle")
-              }
-            })
+          Button(action: {
+            sheetIsPresented = true
+          }, label: {
+            HStack(spacing: 0) {
+              Text("统计")
+              Image(systemName: "arrow.right.circle")
+            }
+          })
         }
       })
     }
   }
   
   var body: some View {
-    RoundedRectangle(cornerRadius: 16)
-      .fill(
-        colorScheme == .light ? Color(red: 0.95, green: 0.95, blue: 0.95) : Color(red: 0.09, green: 0.09, blue: 0.09)
-      )
-      .frame(height: 160)
-      .overlay(
-        GeometryReader { reader in
-          ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-            if event.asDailyTarget {
-              RoundedRectangle(cornerRadius: 0)
-                .fill(ratio == 1.0 ? Color.green.opacity(0.4) : Color.accentColor.opacity(0.5))
-                .frame(width: reader.size.width * ratio!)
-                .animation(.easeIn)
+    VStack(spacing: 0) {
+      NavigationLink(
+        destination: ModifyEventView(event: event),
+        isActive: $linkIsDisplayed,
+        label: {
+          EmptyView()
+        })
+      RoundedRectangle(cornerRadius: 16)
+        .fill(
+          colorScheme == .light ? Color(red: 0.95, green: 0.95, blue: 0.95) : Color(red: 0.09, green: 0.09, blue: 0.09)
+        )
+        .frame(height: 160)
+        .overlay(
+          GeometryReader { reader in
+            ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
+              if event.asDailyTarget {
+                RoundedRectangle(cornerRadius: 0)
+                  .fill(ratio == 1.0 ? Color.green.opacity(0.4) : Color.accentColor.opacity(0.5))
+                  .frame(width: reader.size.width * ratio!)
+                  .animation(.easeIn)
+              }
+              content
+                .padding()
             }
-            content
-              .padding()
+            .contentShape(RoundedRectangle(cornerRadius: 16))
+            .clipShape(RoundedRectangle(cornerRadius: 16))
           }
-          .contentShape(RoundedRectangle(cornerRadius: 16))
-          .clipShape(RoundedRectangle(cornerRadius: 16))
-        }
-      )
-      .contextMenu(menuItems: {
-        Button(action: {
-          event.resetToday()
-        }, label: {
-          HStack {
-            Image(systemName: "minus.circle")
-            Text("重置今日打卡")
-          }
+        )
+        .contextMenu(menuItems: {
+          Button(action: {
+            event.resetToday()
+          }, label: {
+            HStack {
+              Image(systemName: "minus.circle")
+              Text("重置今日打卡")
+            }
+          })
+          Button(action: {
+            linkIsDisplayed = true
+          }, label: {
+            HStack {
+              Image(systemName: "pencil.circle")
+              Text("修改")
+            }
+          })
+          Button(action: {
+            actionSheetIsPresented = true
+          }, label: {
+            HStack {
+              Image(systemName: "trash.circle")
+              Text("删除")
+            }
+          })
         })
-        Button(action: {
-          sheetIsPresented = true
-        }, label: {
-          HStack {
-            Image(systemName: "pencil.circle")
-            Text("修改")
-          }
+        .actionSheet(isPresented: $actionSheetIsPresented, content: {
+          ActionSheet(
+            title: Text("删除事件同时会删除事件下的所有记录，是否继续？"),
+            buttons: [
+              .cancel(Text("取消")),
+              .destructive(Text("确认"), action: {
+                manager.removeEvent(event)
+              })
+            ])
         })
-        Button(action: {
-          actionSheetIsPresented = true
-        }, label: {
-          HStack {
-            Image(systemName: "trash.circle")
-            Text("删除")
-          }
+        .sheet(isPresented: $sheetIsPresented, content: {
+          StatView(event: event)
         })
-      })
-      //      .sheet(isPresented: $sheetIsPresented, content: {
-      //        ModifyEventView(event: event)
-      //      })
-      .actionSheet(isPresented: $actionSheetIsPresented, content: {
-        ActionSheet(
-          title: Text("删除事件同时会删除事件下的所有记录，是否继续？"),
-          buttons: [
-            .cancel(Text("取消")),
-            .destructive(Text("确认"), action: {
-              manager.removeEvent(event)
-            })
-          ])
-      })
+    }
   }
 }
 

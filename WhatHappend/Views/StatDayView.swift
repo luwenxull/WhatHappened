@@ -29,7 +29,7 @@ struct StatDayView: View {
         )
       })
       .rotation(.init(degrees: -90))
-    return path.stroke(Color.accentColor, style: StrokeStyle(lineWidth: 2, lineCap: .round))
+    return path.stroke(Color.accentColor, style: StrokeStyle(lineWidth: 3, lineCap: .round))
   }
   
   func dot() -> some View {

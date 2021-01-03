@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct StatView: View {
+  @Environment(\.presentationMode) var presentationMode
   @State var date: Date = Date()
   var event: WHEvent
   
@@ -38,6 +39,20 @@ struct StatView: View {
   
   var body: some View {
     ScrollView {
+      HStack {
+        
+        Spacer()
+        
+        Button(action: {
+          presentationMode.wrappedValue.dismiss()
+        }, label: {
+          Text("完成")
+        })
+      }
+      .padding(EdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 16))
+      
+      Divider()
+      
       HStack {
         Button(action: {
           let (start, _) = Calendar.containingMonth(date)
@@ -70,7 +85,7 @@ struct StatView: View {
         .foregroundColor(.gray)
       }
       .padding(.horizontal, 8)
-      Divider()
+//      Divider()
       LazyVGrid(columns: columns, spacing: 4) {
         ForEach(days, id: \.self) { day -> StatDayView in
           if day > 0 {
@@ -91,13 +106,11 @@ struct StatView: View {
       }
       .padding(.horizontal, 8)
     }
-    .navigationBarTitle("统计")
-    .navigationBarTitleDisplayMode(.inline)
   }
 }
 
 struct StatView_Previews: PreviewProvider {
   static var previews: some View {
-    return StatView(event: WHEvent(name: "Test", asDailyTarget: true, targetCount: 5, targetUnit: "次", records: ["2020-12":[1:3]]))
+    return StatView(event: WHEvent(name: "Test", asDailyTarget: true, targetCount: 5, targetUnit: "次", records: ["2021-1":[1:3]]))
   }
 }
