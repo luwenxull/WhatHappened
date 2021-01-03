@@ -89,7 +89,7 @@ struct LoginView: View {
     .alert(isPresented: $showHint, content: {
       Alert(title: Text(LocalizedStringKey(hint)))
     })
-//    .navigationBarTitle("Sign in")
+    .navigationBarTitle("登录")
     .navigationBarTitleDisplayMode(.inline)
   }
   

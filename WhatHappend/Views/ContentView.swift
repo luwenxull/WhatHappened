@@ -43,9 +43,7 @@ struct ContentView: View {
     NavigationView {
       VStack {
         NavigationLink(
-          destination: LazyView {
-            ModifyEventView()
-          },
+          destination: ModifyEventView(),
           isActive: $sheetIsPresented,
           label: { EmptyView() }
         )
@@ -61,22 +59,11 @@ struct ContentView: View {
                   })
               }
               if (user != nil) {
-                Menu(content: {
-                  Button(action: {
-                    UserDefaults.standard.removeObject(forKey: "username")
-                    user = nil
-                    manager.refresh()
-                  }, label: {
-                    Text("退出登录")
+                NavigationLink(
+                  destination: ProfileView(),
+                  label: {
+                    Text(String(user!.first!))
                   })
-                }, label: {
-                  Text(String(user!.first!).capitalized)
-                    .padding(4)
-                    .overlay(
-                      Circle()
-                        .stroke(Color.accentColor, lineWidth: 2)
-                    )
-                })
               }
             })
             ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing, content: {

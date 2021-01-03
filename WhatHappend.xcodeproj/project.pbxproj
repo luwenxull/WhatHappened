@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		281C582C25A1F9080077A4F3 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C582B25A1F9080077A4F3 /* ProfileView.swift */; };
 		2822A4AB259C792700E15EE8 /* StatDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2822A4AA259C792700E15EE8 /* StatDayView.swift */; };
 		282ADD252589DACD002F041E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282ADD242589DACD002F041E /* LoginView.swift */; };
 		282ADD2A2589E22D002F041E /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282ADD292589E22D002F041E /* Request.swift */; };
@@ -21,7 +22,6 @@
 		28628C06256D5CB70079AA69 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C05256D5CB70079AA69 /* Manager.swift */; };
 		28628C09256D5CCA0079AA69 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28628C08256D5CCA0079AA69 /* Event.swift */; };
 		287641BE2595C0F70020933E /* StatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287641BD2595C0F70020933E /* StatusBarView.swift */; };
-		287CC0B8259DB24A00EB3856 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287CC0B7259DB24A00EB3856 /* LazyView.swift */; };
 		28828890259375B70024E4EB /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2882888F259375B70024E4EB /* Checker.swift */; };
 		28D3B90A2595E44C0088AB95 /* BarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D3B9092595E44C0088AB95 /* BarsView.swift */; };
 /* End PBXBuildFile section */
@@ -40,6 +40,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		281C582B25A1F9080077A4F3 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		2822A4AA259C792700E15EE8 /* StatDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatDayView.swift; sourceTree = "<group>"; };
 		282ADD242589DACD002F041E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		282ADD292589E22D002F041E /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
@@ -56,7 +57,6 @@
 		28628C05256D5CB70079AA69 /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		28628C08256D5CCA0079AA69 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		287641BD2595C0F70020933E /* StatusBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarView.swift; sourceTree = "<group>"; };
-		287CC0B7259DB24A00EB3856 /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
 		2881C6C825806B4700B7F39F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		2881C6CA25806B4700B7F39F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		2881C6FD2580953500B7F39F /* WhatHappend.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WhatHappend.entitlements; sourceTree = "<group>"; };
@@ -78,7 +78,6 @@
 		28628BE2256D53740079AA69 = {
 			isa = PBXGroup;
 			children = (
-				287CC0B7259DB24A00EB3856 /* LazyView.swift */,
 				28628BED256D53740079AA69 /* WhatHappend */,
 				2881C6C725806B4700B7F39F /* Frameworks */,
 				28628BEC256D53740079AA69 /* Products */,
@@ -122,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				28628BF0256D53740079AA69 /* ContentView.swift */,
+				281C582B25A1F9080077A4F3 /* ProfileView.swift */,
 				28D3B9092595E44C0088AB95 /* BarsView.swift */,
 				287641BD2595C0F70020933E /* StatusBarView.swift */,
 				282ADD242589DACD002F041E /* LoginView.swift */,
@@ -224,11 +224,11 @@
 				285AC4F8257769010036ABF2 /* StatView.swift in Sources */,
 				28628BF1256D53740079AA69 /* ContentView.swift in Sources */,
 				28628BEF256D53740079AA69 /* WhatHappendApp.swift in Sources */,
-				287CC0B8259DB24A00EB3856 /* LazyView.swift in Sources */,
 				28628C09256D5CCA0079AA69 /* Event.swift in Sources */,
 				282ADD2A2589E22D002F041E /* Request.swift in Sources */,
 				28628C02256D57980079AA69 /* EventView.swift in Sources */,
 				28D3B90A2595E44C0088AB95 /* BarsView.swift in Sources */,
+				281C582C25A1F9080077A4F3 /* ProfileView.swift in Sources */,
 				282ADD252589DACD002F041E /* LoginView.swift in Sources */,
 				28628C06256D5CB70079AA69 /* Manager.swift in Sources */,
 				2822A4AB259C792700E15EE8 /* StatDayView.swift in Sources */,
