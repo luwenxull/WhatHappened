@@ -16,8 +16,14 @@ class WHManager: ObservableObject {
     if events != nil {
       self.events = events!
     } else {
-      self.events = []
-      self.refresh()
+      let names: [String] = (try? load(filename: "events.json")) ?? []
+      var _events: [WHEvent] = []
+      for filename in names {
+        if let event: WHEventCodable = try? load(filename: filename) {
+          _events.append(WHEvent(from: event))
+        }
+      }
+      self.events = _events
     }
     print(FileManager.sharedContainerURL)
   }
@@ -36,15 +42,6 @@ class WHManager: ObservableObject {
 //          self.loading = false
 //        }
 //      })
-    } else {
-      let names: [String] = (try? load(filename: "events.json")) ?? []
-      var _events: [WHEvent] = []
-      for filename in names {
-        if let event: WHEventCodable = try? load(filename: filename) {
-          _events.append(WHEvent(from: event))
-        }
-      }
-      events = _events
     }
   }
   

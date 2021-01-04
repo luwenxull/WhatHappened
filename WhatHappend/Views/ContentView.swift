@@ -62,7 +62,7 @@ struct ContentView: View {
                 NavigationLink(
                   destination: ProfileView(),
                   label: {
-                    Text(String(user!.first!))
+                    Image(systemName: "person.circle")
                   })
               }
             })

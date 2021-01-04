@@ -148,7 +148,7 @@ struct EventView: View {
           colorScheme == .light ? Color(red: 0.95, green: 0.95, blue: 0.95) : Color(red: 0.09, green: 0.09, blue: 0.09)
         )
         .frame(height: 160)
-        .shadow(color: colorScheme == .light ? Color.gray.opacity(0.4) : Color.white.opacity(0.4), radius: 4, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/)
+        .shadow(color: colorScheme == .light ? Color.gray.opacity(0.4) : Color(red: 0.3, green: 0.3, blue: 0.3), radius: 4, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/)
         .overlay(
           GeometryReader { reader in
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {

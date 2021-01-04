@@ -47,11 +47,13 @@ struct ProfileView: View {
             })
           ])
       })
+      .listStyle(PlainListStyle())
       
       Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
         Text("退出登录")
       })
     }
+    .navigationBarTitle(Text(UserDefaults.standard.string(forKey: "username")!))
 
   }
 }
