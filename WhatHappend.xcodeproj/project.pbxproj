@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		281C582C25A1F9080077A4F3 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C582B25A1F9080077A4F3 /* ProfileView.swift */; };
+		281C583525A2E8870077A4F3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 281C583725A2E8870077A4F3 /* Localizable.strings */; };
 		2822A4AB259C792700E15EE8 /* StatDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2822A4AA259C792700E15EE8 /* StatDayView.swift */; };
 		282ADD252589DACD002F041E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282ADD242589DACD002F041E /* LoginView.swift */; };
 		282ADD2A2589E22D002F041E /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282ADD292589E22D002F041E /* Request.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		281C582B25A1F9080077A4F3 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		281C583625A2E8870077A4F3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		2822A4AA259C792700E15EE8 /* StatDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatDayView.swift; sourceTree = "<group>"; };
 		282ADD242589DACD002F041E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		282ADD292589E22D002F041E /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				28628BF2256D53760079AA69 /* Assets.xcassets */,
 				28628BF7256D53760079AA69 /* Info.plist */,
 				28628BF4256D53760079AA69 /* Preview Content */,
+				281C583725A2E8870077A4F3 /* Localizable.strings */,
 			);
 			path = WhatHappend;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 28628BE2256D53740079AA69;
 			productRefGroup = 28628BEC256D53740079AA69 /* Products */;
@@ -210,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28628BF6256D53760079AA69 /* Preview Assets.xcassets in Resources */,
+				281C583525A2E8870077A4F3 /* Localizable.strings in Resources */,
 				28628BF3256D53760079AA69 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,6 +245,17 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		281C583725A2E8870077A4F3 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				281C583625A2E8870077A4F3 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		28628BF8256D53760079AA69 /* Debug */ = {

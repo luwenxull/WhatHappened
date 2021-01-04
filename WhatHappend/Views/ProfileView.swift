@@ -27,11 +27,32 @@ struct PrifileLineView: View {
 
 struct ProfileView: View {
   @State var actionSheetIsPresented: Bool = false
+  @State var alertIsPresented: Bool = false
+  @State var alertText: String = ""
+  @Environment(\.presentationMode) var presentationMode
   var body: some View {
     VStack {
       List {
-        PrifileLineView(image: "Cloud", text: "立即同步到远端")
-        PrifileLineView(image: "Sync", text: "从远端恢复")
+        PrifileLineView(image: "Cloud", text: "同步到远端")
+          .onTapGesture {
+            WHManager.current.sync(success: {
+              alertText = "同步成功"
+              alertIsPresented = true
+            }, fail: {
+              alertText = "同步失败"
+              alertIsPresented = true
+            })
+          }
+        PrifileLineView(image: "Sync", text: "同步到本地")
+          .onTapGesture {
+            WHManager.current.restore(success: {
+              alertText = "同步成功"
+              alertIsPresented = true
+            }, fail: {
+              alertText = "同步失败"
+              alertIsPresented = true
+            })
+          }
         PrifileLineView(image: "Clear", text: "移除所有数据")
           .onTapGesture {
             actionSheetIsPresented = true
@@ -48,12 +69,19 @@ struct ProfileView: View {
           ])
       })
       .listStyle(PlainListStyle())
-      
-      Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+      .alert(isPresented: $alertIsPresented, content: {
+        Alert(title: Text(alertText))
+      })
+      Button(action: {
+        UserDefaults.standard.set(nil, forKey: "username")
+        // 仅仅移除本地，不移除服务器数据
+        WHManager.current.clear()
+        presentationMode.wrappedValue.dismiss()
+      }, label: {
         Text("退出登录")
       })
     }
-    .navigationBarTitle(Text(UserDefaults.standard.string(forKey: "username")!))
+    .navigationBarTitle(Text(UserDefaults.standard.string(forKey: "username") ?? ""))
 
   }
 }

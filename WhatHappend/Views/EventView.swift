@@ -197,7 +197,7 @@ struct EventView: View {
             buttons: [
               .cancel(Text("取消")),
               .destructive(Text("确认"), action: {
-                manager.removeEvent(event)
+                manager.removeEvent(event, removeFromServer: true)
               })
             ])
         })

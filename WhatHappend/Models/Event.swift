@@ -13,7 +13,6 @@ typealias WHRecords = Dictionary<String, Dictionary<Int, Int>>
 
 final class WHEvent: Identifiable, ObservableObject {
   let uuid: UUID
-  
   var name: String
   var asDailyTarget: Bool
   var targetCount: Int?
@@ -64,7 +63,7 @@ final class WHEvent: Identifiable, ObservableObject {
       //        }
       //      )
     } else {
-      WHManager.current.saveAsJson(event: self)
+      WHManager.current.saveEvent(event: self)
     }
   }
   
@@ -76,7 +75,7 @@ final class WHEvent: Identifiable, ObservableObject {
     if UserDefaults.standard.string(forKey: "username") != nil {
       
     } else {
-      WHManager.current.saveAsJson(event: self)
+      WHManager.current.saveEvent(event: self)
     }
   }
   
@@ -91,17 +90,13 @@ final class WHEvent: Identifiable, ObservableObject {
     self.asDailyTarget = asDailyTarget
     self.targetCount = asDailyTarget ? targetCount : nil
     self.targetUnit = asDailyTarget ? targetUnit : nil
-    WHManager.current.saveAsJson(event: self)
-    WHManager.current.refresh()
+    WHManager.current.saveEvent(event: self)
+//    WHManager.current.refresh()
     if UserDefaults.standard.string(forKey: "username") != nil {
-//      makeRequest(
-//        url: WHRequestConfig.baseURL + "/group/:\(uuid.uuidString)",
-//        config: jsonConfig(data: try? JSONEncoder().encode(from), method: "PUT"),
-//        success: { _ in
-//          self.name = from.name
-//          self.emotion = from.emotion
-//        }
-//      )
+      makeRequest(
+        url: WHRequestConfig.baseURL + "/group/:\(uuid.uuidString)",
+        config: jsonConfig(data: try? JSONEncoder().encode(WHEventCodable(from: self)), method: "PUT")
+      )
     }
   }
   

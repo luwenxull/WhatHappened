@@ -99,8 +99,8 @@ struct LoginView: View {
       config: jsonConfig(data: try? JSONSerialization.data(withJSONObject: ["username": username, "password": password]), method: "POST"),
       success: { _ in
         UserDefaults.standard.setValue(username, forKey: "username")
+        WHManager.current.restore(success: {}, fail: {})
         DispatchQueue.main.async {
-          manager.refresh()
           presentationMode.wrappedValue.dismiss()
         }
       },

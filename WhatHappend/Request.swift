@@ -7,21 +7,21 @@
 
 import Foundation
 
-struct WhatServerResponse<T: Decodable>: Decodable {
+struct WHServerResponse<T: Decodable>: Decodable {
   let message: String
   let data: T?
 }
 
-struct WhatRequestFail {
+struct WHRequestFail {
   let reason: String
-  let response: WhatServerResponse<String>?
+  let response: WHServerResponse<String>?
 }
 
 struct WHRequestConfig {
   static let baseURL = "https://wxxfj.xyz:3000"
 }
 
-func jsonConfig(data: Data?, method: String) -> (inout URLRequest) -> Void {
+func jsonConfig(data: Data?, method: String = "GET") -> (inout URLRequest) -> Void {
   return {(request: inout URLRequest) -> Void in
     request.httpMethod = method
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -39,7 +39,7 @@ func makeRequest(
   url: String,
   config: (inout URLRequest) -> Void,
   success: ((Data) -> Void)? = nil,
-  fail: ((WhatRequestFail) -> Void)? = nil
+  fail: ((WHRequestFail) -> Void)? = nil
 ) {
   let url = URL(string: url)!
   var request = URLRequest(url: url)
@@ -47,32 +47,30 @@ func makeRequest(
   config(&request)
   
   URLSession.shared.dataTask(with: request) { data, response, error in
-//    print("Handling response")
     guard let data = data else {                                              // check for fundamental networking error
       if let fail = fail {
-        fail(WhatRequestFail(reason: "No response data", response: nil))
+        fail(WHRequestFail(reason: "No response data", response: nil))
       }
       return
     }
     
     guard error == nil else {
       if let fail = fail {
-        fail(WhatRequestFail(reason: error!.localizedDescription, response: nil))
+        fail(WHRequestFail(reason: error!.localizedDescription, response: nil))
       }
       return
     }
     
     guard let response = response as? HTTPURLResponse else {
       if let fail = fail {
-        fail(WhatRequestFail(reason: "Unkown response", response: nil))
+        fail(WHRequestFail(reason: "Unkown response", response: nil))
       }
       return
     }
     
-    
     guard (200 ... 299) ~= response.statusCode else { // check for http errors
       if let fail = fail {
-        fail(WhatRequestFail(reason: "Not a success status code", response: try? JSONDecoder().decode(WhatServerResponse<String>.self, from: data)))
+        fail(WHRequestFail(reason: "Not a success status code", response: try? JSONDecoder().decode(WHServerResponse<String>.self, from: data)))
       }
       return
     }
