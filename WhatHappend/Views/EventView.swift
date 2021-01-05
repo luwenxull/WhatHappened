@@ -97,17 +97,25 @@ struct EventView: View {
         }
       })
     } else {
+      let distribution = event.monthDistribution
       return AnyView(VStack(alignment: .leading) {
         Text(event.name)
         Spacer()
-        VStack(spacing: 0) {
+        VStack() {
           HStack {
-            Text("当月速览")
+            Text("本月速览")
               .font(.system(size: 14))
               .foregroundColor(.gray)
             Spacer()
           }
-          BarsView(bars: event.monthDistribution, height: 35)
+          HStack(spacing: 2) {
+            ForEach(distribution.indices, id: \.self) { index in
+              Circle()
+                .fill(distribution[index] > 0 ? Color.accentColor : Color.gray.opacity(0.4))
+                .frame(height: 8)
+            }
+          }
+//          BarsView(bars: event.monthDistribution, height: 8)
         }
         
         Spacer()
@@ -154,7 +162,6 @@ struct EventView: View {
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
               if event.asDailyTarget {
                 RoundedRectangle(cornerRadius: 0)
-//                  .fill(ratio == 1.0 ? Color.green.opacity(0.4) : Color.accentColor.opacity(0.5))
                   .fill(LinearGradient(gradient: Gradient(colors: [Color.accentColor.opacity(0.3), Color.accentColor.opacity(0.5)]), startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/))
                   .frame(width: reader.size.width * ratio!)
                   .animation(.easeIn)

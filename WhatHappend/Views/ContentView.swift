@@ -11,6 +11,9 @@ import Combine
 struct ContentView: View {
   @EnvironmentObject var manager: WHManager
   @State var sheetIsPresented: Bool = false
+  @State var profileViewIsActive: Bool = false
+  @State var loginViewIsActive: Bool = false
+  
   @State var user: String? = UserDefaults.standard.string(forKey: "username")
   
   var content: some View {
@@ -42,29 +45,40 @@ struct ContentView: View {
   var body: some View {
     NavigationView {
       VStack {
+        
         NavigationLink(
           destination: ModifyEventView(),
           isActive: $sheetIsPresented,
           label: { EmptyView() }
         )
+        
+        NavigationLink(
+          destination: ProfileView(),
+          isActive: $profileViewIsActive,
+          label: {
+            EmptyView()
+          })
+        
+        NavigationLink(
+          destination: LoginView(),
+          isActive: $loginViewIsActive,
+          label: {
+            EmptyView()
+          })
+        
         content
-          .navigationBarTitle("我的一天")
+          .navigationTitle("我的一天")
           .toolbar(content: {
             ToolbarItem(placement: ToolbarItemPlacement.navigationBarLeading, content: {
-              if (user == nil) {
-                NavigationLink(
-                  destination: LoginView(),
-                  label: {
-                    Image(systemName: "person.circle")
-                  })
-              }
-              if (user != nil) {
-                NavigationLink(
-                  destination: ProfileView(),
-                  label: {
-                    Image(systemName: "person.circle")
-                  })
-              }
+              Button(action: {
+                if user == nil {
+                  loginViewIsActive = true
+                } else {
+                  profileViewIsActive = true
+                }
+              }, label: {
+                Image(systemName: "person.circle")
+              })
             })
             ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing, content: {
               Button(action: {

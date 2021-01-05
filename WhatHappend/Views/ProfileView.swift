@@ -7,82 +7,110 @@
 
 import SwiftUI
 
-struct PrifileLineView: View {
+struct ProfileLineView: View {
   let image: String
   let text: String
   var body: some View {
     HStack {
       Text(text)
-//        .foregroundColor(.gray)
+        .font(.system(size: 14))
       Spacer()
       Image(image)
         .resizable()
         .scaledToFit()
         .frame(width: 24, height: 24, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-
+      
     }
-    .padding(8)
+    //    .padding(4)
   }
 }
 
 struct ProfileView: View {
   @State var actionSheetIsPresented: Bool = false
-  @State var alertIsPresented: Bool = false
-  @State var alertText: String = ""
-  @Environment(\.presentationMode) var presentationMode
-  var body: some View {
-    VStack {
-      List {
-        PrifileLineView(image: "Cloud", text: "同步到远端")
-          .onTapGesture {
-            WHManager.current.sync(success: {
-              alertText = "同步成功"
-              alertIsPresented = true
-            }, fail: {
-              alertText = "同步失败"
-              alertIsPresented = true
-            })
-          }
-        PrifileLineView(image: "Sync", text: "同步到本地")
-          .onTapGesture {
-            WHManager.current.restore(success: {
-              alertText = "同步成功"
-              alertIsPresented = true
-            }, fail: {
-              alertText = "同步失败"
-              alertIsPresented = true
-            })
-          }
-        PrifileLineView(image: "Clear", text: "移除所有数据")
-          .onTapGesture {
-            actionSheetIsPresented = true
-          }
+  @State var alertText: String? = nil {
+    didSet {
+      if alertText != nil {
+        timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) {_ in
+          alertText = nil
+        }
       }
-      .actionSheet(isPresented: $actionSheetIsPresented, content: {
-        ActionSheet(
-          title: Text("此操作将会同时清除本地和远端的所有数据且不可恢复，是否继续？"),
-          buttons: [
-            .cancel(Text("取消")),
-            .destructive(Text("确认"), action: {
-
-            })
-          ])
-      })
-      .listStyle(PlainListStyle())
-      .alert(isPresented: $alertIsPresented, content: {
-        Alert(title: Text(alertText))
-      })
-      Button(action: {
-        UserDefaults.standard.set(nil, forKey: "username")
-        // 仅仅移除本地，不移除服务器数据
-        WHManager.current.clear()
-        presentationMode.wrappedValue.dismiss()
-      }, label: {
-        Text("退出登录")
-      })
     }
-    .navigationBarTitle(Text(UserDefaults.standard.string(forKey: "username") ?? ""))
-
+  }
+  @State var pending: Bool = false
+  @State var timer: Timer?
+  
+  @Environment(\.presentationMode) var presentationMode
+  
+  var body: some View {
+    NotificationView(text: alertText) {
+      ZStack {
+        VStack {
+          List {
+            Section(header: Text("数据管理")) {
+              ProfileLineView(image: "Cloud", text: "备份到远端")
+                .onTapGesture {
+                  pending = true
+                  WHManager.current.sync(success: {
+                    alertText = "备份成功"
+                    pending = false
+                  }, fail: {
+                    alertText = "备份失败，请稍后再试"
+                    pending = false
+                  })
+                }
+              ProfileLineView(image: "Sync", text: "恢复到本地")
+                .onTapGesture {
+                  pending = true
+                  WHManager.current.restore(success: {
+                    alertText = "恢复成功"
+                    pending = false
+                  }, fail: {
+                    alertText = "恢复失败，请稍后再试"
+                    pending = false
+                  })
+                }
+              ProfileLineView(image: "Clear", text: "移除所有数据")
+                .onTapGesture {
+                  actionSheetIsPresented = true
+                }
+            }
+            
+          }
+//          .actionSheet(isPresented: $actionSheetIsPresented, content: {
+//            ActionSheet(
+//              title: Text("此操作将会同时清除本地和远端的所有数据且不可恢复，是否继续？"),
+//              buttons: [
+//                .cancel(Text("取消")),
+//                .destructive(Text("确认"), action: {
+//
+//                })
+//              ])
+//          })
+          .listStyle(GroupedListStyle())
+//          .alert(isPresented: $alertIsPresented, content: {
+//            Alert(title: Text(alertText))
+//          })
+          Button(action: {
+            UserDefaults.standard.set(nil, forKey: "username")
+            // 仅仅移除本地，不移除服务器数据
+            WHManager.current.clear()
+            presentationMode.wrappedValue.dismiss()
+          }, label: {
+            Text("退出登录")
+          })
+        }
+        
+        // pending遮罩
+        if pending {
+          Color.black.opacity(0.33)
+            .ignoresSafeArea(.all)
+            .overlay(
+              ProgressView()
+            )
+        }
+      }
+    }
+    .navigationTitle(UserDefaults.standard.string(forKey: "username") ?? "")
   }
 }
 

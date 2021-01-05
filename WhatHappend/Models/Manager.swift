@@ -12,6 +12,8 @@ class WHManager: ObservableObject {
   @Published var events: [WHEvent]
   @Published var loading: Bool = false
   
+//  private var serverEvents: [WHEvent]
+  
   init(_ events: [WHEvent]? = nil) {
     if events != nil {
       self.events = events!
@@ -61,12 +63,6 @@ class WHManager: ObservableObject {
         if let res = try? JSONDecoder().decode(WHServerResponse<[WHEventCodable]>.self, from: data) {
           let events: [WHEventCodable] = res.data!
           
-          DispatchQueue.main.async {
-            self.events = events.map({ (e) in
-              WHEvent(from: e)
-            })
-          }
-          
           do {
             try save(filename: "events.json", data: events.map({ e in
               e.uuid.uuidString
@@ -82,8 +78,15 @@ class WHManager: ObservableObject {
               print(error)
             }
           }
+          
+          DispatchQueue.main.async {
+            self.events = events.map({ (e) in
+              WHEvent(from: e)
+            })
+            success()
+          }
+          
         }
-        success()
       },
       fail: {_ in
         fail()

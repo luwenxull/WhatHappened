@@ -117,7 +117,7 @@ struct ModifyEventView: View {
         }
       }
     })
-    .navigationBarTitle(event == nil ? "添加事件" : "修改事件")
+    .navigationTitle(event == nil ? "添加事件" : "修改事件")
     .navigationBarTitleDisplayMode(.inline)
     .toolbar {
       ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing, content: {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2814406B25A4373F0025A864 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2814406A25A4373F0025A864 /* NotificationView.swift */; };
 		281C582C25A1F9080077A4F3 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C582B25A1F9080077A4F3 /* ProfileView.swift */; };
 		281C583525A2E8870077A4F3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 281C583725A2E8870077A4F3 /* Localizable.strings */; };
 		2822A4AB259C792700E15EE8 /* StatDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2822A4AA259C792700E15EE8 /* StatDayView.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2814406A25A4373F0025A864 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		281C582B25A1F9080077A4F3 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		281C583625A2E8870077A4F3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		2822A4AA259C792700E15EE8 /* StatDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatDayView.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 			children = (
 				28628BF0256D53740079AA69 /* ContentView.swift */,
 				281C582B25A1F9080077A4F3 /* ProfileView.swift */,
+				2814406A25A4373F0025A864 /* NotificationView.swift */,
 				28D3B9092595E44C0088AB95 /* BarsView.swift */,
 				287641BD2595C0F70020933E /* StatusBarView.swift */,
 				282ADD242589DACD002F041E /* LoginView.swift */,
@@ -229,6 +232,7 @@
 				285AC4F8257769010036ABF2 /* StatView.swift in Sources */,
 				28628BF1256D53740079AA69 /* ContentView.swift in Sources */,
 				28628BEF256D53740079AA69 /* WhatHappendApp.swift in Sources */,
+				2814406B25A4373F0025A864 /* NotificationView.swift in Sources */,
 				28628C09256D5CCA0079AA69 /* Event.swift in Sources */,
 				282ADD2A2589E22D002F041E /* Request.swift in Sources */,
 				28628C02256D57980079AA69 /* EventView.swift in Sources */,
