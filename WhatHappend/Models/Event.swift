@@ -50,20 +50,12 @@ final class WHEvent: Identifiable, ObservableObject {
       }
       records[date.yearMonthString] = _records
     }
+    WHManager.current.saveEvent(event: self)
     if UserDefaults.standard.string(forKey: "username") != nil {
-      //      makeRequest(
-      //        url:WHRequestConfig.baseURL + "/group/\(uuid.uuidString)/time",
-      //        config: jsonConfig(data: try? JSONEncoder().encode(time), method: "POST"),
-      //        success: { res in
-      //          DispatchQueue.main.async {
-      //            self.times.append(try! JSONDecoder().decode(WhatServerResponse<WhatTime>.self, from: res).data!)
-      //            self._countsGroupedByYear = nil
-      //            self._datesGroupedByMonth = nil
-      //          }
-      //        }
-      //      )
-    } else {
-      WHManager.current.saveEvent(event: self)
+      makeRequest(
+        url:WHRequestConfig.baseURL + "/event/\(uuid.uuidString)",
+        config: jsonConfig(data: try? JSONEncoder().encode(WHEventCodable(from: self)), method: "PUT")
+      )
     }
   }
   
@@ -72,13 +64,14 @@ final class WHEvent: Identifiable, ObservableObject {
     if records[date.yearMonthString] != nil {
       (records[date.yearMonthString]!)[date.day] = nil
     }
+    WHManager.current.saveEvent(event: self)
     if UserDefaults.standard.string(forKey: "username") != nil {
-      
-    } else {
-      WHManager.current.saveEvent(event: self)
+      makeRequest(
+        url:WHRequestConfig.baseURL + "/event/\(uuid.uuidString)",
+        config: jsonConfig(data: try? JSONEncoder().encode(WHEventCodable(from: self)), method: "PUT")
+      )
     }
   }
-  
   
   func update(
     name: String,
@@ -94,7 +87,7 @@ final class WHEvent: Identifiable, ObservableObject {
 //    WHManager.current.refresh()
     if UserDefaults.standard.string(forKey: "username") != nil {
       makeRequest(
-        url: WHRequestConfig.baseURL + "/group/:\(uuid.uuidString)",
+        url: WHRequestConfig.baseURL + "/event/:\(uuid.uuidString)",
         config: jsonConfig(data: try? JSONEncoder().encode(WHEventCodable(from: self)), method: "PUT")
       )
     }

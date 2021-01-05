@@ -18,7 +18,7 @@ struct PrifileLineView: View {
       Image(image)
         .resizable()
         .scaledToFit()
-        .frame(width: 30, height: 30, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+        .frame(width: 24, height: 24, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
 
     }
     .padding(8)

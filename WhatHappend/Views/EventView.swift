@@ -60,7 +60,7 @@ struct EventView: View {
               Spacer()
             }
           } else {
-            HStack() {
+            HStack(alignment: VerticalAlignment.firstTextBaseline) {
               Text("\(event.getDayCount(date: today))")
                 .font(.system(size: 36))
                 .italic()
@@ -143,9 +143,9 @@ struct EventView: View {
         label: {
           EmptyView()
         })
-      RoundedRectangle(cornerRadius: 16)
+      RoundedRectangle(cornerRadius: 16, style: .continuous)
         .fill(
-          colorScheme == .light ? Color(red: 0.95, green: 0.95, blue: 0.95) : Color(red: 0.09, green: 0.09, blue: 0.09)
+          colorScheme == .light ? Color.white : Color.black
         )
         .frame(height: 160)
         .shadow(color: colorScheme == .light ? Color.gray.opacity(0.4) : Color(red: 0.3, green: 0.3, blue: 0.3), radius: 4, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/)
@@ -154,7 +154,8 @@ struct EventView: View {
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
               if event.asDailyTarget {
                 RoundedRectangle(cornerRadius: 0)
-                  .fill(ratio == 1.0 ? Color.green.opacity(0.4) : Color.accentColor.opacity(0.5))
+//                  .fill(ratio == 1.0 ? Color.green.opacity(0.4) : Color.accentColor.opacity(0.5))
+                  .fill(LinearGradient(gradient: Gradient(colors: [Color.accentColor.opacity(0.3), Color.accentColor.opacity(0.5)]), startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/))
                   .frame(width: reader.size.width * ratio!)
                   .animation(.easeIn)
               }

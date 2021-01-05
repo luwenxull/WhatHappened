@@ -9,6 +9,8 @@ import SwiftUI
 
 struct StatView: View {
   @Environment(\.presentationMode) var presentationMode
+  @Environment(\.colorScheme) var colorScheme
+  
   @State var date: Date = Date()
   var event: WHEvent
   
@@ -49,9 +51,13 @@ struct StatView: View {
           Text("完成")
         })
       }
-      .padding(EdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 16))
-      
-      Divider()
+      .padding()
+      .background(
+        colorScheme == .light ? Color(red: 0.97, green: 0.97, blue: 0.97) : Color(red: 0.09, green: 0.09, blue: 0.09)
+      )
+      .overlay(
+        Text("统计")
+      )
       
       HStack {
         Button(action: {
@@ -60,7 +66,7 @@ struct StatView: View {
         }, label: {
           Image(systemName: "chevron.left.circle")
         })
-        .font(.title)
+        .font(.title2)
         
         Spacer()
         
@@ -74,9 +80,10 @@ struct StatView: View {
         }, label: {
           Image(systemName: "chevron.right.circle")
         })
-        .font(.title)
+        .font(.title2)
       }
-      .padding()
+      .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+      
       LazyVGrid(columns: columns) {
         ForEach(weekDays, id: \.self) { day in
           Text(day)
@@ -85,7 +92,9 @@ struct StatView: View {
         .foregroundColor(.gray)
       }
       .padding(.horizontal, 8)
-//      Divider()
+      
+      Divider()
+      
       LazyVGrid(columns: columns, spacing: 4) {
         ForEach(days, id: \.self) { day -> StatDayView in
           if day > 0 {
