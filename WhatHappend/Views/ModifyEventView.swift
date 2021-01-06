@@ -34,7 +34,7 @@ struct TextFieldView: View {
         TextField("", text: value)
           .padding(10)
           .overlay(
-            RoundedRectangle(cornerRadius: 8)
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
               .stroke(error == nil ? Color.gray : Color.red, lineWidth: 1)
           )
       }
